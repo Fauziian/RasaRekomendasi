@@ -1,6 +1,8 @@
 # 🍳 RasaRekomendasi
 
-Sistem berbasis web untuk mencacat, memverifikasi, dan melaporkan data kecacatan kain secara efisien, dengan notifikasi WhatsApp otomatis untuk mempercepat koordinasi antar tim.
+Sistem berbasis web untuk mencatat, memverifikasi, dan melaporkan data kecacatan kain secara efisien, dengan notifikasi WhatsApp otomatis untuk mempercepat koordinasi antar tim.
+
+---
 
 ## 🎯 1. Gambaran Umum Proyek
 
@@ -18,15 +20,15 @@ Sistem berbasis web untuk mencacat, memverifikasi, dan melaporkan data kecacatan
 
 ## 📦 2. Struktur Modul Laravel
 
-| Modul | Deskripsi | Route Prefix | Penanggung Jawab | Status |
-|-------|-----------|--------------|-----------------|--------|
-| **Auth** | Login, logout, dan setup awal super admin | `/auth` | Febriansah Dirgantara | ✅ Done |
-| **User** | Manajemen pengguna, peran, dan WhatsApp ID | `/users` | Rizal Maulana | ✅ Done |
-| **DataCacat** | CRUD data kecacatan kain | `/data-cacat` | Rifqi Fauzi Anwar | ✅ Done |
-| **Verifikasi** | Proses validasi & konfirmasi data cacat | `/verifikasi` | Fazri Lukman | ✅ Done |
-| **Laporan** | Rekap data, perhitungan, dan export PDF/Excel | `/laporan` | Rizal Maulana | ✅ Done |
-| **Dashboard** | Visualisasi statistik data cacat dan kinerja mesin | `/dashboard` | Febriansah Dirgantara | ✅ Done |
-| **Notification Queue** | Antrian pengiriman pesan WhatsApp otomatis (via Fonnte API atau sejenis) | `/notifications` | Febriansah Dirgantara | ✅ Done |
+| Modul | Deskripsi | Route Prefix | Status |
+|-------|-----------|--------------|--------|
+| **Auth** | Login, logout, dan setup awal super admin | `/auth` | ✅ Done |
+| **User** | Manajemen pengguna, peran, dan WhatsApp ID | `/users` | ✅ Done |
+| **DataCacat** | CRUD data kecacatan kain | `/data-cacat` | ✅ Done |
+| **Verifikasi** | Proses validasi & konfirmasi data cacat | `/verifikasi` | ✅ Done |
+| **Laporan** | Rekap data, perhitungan, dan export PDF/Excel | `/laporan` | ✅ Done |
+| **Dashboard** | Visualisasi statistik data cacat dan kinerja mesin | `/dashboard` | ✅ Done |
+| **Notification Queue** | Antrian pengiriman pesan WhatsApp otomatis (via Fonnte API) | `/notifications` | ✅ Done |
 
 ---
 
@@ -117,8 +119,6 @@ DB_PASSWORD=YOUR_PASSWORD_HERE
 
 # WhatsApp Notification (Fonnte API)
 FONNTE_TOKEN=YOUR_FONNTE_TOKEN_HERE
-
-# Generate APP_KEY
 ```
 
 ### Step 3: Install PHP Dependencies
@@ -235,16 +235,23 @@ php artisan serve --port=8080
 
 ---
 
-## 👥 7. Tim Developer
+## 👥 8. Tim Developer
 
-- **Febriansah Dirgantara** - Auth, Dashboard, Notification Queue
-- **Rizal Maulana** - User Management, Laporan
-- **Rifqi Fauzi Anwar** - DataCacat CRUD
-- **Fazri Lukman** - Verifikasi
+**Proyek Pengembangan Perangkat Lunak (Rasa Rekomendasi)**
+
+1. **Fazri Lukman Nurrohman** - Project Manager
+2. **Rizky Ramdan** - Business Analyst
+3. **Fahmi Nashruddin** - Designer
+4. **Putra** - Designer
+5. **Ahmad Faiz Zaenuddin** - SQA (Software Quality Assurance)
+6. **Rifqi Fauzi Anwar** - Lead Programmer
+7. **Azfa Salsabila** - Business Analyst
+8. **Atik Wulandari** - Scrum Master
+9. **Ibnu** - Programmer
 
 ---
 
-## 📞 8. Kontak & Support
+## 📞 9. Kontak & Support
 
 Jika ada pertanyaan atau issue, hubungi tim developer melalui WhatsApp atau GitHub Issues.
 
@@ -257,3 +264,4 @@ Project ini adalah proprietary. Jangan copy atau gunakan tanpa izin.
 ---
 
 **Last Updated:** June 2026
+**Repository:** https://github.com/Fauziian/RasaRekomendasi
