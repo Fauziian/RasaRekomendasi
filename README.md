@@ -1,91 +1,413 @@
-# 🍳 RasaRekomendasi
+# 🍳 Rasa Rekomendasi
 
-Sistem berbasis web untuk mencatat, memverifikasi, dan melaporkan data kecacatan kain secara efisien, dengan notifikasi WhatsApp otomatis untuk mempercepat koordinasi antar tim.
-
----
-
-## 🎯 1. Gambaran Umum Proyek
-
-**Tujuan:** Sistem berbasis web untuk mencatat, memverifikasi, dan melaporkan data kecacatan kain secara efisien, dengan notifikasi WhatsApp otomatis untuk mempercepat koordinasi antar tim.
-
-**Peran utama:**
-- **User:** Petugas QC, Operator Produksi, dan Manager Produksi, Super Admin
-- **DataCacat:** Catatan utama data cacat
-- **Verifikasi:** Validasi data oleh QC/atasan
-- **Laporan:** Rekapitulasi dan analisis otomatis
-- **DashboardQC:** Statistik visual
-- **Notification Queue (WhatsApp):** Otomasi pengiriman pesan berbasis antrian
+Platform rekomendasi resep berbasis web yang memungkinkan pengguna menemukan, berbagi, dan berinteraksi dengan resep masakan dari berbagai chef profesional. Sistem ini menyediakan fitur rekomendasi cerdas, konsultasi dengan chef, dan membership VIP untuk konten eksklusif.
 
 ---
 
-## 📦 2. Struktur Modul Laravel
+## 📋 1. Gambaran Umum Proyek
 
-| Modul | Deskripsi | Route Prefix | Status |
-|-------|-----------|--------------|--------|
-| **Auth** | Login, logout, dan setup awal super admin | `/auth` | ✅ Done |
-| **User** | Manajemen pengguna, peran, dan WhatsApp ID | `/users` | ✅ Done |
-| **DataCacat** | CRUD data kecacatan kain | `/data-cacat` | ✅ Done |
-| **Verifikasi** | Proses validasi & konfirmasi data cacat | `/verifikasi` | ✅ Done |
-| **Laporan** | Rekap data, perhitungan, dan export PDF/Excel | `/laporan` | ✅ Done |
-| **Dashboard** | Visualisasi statistik data cacat dan kinerja mesin | `/dashboard` | ✅ Done |
-| **Notification Queue** | Antrian pengiriman pesan WhatsApp otomatis (via Fonnte API) | `/notifications` | ✅ Done |
+**Rasa Rekomendasi** adalah aplikasi web yang dirancang untuk:
+- 🍽️ **Menjelajahi Resep** - Pengguna dapat mencari dan melihat berbagai resep dengan filter kategori, tingkat kesulitan, dan durasi memasak
+- 👨‍🍳 **Manajemen Resep Chef** - Chef dapat membuat, mengedit, dan mengelola resep mereka sendiri
+- ⭐ **Rating & Review** - Pengguna dapat memberikan rating (1-5 bintang) dan komentar pada resep
+- 💬 **Konsultasi dengan Chef** - Pengguna bisa berkonsultasi langsung dengan chef profesional tentang masakan
+- 💳 **Membership VIP** - Akses konten eksklusif seperti video tutorial dan resep premium
+- 📅 **Jadwal Chef** - Chef dapat mengatur jadwal ketersediaan untuk konsultasi
+- 💬 **Real-time Messaging** - Sistem pesan langsung antara pengguna dan chef
+- 📱 **WhatsApp Notifications** - Notifikasi otomatis via WhatsApp menggunakan Fonnte API
+
+**Stack Teknologi:**
+- Backend: Laravel 11 (PHP 8.1+)
+- Frontend: Blade Template + Tailwind CSS + Vite
+- Database: MySQL 8.0+
+- Queue: Laravel Queue untuk background jobs
 
 ---
 
-## 📁 3. Database Struktur
+## 🏗️ 2. Struktur Modul Laravel
 
-### Tabel 1: `users`
-```php
-Schema::create('users', function (Blueprint $table) {
-    $table->id('id_user');
-    $table->string('nama');
-    $table->string('username')->unique();
-    $table->string('email')->unique();
-    $table->string('whatsapp')->unique()->nullable();
-    $table->string('password');
-    $table->string('role'); // admin, qc, verifikator
-    $table->timestamps();
-});
+Aplikasi mengikuti arsitektur MVC (Model-View-Controller) dengan struktur sebagai berikut:
+
+```
+app/
+├── Console/
+│   └── Commands/                    # Custom artisan commands
+│       └── SendWhatsAppNotification.php
+│
+├── Http/
+│   ├── Controllers/                 # Business logic handlers
+│   │   ├── DashboardController.php
+│   │   ├── RecipeController.php     # CRUD Resep
+│   │   ├── CategoryController.php   # Manajemen Kategori
+│   │   ├── CommentRatingController.php
+│   │   ├── ConsultationController.php
+│   │   ├── MessageController.php
+│   │   ├── ChefScheduleController.php
+│   │   ├── VipPackageController.php
+│   │   ├── TransactionController.php
+│   │   └── UserController.php
+│   │
+│   ├── Middleware/                  # Request interceptors
+│   │   ├── Authenticate.php
+│   │   ├── IsAdmin.php
+│   │   ├── IsChef.php
+│   │   ├── IsUser.php
+│   │   └── VerifyCsrfToken.php
+│   │
+│   └── Requests/                    # Form validation
+│       ├── StoreRecipeRequest.php
+│       ├── StoreConsultationRequest.php
+│       └── ... (Validation requests lainnya)
+│
+├── Jobs/                            # Background queue jobs
+│   ├── SendWhatsAppNotification.php
+│   └── ProcessPayment.php
+│
+├── Models/                          # Database models & relationships
+│   ├── User.php                     # User (admin, chef, user)
+│   ├── Recipe.php                   # Resep
+│   ├── Category.php                 # Kategori resep
+│   ├── CommentRating.php            # Review & rating
+│   ├── Consultation.php             # Konsultasi dengan chef
+│   ├── Message.php                  # Pesan antar pengguna
+│   ├── ChefSchedule.php             # Jadwal chef
+│   ├── VipPackage.php               # Paket membership VIP
+│   ├── Transaction.php              # Transaksi pembayaran
+│   ├── Preference.php               # Preferensi pengguna
+│   ├── RecipeSave.php               # Resep yang disimpan
+│   └── Tag.php                      # Tag untuk resep
+│
+├── Providers/                       # Service providers
+│   ├── AppServiceProvider.php
+│   └── EventServiceProvider.php
+│
+└── View/
+    └── Components/                  # Reusable Blade components
+        ├── RecipeCard.php
+        ├── ChefCard.php
+        ├── RatingStars.php
+        └── ... (Component lainnya)
+
+routes/
+├── web.php                          # Web routes
+├── auth.php                         # Authentication routes
+└── console.php                      # Console routes
+
+resources/
+├── css/
+│   └── app.css                      # Tailwind CSS
+├── js/
+│   └── app.js                       # Alpine.js, bundle JS
+└── views/
+    ├── layouts/
+    │   ├── app.blade.php
+    │   └── auth.blade.php
+    ├── recipes/
+    │   ├── index.blade.php
+    │   ├── show.blade.php
+    │   └── create.blade.php
+    ├── consultations/
+    ├── admin/
+    └── ... (View files lainnya)
+
+database/
+├── migrations/                      # Schema definitions
+│   ├── 2024_01_01_000001_create_users_table.php
+│   ├── 2024_01_01_000002_create_categories_table.php
+│   ├── 2024_01_01_000003_create_recipes_table.php
+│   ├── 2024_01_01_000004_create_preferences_table.php
+│   ├── 2024_01_01_000005_create_comments_ratings_table.php
+│   ├── 2024_01_01_000006_create_vip_packages_table.php
+│   ├── 2024_01_01_000007_create_transactions_table.php
+│   ├── 2024_01_01_000008_create_chef_schedules_table.php
+│   ├── 2024_01_01_000009_create_consultations_table.php
+│   ├── 2024_01_01_000010_create_messages_table.php
+│   └── 2024_01_01_000011_create_supporting_tables.php
+│
+└── seeders/                         # Dummy data
+    ├── DatabaseSeeder.php
+    ├── UserSeeder.php
+    ├── CategorySeeder.php
+    ├── RecipeSeeder.php
+    ├── TagSeeder.php
+    ├── VipPackageSeeder.php
+    ├── PreferenceSeeder.php
+    ├── ChefScheduleSeeder.php
+    ├── CommentRatingSeeder.php
+    └── TransactionSeeder.php
 ```
 
-### Tabel 2: `jenis_cacat`
-```php
-Schema::create('jenis_cacat', function (Blueprint $table) {
-    $table->id('id_jenis');
-    $table->string('nama_jenis');
-});
+---
+
+## 🗄️ 3. Struktur Database
+
+### Tabel Utama:
+
+#### **1. users** - Data Pengguna
+```sql
+Table: users
+├── id (BIGINT PRIMARY KEY)
+├── name (VARCHAR) - Nama lengkap
+├── email (VARCHAR UNIQUE) - Email
+├── password (VARCHAR) - Password terenkripsi
+├── role (ENUM: admin, chef, user) - Tipe pengguna
+├── avatar (VARCHAR) - Foto profil
+├── phone (VARCHAR) - Nomor telepon
+├── bio (TEXT) - Biodata
+├── is_vip (BOOLEAN) - Status VIP
+├── vip_expires_at (TIMESTAMP) - Tanggal VIP berakhir
+├── specialization (VARCHAR) - Keahlian chef (jika role=chef)
+├── rating_avg (DECIMAL 3,2) - Rating rata-rata chef
+├── is_active (BOOLEAN) - Status aktif
+├── created_at (TIMESTAMP)
+├── updated_at (TIMESTAMP)
+└── deleted_at (TIMESTAMP) - Soft delete
 ```
 
-### Tabel 3: `data_cacat`
-```php
-Schema::create('data_cacat', function (Blueprint $table) {
-    $table->id('id_cacat');
-    $table->date('tanggal');
-    $table->foreignId('id_jenis')->constrained('jenis_cacat');
-    $table->integer('jumlah');
-    $table->text('deskripsi')->nullable();
-    $table->string('status'); // pending, verified, rejected
-    $table->foreignId('id_user')->constrained('users');
-    $table->timestamps();
-});
+**Role Pengguna:**
+- **admin** - Mengelola sistem, moderasi konten, manajemen user
+- **chef** - Membuat & mengelola resep, menerima konsultasi
+- **user** - Melihat resep, rating, konsultasi, membership VIP
+
+---
+
+#### **2. categories** - Kategori Resep
+```sql
+Table: categories
+├── id (BIGINT PRIMARY KEY)
+├── name (VARCHAR) - Nama kategori
+├── slug (VARCHAR UNIQUE) - URL identifier
+├── description (TEXT) - Deskripsi
+├── icon (VARCHAR) - Icon category
+└── created_at (TIMESTAMP)
 ```
 
-*(Struktur database lengkap lihat di `/database/migrations`)*
+**Contoh kategori:**
+- Masakan Indonesia
+- Masakan Internasional
+- Makanan Sehat
+- Dessert & Kue
+- Minuman
+
+---
+
+#### **3. recipes** - Data Resep
+```sql
+Table: recipes
+├── id (BIGINT PRIMARY KEY)
+├── chef_id (BIGINT FK -> users) - Chef pembuat
+├── category_id (BIGINT FK -> categories) - Kategori
+├── title (VARCHAR) - Judul resep
+├── slug (VARCHAR UNIQUE) - URL identifier
+├── description (TEXT) - Deskripsi lengkap
+├── ingredients (JSON) - Bahan-bahan
+│   └── [{"name":"...", "amount":"...", "unit":"..."}]
+├── cooking_steps (JSON) - Langkah memasak
+│   └── [{"step":1, "instruction":"...", "image":"..."}]
+├── prep_time (INT) - Waktu persiapan (menit)
+├── cook_time (INT) - Waktu memasak (menit)
+├── difficulty (ENUM: easy, medium, hard) - Tingkat kesulitan
+├── calories (INT) - Kalori per sajian
+├── servings (INT) - Jumlah porsi
+├── image (VARCHAR) - Foto utama
+├── video_url (VARCHAR) - URL video (VIP-only)
+├── is_vip_content (BOOLEAN) - Konten eksklusif VIP
+├── allergens (JSON) - Alergen ["gluten", "nuts", "dairy"]
+├── status (ENUM: draft, published, archived) - Status
+├── rating_avg (DECIMAL 3,2) - Rating rata-rata
+├── rating_count (INT) - Jumlah rating
+├── view_count (INT) - Jumlah views
+├── created_at (TIMESTAMP)
+├── updated_at (TIMESTAMP)
+└── deleted_at (TIMESTAMP)
+```
+
+---
+
+#### **4. comments_ratings** - Review & Rating
+```sql
+Table: comments_ratings
+├── id (BIGINT PRIMARY KEY)
+├── user_id (BIGINT FK -> users) - Pengguna pemberi review
+├── recipe_id (BIGINT FK -> recipes) - Resep yang direview
+├── comment (TEXT) - Komentar
+├── rating (TINYINT 1-5) - Bintang rating
+├── is_approved (BOOLEAN) - Status moderasi
+├── approved_at (TIMESTAMP) - Waktu approval
+├── created_at (TIMESTAMP)
+├── updated_at (TIMESTAMP)
+├── deleted_at (TIMESTAMP)
+└── UNIQUE (user_id, recipe_id) - 1 review per user per resep
+```
+
+---
+
+#### **5. vip_packages** - Paket Membership VIP
+```sql
+Table: vip_packages
+├── id (BIGINT PRIMARY KEY)
+├── name (VARCHAR) - Nama paket
+├── slug (VARCHAR UNIQUE) - URL identifier
+├── duration_days (INT) - Durasi (hari)
+├── price (DECIMAL 12,2) - Harga
+├── features (JSON) - Fitur yang disertakan
+├── description (TEXT) - Deskripsi
+├── is_active (BOOLEAN) - Status aktif
+└── created_at (TIMESTAMP)
+```
+
+**Contoh paket VIP:**
+- Trial 7 Hari - Free
+- Premium Monthly - Rp 50.000/bulan
+- Premium Yearly - Rp 500.000/tahun
+
+---
+
+#### **6. transactions** - Transaksi Pembayaran
+```sql
+Table: transactions
+├── id (BIGINT PRIMARY KEY)
+├── invoice_number (VARCHAR UNIQUE) - Nomor invoice (RR-2024-00001)
+├── user_id (BIGINT FK -> users) - Pengguna pembeli
+├── vip_package_id (BIGINT FK -> vip_packages) - Paket VIP
+├── amount (DECIMAL 12,2) - Jumlah pembayaran
+├── payment_status (ENUM) - pending, success, failed, expired, refunded
+├── payment_method (VARCHAR) - transfer_bank, qris, ewallet
+├── payment_channel (VARCHAR) - BCA, Mandiri, GoPay, etc
+├── payment_gateway_log (JSON) - Response payment gateway
+├── paid_at (TIMESTAMP) - Waktu pembayaran
+├── expired_at (TIMESTAMP) - Waktu kadaluarsa
+├── vip_starts_at (TIMESTAMP) - Waktu VIP mulai
+├── vip_ends_at (TIMESTAMP) - Waktu VIP berakhir
+├── notes (TEXT) - Catatan tambahan
+├── created_at (TIMESTAMP)
+├── updated_at (TIMESTAMP)
+└── deleted_at (TIMESTAMP)
+```
+
+---
+
+#### **7. consultations** - Konsultasi dengan Chef
+```sql
+Table: consultations
+├── id (BIGINT PRIMARY KEY)
+├── user_id (BIGINT FK -> users) - Pengguna yang berkonsultasi
+├── chef_id (BIGINT FK -> users) - Chef yang dikonsultasi
+├── topic (VARCHAR) - Topik konsultasi
+├── description (TEXT) - Deskripsi pertanyaan
+├── status (ENUM) - pending, accepted, in_progress, completed, cancelled
+├── scheduled_at (TIMESTAMP) - Waktu jadwal konsultasi
+├── completed_at (TIMESTAMP) - Waktu selesai
+├── notes (TEXT) - Catatan hasil konsultasi
+├── created_at (TIMESTAMP)
+├── updated_at (TIMESTAMP)
+└── deleted_at (TIMESTAMP)
+```
+
+---
+
+#### **8. messages** - Pesan Antar Pengguna
+```sql
+Table: messages
+├── id (BIGINT PRIMARY KEY)
+├── sender_id (BIGINT FK -> users) - Pengirim pesan
+├── receiver_id (BIGINT FK -> users) - Penerima pesan
+├── consultation_id (BIGINT FK -> consultations) - Konsultasi terkait (opsional)
+├── content (TEXT) - Isi pesan
+├── attachment (VARCHAR) - File attachment URL
+├── is_read (BOOLEAN) - Status pesan dibaca
+├── read_at (TIMESTAMP) - Waktu dibaca
+├── created_at (TIMESTAMP)
+└── updated_at (TIMESTAMP)
+```
+
+---
+
+#### **9. chef_schedules** - Jadwal Chef
+```sql
+Table: chef_schedules
+├── id (BIGINT PRIMARY KEY)
+├── chef_id (BIGINT FK -> users) - Chef
+├── day_of_week (TINYINT) - Hari (0=Minggu, 6=Sabtu)
+├── start_time (TIME) - Waktu mulai
+├── end_time (TIME) - Waktu berakhir
+├── is_available (BOOLEAN) - Status tersedia
+└── created_at (TIMESTAMP)
+```
+
+---
+
+#### **10. preferences** - Preferensi Pengguna
+```sql
+Table: preferences
+├── id (BIGINT PRIMARY KEY)
+├── user_id (BIGINT FK -> users) - Pengguna
+├── category_id (BIGINT FK -> categories) - Kategori pilihan
+├── preference_level (TINYINT 1-5) - Tingkat preferensi
+└── created_at (TIMESTAMP)
+```
+
+---
+
+#### **11. recipe_saves** - Resep yang Disimpan
+```sql
+Table: recipe_saves
+├── id (BIGINT PRIMARY KEY)
+├── user_id (BIGINT FK -> users) - Pengguna
+├── recipe_id (BIGINT FK -> recipes) - Resep
+├── created_at (TIMESTAMP)
+└── UNIQUE (user_id, recipe_id) - 1 save per user per resep
+```
+
+---
+
+#### **12. tags** - Tag untuk Resep
+```sql
+Table: tags
+├── id (BIGINT PRIMARY KEY)
+├── name (VARCHAR) - Nama tag
+├── slug (VARCHAR UNIQUE) - URL identifier
+└── created_at (TIMESTAMP)
+```
+
+**Contoh tag:**
+- vegetarian
+- gluten-free
+- quick & easy
+- healthy
+- budget-friendly
+
+---
+
+## 👥 7. Tim Developer
+
+| No | Nama | Role | Status | Deskripsi Tugas |
+|----|------|------|--------|-----------------|
+| 1 | Fazri Lukman Nurrohman | Project Manager | ✅ | Koordinasi tim, manajemen proyek dan timeline |
+| 2 | Rizky Ramdan | Business Analyst | ✅ | Analisis kebutuhan, spesifikasi fitur, user stories |
+| 3 | Fahmi Nashruddin | UI/UX Designer | ✅ | Desain interface, wireframe, prototyping |
+| 4 | Putra | UI/UX Designer | ✅ | Desain interface, UI consistency, testing desain |
+| 5 | Ahmad Faiz Zaenuddin | QA (SQA) | ✅ | Testing, bug reporting, quality assurance |
+| 6 | Rifqi Fauzi Anwar | Lead Programmer | ✅ | Arsitektur sistem, auth, dashboard, queue notification |
+| 7 | Azfa Salsabila | Business Analyst | ✅ | Requirement analysis, dokumentasi, user research |
+| 8 | Atik Wulandari | Scrum Master | ✅ | Agile facilitation, sprint planning, retrospective |
+| 9 | Ibnu | Programmer | ❌ **BELUM** | **Pengerjaan belum dimulai / Status: In Progress** |
 
 ---
 
 ## 🚀 4. Panduan Setup untuk Clone Project
 
-Ikuti langkah-langkah berikut jika ingin clone dan menjalankan project ini di komputer Anda.
+Ikuti langkah-langkah berikut untuk clone dan menjalankan project Rasa Rekomendasi di komputer lokal.
 
 ### Prerequisites (Kebutuhan Awal)
 
-Pastikan Anda sudah install:
-- **PHP** (>= 8.1) → [Download PHP](https://www.php.net/downloads)
-- **Composer** → [Download Composer](https://getcomposer.org/download/)
-- **MySQL** (atau Database lain) → [Download MySQL](https://www.mysql.com/downloads/)
-- **Git** → [Download Git](https://git-scm.com/)
-- **Node.js & npm** → [Download Node.js](https://nodejs.org/)
+Pastikan sudah install tools berikut:
+
+- **PHP** (>= 8.1) → [Download](https://www.php.net/downloads)
+- **Composer** → [Download](https://getcomposer.org/download/)
+- **MySQL** (>= 8.0) → [Download](https://www.mysql.com/downloads/)
+- **Git** → [Download](https://git-scm.com/)
+- **Node.js & npm** (>= 16.x) → [Download](https://nodejs.org/)
 
 ### Step 1: Clone Repository
 
@@ -97,28 +419,39 @@ cd RasaRekomendasi
 ### Step 2: Setup Environment File
 
 ```bash
-# Copy file contoh environment ke .env
+# Copy environment file template
 cp .env.example .env
 ```
 
-Kemudian edit `.env` dan sesuaikan dengan konfigurasi lokal Anda:
+Edit file `.env` dengan konfigurasi lokal Anda:
 
 ```env
-APP_NAME="RasaRekomendasi"
+APP_NAME="Rasa Rekomendasi"
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost
 
-# Database Configuration
+# Database
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=rasa_rekomendasi
 DB_USERNAME=root
-DB_PASSWORD=YOUR_PASSWORD_HERE
+DB_PASSWORD=YOUR_PASSWORD
+
+# Mail Configuration (opsional)
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=465
+MAIL_USERNAME=
+MAIL_PASSWORD=
 
 # WhatsApp Notification (Fonnte API)
-FONNTE_TOKEN=YOUR_FONNTE_TOKEN_HERE
+FONNTE_TOKEN=YOUR_FONNTE_API_TOKEN
+
+# Payment Gateway (opsional)
+MIDTRANS_SERVER_KEY=
+MIDTRANS_CLIENT_KEY=
 ```
 
 ### Step 3: Install PHP Dependencies
@@ -136,10 +469,10 @@ php artisan key:generate
 ### Step 5: Setup Database
 
 ```bash
-# Buat database baru
-mysql -u root -p -e "CREATE DATABASE rasa_rekomendasi;"
+# Buat database baru (jika belum ada)
+mysql -u root -p -e "CREATE DATABASE rasa_rekomendasi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-# Jalankan migration
+# Jalankan migration untuk membuat tabel
 php artisan migrate
 
 # (Optional) Jalankan seeder untuk dummy data
@@ -152,10 +485,10 @@ php artisan db:seed
 npm install
 ```
 
-### Step 7: Compile Assets (Vite)
+### Step 7: Build Frontend Assets (Vite)
 
 ```bash
-# Development mode
+# Development mode (dengan hot reload)
 npm run dev
 
 # Production mode
@@ -170,98 +503,103 @@ Buka terminal baru dan jalankan:
 php artisan serve
 ```
 
-Server akan berjalan di: **http://127.0.0.1:8000**
+Akses aplikasi di: **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
----
+### Step 9: Setup Queues (Opsional)
 
-## 🔐 5. Akun Default (Setelah Seeder)
+Untuk menjalankan background jobs (WhatsApp notifications):
 
-| Role | Username | Password | Keterangan |
-|------|----------|----------|-----------|
-| **Super Admin** | admin | password | Setup awal system |
-| **QC** | qc_user | password | Input & verifikasi data |
-| **Manager** | manager_user | password | Lihat laporan |
-
-> **⚠️ PENTING:** Ubah password default segera setelah login pertama kali!
-
----
-
-## 📝 6. Struktur Folder Project
-
-```
-RasaRekomendasi/
-├── app/
-│   ├── Models/              # Model database
-│   ├── Http/
-│   │   ├── Controllers/     # Business logic
-│   │   ├── Middleware/      # Middleware
-│   │   └── Requests/        # Form validation
-│   └── Jobs/                # Queue jobs
-├── routes/
-│   ├── web.php              # Web routes
-│   └── auth.php             # Auth routes
-├── database/
-│   ├── migrations/          # Schema database
-│   └── seeders/             # Dummy data
-├── resources/
-│   ├── views/               # Blade templates
-│   ├── css/                 # Styling
-│   └── js/                  # JavaScript
-├── public/                  # Asset publik
-├── storage/                 # File penyimpanan
-├── vendor/                  # Dependencies (auto-generated)
-└── .env                     # Environment config (jangan push!)
-```
-
----
-
-## 🛠️ 7. Troubleshooting
-
-### Error: `Base table or view not found`
 ```bash
-php artisan migrate --fresh
+# Terminal terpisah
+php artisan queue:work
 ```
 
-### Error: `SQLSTATE[HY000] [2002]`
-Pastikan MySQL service sudah berjalan dan konfigurasi DB di `.env` benar.
+---
 
-### Error: `npm: command not found`
-Pastikan Node.js sudah terinstall: `node -v`
+## 🎯 5. Fitur Utama
 
-### Port 8000 sudah terpakai?
+### Untuk **User** (Regular Member)
+- ✅ Browsing resep dengan filter kategori, kesulitan, durasi
+- ✅ Melihat detail resep lengkap dengan ingredients & steps
+- ✅ Rating dan review resep
+- ✅ Simpan resep favorit
+- ✅ Konsultasi dengan chef
+- ✅ Chat dengan chef
+- ✅ Subscribe membership VIP
+- ✅ Akses ke resep premium jika VIP
+
+### Untuk **Chef**
+- ✅ Membuat & mengedit resep sendiri
+- ✅ Upload foto dan video resep
+- ✅ Atur jadwal ketersediaan untuk konsultasi
+- ✅ Terima konsultasi dari user
+- ✅ Chat dengan user
+- ✅ Lihat rating dan review resep mereka
+- ✅ Monetisasi resep eksklusif VIP
+- ✅ Statistik view & rating resep
+
+### Untuk **Admin**
+- ✅ Manajemen user (approve chef, suspend user)
+- ✅ Manajemen kategori dan tag
+- ✅ Moderasi review dan komentar
+- ✅ Kelola paket VIP membership
+- ✅ Lihat laporan transaksi pembayaran
+- ✅ Monitor sistem & database
+
+---
+
+## 🛠️ 6. Troubleshooting
+
+### Error: "Class 'Dotenv\Dotenv' not found"
 ```bash
-php artisan serve --port=8080
+composer install
+php artisan key:generate
 ```
 
+### Error: Database Connection Refused
+```bash
+# Pastikan MySQL running
+# Windows: mysql -u root -p
+# Linux: sudo systemctl start mysql
+
+# Update .env dengan DB credentials yang benar
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
+
+### Error: "npm: command not found"
+- Install Node.js dari https://nodejs.org/
+
+### Error: Vite manifest not found
+```bash
+npm run build
+```
+
+### Error: CORS atau API errors
+- Cek file `config/cors.php`
+- Update `APP_URL` di `.env`
+
+### Error: WhatsApp notifikasi tidak terkirim
+- Cek Fonnte API token di `.env`
+- Pastikan queue running: `php artisan queue:work`
+
 ---
 
-## 👥 8. Tim Developer
+## 📞 8. Kontak & Support
 
-**Proyek Pengembangan Perangkat Lunak (Rasa Rekomendasi)**
-
-1. **Fazri Lukman Nurrohman** - Project Manager
-2. **Rizky Ramdan** - Business Analyst
-3. **Fahmi Nashruddin** - Designer
-4. **Putra** - Designer
-5. **Ahmad Faiz Zaenuddin** - SQA (Software Quality Assurance)
-6. **Rifqi Fauzi Anwar** - Lead Programmer
-7. **Azfa Salsabila** - Business Analyst
-8. **Atik Wulandari** - Scrum Master
-9. **Ibnu** - Programmer
-
----
-
-## 📞 9. Kontak & Support
-
-Jika ada pertanyaan atau issue, hubungi tim developer melalui WhatsApp atau GitHub Issues.
+Untuk pertanyaan atau issue:
+- **WhatsApp**: Hubungi Fazri Lukman Nurrohman (PM)
+- **GitHub Issues**: [Issues Page](https://github.com/Fauziian/RasaRekomendasi/issues)
+- **Email**: Hubungi tim development
 
 ---
 
 ## 📄 License
 
-Project ini adalah proprietary. Jangan copy atau gunakan tanpa izin.
+Project ini adalah **proprietary**. Dilarang copy atau gunakan tanpa izin dari tim development.
 
 ---
 
-**Last Updated:** June 2026
-**Repository:** https://github.com/Fauziian/RasaRekomendasi
+**Last Updated:** June 2026  
+**Project Status:** In Development  
+**Framework:** Laravel 11 | PHP 8.1+ | MySQL 8.0+
