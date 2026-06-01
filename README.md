@@ -479,6 +479,72 @@ php artisan migrate
 php artisan db:seed
 ```
 
+### Default Test Credentials
+
+Setelah menjalankan `php artisan db:seed`, berikut adalah akun default yang tersedia untuk testing:
+
+#### **👨‍💼 Admin Account**
+```
+Email: admin@rasarekomendasi.id
+Password: password
+Nama: Admin RasaRekomendasi
+```
+
+#### **👨‍🍳 Chef Accounts**
+```
+1. Chef Rina Sari
+   Email: chef.rina@rasarekomendasi.id
+   Password: password
+   Spesialisasi: Masakan Indonesia & Jawa
+
+2. Chef Budi Santoso
+   Email: chef.budi@rasarekomendasi.id
+   Password: password
+   Spesialisasi: Masakan Asia & Fusion
+
+3. Chef Dewi Kusuma
+   Email: chef.dewi@rasarekomendasi.id
+   Password: password
+   Spesialisasi: Dessert & Pastry
+```
+
+#### **👥 Regular User Accounts**
+```
+1. Siti Rahayu
+   Email: siti@example.com
+   Password: password
+   Status: Regular User
+
+2. Budi Prakoso
+   Email: budi@example.com
+   Password: password
+   Status: VIP (30 hari)
+
+3. Mega Wulandari
+   Email: mega@example.com
+   Password: password
+   Status: VIP (365 hari)
+
+4. Rizki Pratama
+   Email: rizki@example.com
+   Password: password
+   Status: Regular User
+
+5. Ayu Lestari
+   Email: ayu@example.com
+   Password: password
+   Status: Regular User
+```
+
+| Tipe | Total | Password Default |
+|------|-------|------------------|
+| Admin | 1 | password |
+| Chef | 3 | password |
+| User | 5 | password |
+| **TOTAL** | **9** | **password** |
+
+> **⚠️ PENTING:** Ubah password semua akun di environment production! Jangan gunakan password default ini di production.
+
 ### Step 6: Install Frontend Dependencies
 
 ```bash
