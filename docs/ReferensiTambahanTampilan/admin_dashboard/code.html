@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e4e2e1",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#59413a",
+                    "on-tertiary-fixed": "#002107",
+                    "inverse-primary": "#ffb59f",
+                    "surface": "#fcf9f8",
+                    "on-background": "#1b1c1c",
+                    "primary": "#ac3509",
+                    "surface-dim": "#dcd9d9",
+                    "surface-container-low": "#f6f3f2",
+                    "primary-fixed-dim": "#ffb59f",
+                    "secondary-fixed": "#e8e3cb",
+                    "background": "#fcf9f8",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#eae7e7",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#286b33",
+                    "on-primary-fixed-variant": "#852300",
+                    "secondary-fixed-dim": "#ccc7b0",
+                    "on-secondary-fixed": "#1e1c0e",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1b1c1c",
+                    "error": "#ba1a1a",
+                    "surface-container": "#f0eded",
+                    "surface-container-highest": "#e4e2e1",
+                    "surface-tint": "#ac3509",
+                    "outline": "#8d7169",
+                    "tertiary-fixed-dim": "#90d792",
+                    "on-secondary-fixed-variant": "#4a4736",
+                    "on-secondary-container": "#686552",
+                    "on-primary-container": "#641800",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f3f0f0",
+                    "tertiary-fixed": "#abf4ac",
+                    "primary-container": "#ff7043",
+                    "tertiary-container": "#67ab6b",
+                    "primary-fixed": "#ffdbd0",
+                    "secondary": "#625f4c",
+                    "on-tertiary-container": "#003d12",
+                    "on-primary-fixed": "#3a0a00",
+                    "outline-variant": "#e0bfb6",
+                    "on-tertiary-fixed-variant": "#07521d",
+                    "surface-bright": "#fcf9f8",
+                    "secondary-container": "#e8e3cb",
+                    "inverse-surface": "#303030"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "gutter": "16px",
+                    "unit": "4px",
+                    "md": "16px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "xs": "4px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "title-sm": ["Plus Jakarta Sans"],
+                    "label-bold": ["Be Vietnam Pro"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Be Vietnam Pro"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(255, 112, 67, 0.1) 0%, rgba(255, 112, 67, 0) 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-100 shadow-lg shadow-orange-500/5 z-40">
+<div class="p-6">
+<h1 class="text-lg font-black text-orange-600 font-plus-jakarta-sans">RasaRekomendasi</h1>
+<p class="text-xs text-gray-400 mt-1 uppercase tracking-widest font-label-bold">Admin Panel</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<!-- Dashboard (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-50 text-orange-600 border-r-4 border-orange-500 transition-all duration-200 ease-in-out font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200 ease-in-out font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Recipes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200 ease-in-out font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200 ease-in-out font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span>Moderation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200 ease-in-out font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Statistics</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-100">
+<div class="flex items-center gap-3 p-2 rounded-xl">
+<img alt="Admin Avatar" class="w-10 h-10 rounded-full bg-orange-100" data-alt="professional portrait of a middle-aged male administrator with a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWsK3_f9HJKlJJ9PKCHVfNck41YYR4OKRizPnemoR4GvX-aCsIPz3gBHSKWEISf-SiYiKfkb1tDJmzbW13XOtaa0BsZBCWD4cXr0Llk5_KcFM4Yq-ShZWCQFXdcvDMu5atjJ_RVzptxfKGA4LTIDh25b45SbXqrXd23TWQIyQQ9lb0xcriXN4UN08YrkKV7KMMbmHE8S9C2HZsqg6pSgD-T-hud-XyCEhaXbsrGGh-4-iRvP4F3E7QXlxuZW09uK5hJ1kdAl3rEX4"/>
+<div>
+<p class="text-sm font-bold">Admin Panel</p>
+<p class="text-xs text-gray-500">Manage RasaRekomendasi</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="lg:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm w-full">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4 lg:hidden">
+<span class="material-symbols-outlined text-orange-600" data-icon="menu">menu</span>
+<span class="text-xl font-bold text-orange-600 font-plus-jakarta-sans">RasaRekomendasi</span>
+</div>
+<!-- Search Bar -->
+<div class="hidden md:flex flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm" data-icon="search">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-orange-500/20 text-sm" placeholder="Search insights..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-gray-500 hover:bg-orange-50 rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-orange-500 rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 text-gray-500 hover:bg-orange-50 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-orange-100">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a young professional woman with a clean and bright aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmmVQCP29lljiBWRr4w-PME_JWXNGCPFVrHegdb16gIqKbXovsCfqIImzptGlZ4qKlhz_4-TpFR6AZ6G6uU2jjJszUN0vxqd6wDyiyaT510BQAcl9fbskeqNY41XpzVKzzQshIMWIwtuzzBqAumKWPQwNaxQHZB2JSxLRNhMr9mqJaX3g-XtturLNrFQU-Ugh6E7ecASDxsH2wVw2mX7lyVm9cUd4PWjZQXNR2qcT3MS-bsf5q5oBbQDVPdz7uYmibbUmQ7xdca8g"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-container-margin lg:p-xl space-y-lg">
+<!-- Welcome Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-background">Kitchen Dashboard</h2>
+<p class="text-body-md text-on-surface-variant font-body-md">Good morning, Chef. Here's what's simmering today.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant text-on-surface rounded-xl font-label-bold text-sm shadow-sm hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+                        This Week
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary-container text-on-primary-container rounded-xl font-label-bold text-sm shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                        Post Recipe
+                    </button>
+</div>
+</div>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+<!-- Stat Card 1 -->
+<div class="bg-[#FFF9E1] p-6 rounded-3xl shadow-[0_4px_20px_rgba(255,112,67,0.08)] flex flex-col justify-between border border-orange-50">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white rounded-2xl">
+<span class="material-symbols-outlined text-orange-600" data-icon="restaurant_menu">restaurant_menu</span>
+</div>
+<span class="text-tertiary font-label-bold text-xs flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+                            12%
+                        </span>
+</div>
+<div class="mt-8">
+<p class="text-on-surface-variant font-label-bold text-xs uppercase tracking-wider">Total Recipes</p>
+<p class="text-4xl font-bold font-plus-jakarta-sans text-on-surface mt-1">1,284</p>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-[#FFF9E1] p-6 rounded-3xl shadow-[0_4px_20px_rgba(255,112,67,0.08)] flex flex-col justify-between border border-orange-50">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white rounded-2xl">
+<span class="material-symbols-outlined text-orange-600" data-icon="group">group</span>
+</div>
+<span class="text-tertiary font-label-bold text-xs flex items-center gap-1 bg-tertiary-fixed/30 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+                            8%
+                        </span>
+</div>
+<div class="mt-8">
+<p class="text-on-surface-variant font-label-bold text-xs uppercase tracking-wider">Total Users</p>
+<p class="text-4xl font-bold font-plus-jakarta-sans text-on-surface mt-1">42,019</p>
+</div>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-primary-container p-6 rounded-3xl shadow-lg shadow-orange-500/20 flex flex-col justify-between text-white md:col-span-2 xl:col-span-1">
+<div class="flex justify-between items-start">
+<div class="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
+<span class="material-symbols-outlined" data-icon="chat_bubble" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<span class="bg-white/20 px-3 py-1 rounded-full text-xs font-label-bold">Live Activity</span>
+</div>
+<div class="mt-8">
+<p class="text-white/80 font-label-bold text-xs uppercase tracking-wider">New Comments Today</p>
+<p class="text-4xl font-bold font-plus-jakarta-sans mt-1">856</p>
+<div class="mt-4 flex -space-x-2">
+<img alt="User" class="w-6 h-6 rounded-full border-2 border-primary" data-alt="close-up avatar of a person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp51ib-yN2EZ1mSV50RwauignDFbt3b4IJ_o8PCB-n9qal6fdBazhZ3VfVRGak_FZzpJIaj24VB6Gj8WrO9h0FM8o8YSP2yodJcsYOOQO_Etj26SK9YvlMFpgp6-W0vqhh34fSjXHl2KmLGHrRiPLdWJfC6kPLRyOFpW_FzKeDomTHYfxHQvy0c0kXx6Q0ssc5CoDzg3ay_o-HIYT1hp6uIfOutMJzzc_APYrdJIr5obSVXlKHF0__XN1AHdRNL5PQBheRmb1i6n0"/>
+<img alt="User" class="w-6 h-6 rounded-full border-2 border-primary" data-alt="close-up avatar of a person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6CJqC3ZDbixP-jJVcuISTcsIpOH_BlP7n9NPWTzmCdmgsaTfsJr1xhOYxjxl8osEByClyb9IBN4DMCxi_HtZyUdqL9Hw0_tVdU-8QZhBynTBjOwrmfvF6oFUcD3KL0bb_x3UxiW6SVcazv6pR2Q-PvZYV7y_usx5FRclW6XTg_WJLxZzbfKq7D4srvDmBAKVa6wpCmkRKDLKJbYFy5JpIrbXhfo-i4vXH9QmXRV_O8hUEaaTznMD79uvhEGYAYZW6pvsK0b9c3kQ"/>
+<img alt="User" class="w-6 h-6 rounded-full border-2 border-primary" data-alt="close-up avatar of a person" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6hKAoySeS_JCVlSAScT2Mkb8HYao6OmF0qHH-CPayzuRqtFkWyvVfwS4SXd58iiusdUN-rgrqB3JkcqlA6APuJBFzXQw_2ZneaZpmADQTwHDwNKyR8PvnmehH5odeLX9aXyixZYsMSZf3tz5Uur38cUHFxYMvcRthf2NevyI3U9ib5TD_nV8PMVGZXMNQyqmkNo55VMhLb9i3VbLIXORMcGnCtjtM55m4-H3GXXd74oWs_haGsd4R-clohQGHRTGS9aLgHaAzrP0"/>
+<div class="w-6 h-6 rounded-full border-2 border-primary bg-orange-800 flex items-center justify-center text-[8px] font-bold">+12</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Chart & Trending Grid -->
+<section class="grid grid-cols-1 xl:grid-cols-3 gap-lg">
+<!-- User Activity Line Chart -->
+<div class="xl:col-span-2 bg-white rounded-[32px] p-xl shadow-sm border border-gray-100">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">User Activity</h3>
+<p class="text-body-sm text-on-surface-variant font-body-sm">Weekly engagement traffic</p>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-xs font-label-bold text-orange-500">
+<span class="w-2 h-2 rounded-full bg-orange-500"></span> Sessions
+                            </span>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-0 flex flex-col justify-between border-b border-gray-100">
+<div class="border-t border-gray-50 w-full h-0"></div>
+<div class="border-t border-gray-50 w-full h-0"></div>
+<div class="border-t border-gray-50 w-full h-0"></div>
+<div class="border-t border-gray-50 w-full h-0"></div>
+</div>
+<!-- Simulated SVG Path for Line Chart -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 700 200">
+<path d="M0 180 Q 50 160, 100 170 T 200 140 T 300 150 T 400 100 T 500 120 T 600 60 T 700 80" fill="none" stroke="#ac3509" stroke-linecap="round" stroke-width="4"></path>
+<path d="M0 180 Q 50 160, 100 170 T 200 140 T 300 150 T 400 100 T 500 120 T 600 60 T 700 80 V 200 H 0 Z" fill="url(#chartFill)"></path>
+<defs>
+<lineargradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ff7043" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#ff7043" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex items-end justify-between px-2 pt-4">
+<span class="text-[10px] text-gray-400 font-label-bold">Mon</span>
+<span class="text-[10px] text-gray-400 font-label-bold">Tue</span>
+<span class="text-[10px] text-gray-400 font-label-bold">Wed</span>
+<span class="text-[10px] text-gray-400 font-label-bold">Thu</span>
+<span class="text-[10px] text-gray-400 font-label-bold">Fri</span>
+<span class="text-[10px] text-gray-400 font-label-bold">Sat</span>
+<span class="text-[10px] text-gray-400 font-label-bold">Sun</span>
+</div>
+</div>
+</div>
+<!-- Trending Categories -->
+<div class="bg-white rounded-[32px] p-xl shadow-sm border border-gray-100">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-lg">Popular Kitchens</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="top-down vibrant salad bowl with colorful vegetables and seeds on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADbFl3x6CeMMSduyuRPdQgK0f4ryCGc22HTgzwDa4CysVkqqQ3RmBXP4rtGt3wYlFmTdTVXbY1hN2e9WIXNIqFNEmLkWMYaShzcyYgDxoCGwwukdxG6HAaFHLiWJH_ejrQ6DkyFxjeU4fbZy06P20it2xrx6USCfkdYS8nz9ZCv6Cqa3wYTV8PGtVm1lAVSwBiCQyyFtCXpdypBJ5UzxAafw6Z06q7QQlT5i6BvEs4tYq4E6Ec6DFSDCPiQeN4K26KHbco9Qfehg8"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Healthy Indonesian</p>
+<div class="w-full bg-gray-100 h-1.5 rounded-full mt-1">
+<div class="bg-tertiary-container w-[85%] h-full rounded-full"></div>
+</div>
+</div>
+<span class="text-xs font-label-bold text-on-surface-variant">85%</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up of traditional Indonesian rendang beef curry with rich spices and herbs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Rew9fafRrAv71JXrQs_M_pc_HlhMgCSyrMDraxeids9hlH8QgE1vs46rPrCd3DqjSYsudAUANazMNaEvUq4HDtYp6eeQW6n8_AKW-jmWjosQEit_X78loS9wJn9LCs_sp5VG1a6CUjAF_NKLObJavxFPR9z4aeJPL2zyQ1CnGqGVRYx08tXLPatRmuvMltBwDklDY1JYCrq-50hIP7q342MxYOrw0Jb9E15XJVQvEGioLmiZq8_onmgT2C_17l8Ov3H3LqTZdKk"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Spicy Comfort Food</p>
+<div class="w-full bg-gray-100 h-1.5 rounded-full mt-1">
+<div class="bg-primary-container w-[62%] h-full rounded-full"></div>
+</div>
+</div>
+<span class="text-xs font-label-bold text-on-surface-variant">62%</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-2xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="delicious stack of chocolate chip cookies with melting chocolate on a white plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGxUQjb-iDoliST5boZTTnMNjGPmDUgPlAHO2pOEyG_3IMOI76OddHfApDhF4l849FtuGEQzE3i4f6rLPin7QL4AaCXnDYC8bbZiKbVbmxHJFx8S-4TZpkOdiMXZdtCeX5_QcYIygfrbPRpntHauP_li1aTDv9Sba1kQedZoV0Xhce1o0lh7SvMIjIgz50u5R3WPQ033fQTVchqEzvkQ9JIwIK52sofNJ3SN7gqGkIGY7u4HY0MjQddkkfuq53K1IEhIq4ccCAD8I"/>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold">Gen Z Desserts</p>
+<div class="w-full bg-gray-100 h-1.5 rounded-full mt-1">
+<div class="bg-secondary-fixed-dim w-[45%] h-full rounded-full"></div>
+</div>
+</div>
+<span class="text-xs font-label-bold text-on-surface-variant">45%</span>
+</div>
+</div>
+<button class="w-full mt-xl py-3 rounded-2xl border border-outline-variant text-sm font-label-bold text-orange-600 hover:bg-orange-50 transition-colors">
+                        View Full Statistics
+                    </button>
+</div>
+</section>
+<!-- Recent Submissions Section -->
+<section class="bg-white rounded-[32px] p-xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="flex justify-between items-center mb-xl">
+<h3 class="font-headline-md text-headline-md text-on-surface">Awaiting Moderation</h3>
+<a class="text-sm font-label-bold text-orange-600 hover:underline" href="#">Manage All</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-gray-100">
+<th class="pb-4 font-label-bold text-xs text-on-surface-variant uppercase tracking-wider">Recipe</th>
+<th class="pb-4 font-label-bold text-xs text-on-surface-variant uppercase tracking-wider">Chef</th>
+<th class="pb-4 font-label-bold text-xs text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="pb-4 font-label-bold text-xs text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-50">
+<tr>
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-100 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="vibrant healthy grain bowl with avocado and fresh greens" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtPojIuBn6SKIMqEBhAYs3QcoAI9osRmR5F83J8HKF1O_ELVjTBwzHAlBzG_yLJRlkHTM7RjwFrui_8HVVKodgjBt_UsNcep2oPJ5DM7wbQHfxLsQ6_95IuK3aLB6hcKpNkl14kUs8jgWtba2OIepjJ1G0jpnNsW8rFgYcKU-cbxkZ_eZp4Swlk6pPKAbKkSPgvUUasuBCxOURPS1ZTgXjDlHPlUnIzEeH5t0r3-5DeEve8d84QEJJUj1MRRI9xEp2MJHNhfYwpa4"/>
+</div>
+<div>
+<p class="text-sm font-bold">Rainbow Poke Bowl</p>
+<p class="text-[10px] text-gray-400">Submitted 2h ago</p>
+</div>
+</div>
+</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<img alt="Chef" class="w-6 h-6 rounded-full" data-alt="minimalist avatar profile of a user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ-lbDri_luQPaQSzeUTLq6VbHTYKfM3qWwJC_eBVWJIQqopV8kLM0roTG5Uj1Y1Sa2dXn7BXARF0_kLDGg1LjSqDxkRVHeJEYHH8jCW0O7HmvDvEkzEwjbL8QY9EJ9LosxLSlMwPx-Ycw2vstr_xOzor-Aptras25T7s8rAa3_Rskyll4IchmXN80nCEfhUPUTdV3zvntU5jC974s-Rmhb5zqG1cQ1z3P4JA1NCZLy0TaPoGwCE0f1EqHG1-g-bIVF5W6fJRGPHs"/>
+<p class="text-sm">@IndoCookie24</p>
+</div>
+</td>
+<td class="py-4">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-label-bold">Pending Review</span>
+</td>
+<td class="py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-orange-50 rounded-lg text-orange-600"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span></button>
+<button class="p-1.5 hover:bg-error-container rounded-lg text-error"><span class="material-symbols-outlined text-sm" data-icon="cancel">cancel</span></button>
+</div>
+</td>
+</tr>
+<tr>
+<td class="py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-orange-100 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="rustic platter of grilled meats and roasted vegetables with herbs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiapwTCK29f1UeO9IdOl_ax8nr3v5T1sLfKb6HWrmy2XGk3J5K8lqEho0z9wexz_uMypduc57cd5Bii5VooyJnilgnHTzDirlDGbAgEaV09oklxQ45xUkdNh5aW6aJkACDaK5S9jU8rupso-__7_jJYz50gbLzYA3v1Oo3v6MP-DF5PjCdAlxDrndqwo4Z5ntiG22M4u3xC1uB95Cnu7859_PaDK0-ENpuu1pZUijQ5TxcLXihkobRoQtI1WLdfVRWXzKmQCTtuSE"/>
+</div>
+<div>
+<p class="text-sm font-bold">Satay Maranggi Pro</p>
+<p class="text-[10px] text-gray-400">Submitted 5h ago</p>
+</div>
+</div>
+</td>
+<td class="py-4">
+<div class="flex items-center gap-2">
+<img alt="Chef" class="w-6 h-6 rounded-full" data-alt="minimalist avatar profile of a user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB94ojYOmP3bVRRjRqI-9wAP2UJu0KTomMA2rQiuMPHRFIzqIWOIFEEkLL--kFqrsTSLODEuO_so13BTmwfcHg52Kk0sOQF6JvyQ9m_Z4BnKsf5wGDRUFmvIeSzk4HHe_hgITeyPXFdYm2qPmwgEqlf3zGLedk_lasaNhlrunIc4Yn4cyLVjOfViPwGpicLhLG1jYG0uJOmVOyJbk3bY7HVCnOPerTeGb6f2j_iD9LWlC1mteZSr5fGROJ_Jof-y4BpDBGvKne1VL0"/>
+<p class="text-sm">@ChefBambang</p>
+</div>
+</td>
+<td class="py-4">
+<span class="px-2 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-label-bold">Flagged</span>
+</td>
+<td class="py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-1.5 hover:bg-orange-50 rounded-lg text-orange-600"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span></button>
+<button class="p-1.5 hover:bg-error-container rounded-lg text-error"><span class="material-symbols-outlined text-sm" data-icon="delete">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Footer Component -->
+<footer class="w-full py-8 px-5 flex flex-col items-center gap-4 text-center bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 mt-auto">
+<div class="flex gap-6">
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+<p class="text-gray-500 font-plus-jakarta-sans text-xs">© 2024 <span class="text-orange-600 font-bold">RasaRekomendasi</span>. Built for Gen Z Home Chefs.</p>
+</footer>
+</main>
+<!-- BottomNavBar for Mobile Shell Visibility Rule -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-t border-gray-100 flex justify-around items-center px-4 py-3 shadow-[0_-4px_20px_rgba(255,112,67,0.08)]">
+<a class="flex flex-col items-center text-orange-600 font-plus-jakarta-sans text-[11px] font-medium transition-transform scale-110" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</a>
+<a class="flex flex-col items-center text-gray-400 font-plus-jakarta-sans text-[11px] font-medium active:bg-orange-50 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span>Recommend</span>
+</a>
+<a class="flex flex-col items-center text-gray-400 font-plus-jakarta-sans text-[11px] font-medium active:bg-orange-50 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+<!-- Contextual FAB Suppression Rule: FAB not required on dashboard per guidelines unless specifically requested -->
+</body></html>

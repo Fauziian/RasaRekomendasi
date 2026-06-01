@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RasaRekomendasi - Recipe Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .orange-glow {
+            box-shadow: 0 4px 20px rgba(255, 112, 67, 0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #ff7043;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface custom-scrollbar">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-sm fixed top-0 left-0 right-0 z-50">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto font-plus-jakarta-sans">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<span class="text-xl font-bold text-orange-600 dark:text-orange-400">RasaRekomendasi</span>
+</div>
+<div class="hidden md:flex flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<input class="w-full bg-surface-container rounded-full py-2 px-10 border-none focus:ring-2 focus:ring-primary-container text-body-sm" placeholder="Search for recipes..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 hover:bg-orange-50 dark:hover:bg-gray-800 transition-colors rounded-full relative">
+<span class="material-symbols-outlined text-gray-500" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-white"></span>
+</button>
+<button class="p-2 hover:bg-orange-50 dark:hover:bg-gray-800 transition-colors rounded-full">
+<span class="material-symbols-outlined text-gray-500" data-icon="favorite">favorite</span>
+</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full object-cover border border-orange-200" data-alt="Close-up portrait of a friendly young man with a warm smile and professional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOskCuVeoZs2xCtSqzNZgVKyCXKa19jZ7oUwsHDYYTM2xC9lO1EeruTelxWJ9DtULRT_qk1fWyB9avH0cvaVowkeN00lHHXVZxSr1KYE6-RQ_79zknRQNom3m8ZgMStrWl3KfEESQunBfjWsgh8ryZ4vUvgyXyHTQeyO5BoV4FZ5wDWbYdYw1r198J3INVezQesg56TOOp8pMFmsRJ0saXOj46OO_WDejddMeiiRuOBzpM7hELR6ZfkupB_vtCHBgVX3HfeqBB9iI"/>
+</div>
+</div>
+</header>
+<main class="pt-16 pb-24 lg:pb-8">
+<!-- Hero Banner Section -->
+<section class="relative w-full h-[512px] min-h-[300px] lg:h-[614px]">
+<img alt="Main Recipe Banner" class="w-full h-full object-cover" data-alt="Exquisite plate of modern fusion cuisine with vibrant colors, microgreens garnish, and soft natural sunlight on a wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr0P7QTmok99nU_E3ZrteLj9syg716zTd2e7YRZkHBrD_yDCPaWt1bw6en20z1YyhwAZlmB2BhgUlCPIlpvbGxgiSsdweAEX7DamWpq7Z5wt5oskHa1NkBK2kHOS3j2NA9bAjAIxZbEJALHvn4kcvPf8s4uM-CUn4_uhaTRE5ocSLYvXFsadclMA7qKjJJqSvmWBriRyZeagzxBuzsobNMyLrEKQ5n6RJcbVBgM6Ob95m1RYMJ2LLpV_MyR0kwBJlxvHY2HTIz4Xo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 right-0 px-container-margin pb-xl">
+<div class="max-w-7xl mx-auto">
+<div class="bg-secondary-container/95 backdrop-blur-md p-lg rounded-xl orange-glow max-w-2xl transform -translate-y-[-20px] lg:translate-y-0">
+<div class="flex items-center gap-2 mb-sm">
+<div class="flex text-primary-container">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star_half" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<span class="text-on-secondary-container font-label-bold text-label-bold">4.8 (124 reviews)</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-primary-container mb-md leading-tight">Spicy Indo-Fusion Ramen with Crispy Tempeh</h1>
+<div class="flex flex-wrap gap-md">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-white/50 rounded-full">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="schedule">schedule</span>
+<span class="text-body-sm font-label-bold">35 Mins</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-white/50 rounded-full">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-body-sm font-label-bold">Medium Difficulty</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 bg-tertiary-container/30 text-on-tertiary-container rounded-full">
+<span class="material-symbols-outlined text-[20px]" data-icon="eco">eco</span>
+<span class="text-body-sm font-label-bold">Healthy Choice</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Grid -->
+<div class="max-w-7xl mx-auto px-container-margin mt-xl grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Left Side: Recipe Details -->
+<div class="lg:col-span-2 space-y-xl">
+<!-- Tutorial Video -->
+<div class="bg-surface-container rounded-xl overflow-hidden orange-glow aspect-video relative group">
+<img alt="Video Thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic still of a chef's hands masterfully plating a gourmet dish in a sunlit professional kitchen studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjbqtmeyqBxVdVnrgWh_6yn5m5VVvw2wKU6ASOnXNwb-1GM-H0nzNxC3bLmxlENBmgdEHxlyn9eJ8AhyFAhS2_JKXhCaAmZ8Eu5QNz3q9VNalYHZBkC6EbKZvD7p661p0NUHtp0Z-03yGoEY4oNLYBRGHOKRL8Cj9od1RyzZ54XHkdrsH0e7DJjp3kiYCcxOgA2RLyHmiTcqE8jqvT8x8Hu5Pfr0zHJfwtbtmg4YtDnIRqDMIsHp63uKqwhisfnZb5SR4o-A9aNXM"/>
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center">
+<button class="w-20 h-20 bg-primary-container text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[48px]" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<div class="absolute bottom-4 left-4 bg-black/60 px-3 py-1 rounded text-white text-xs font-label-bold">Tutorial: Step-by-Step Guide</div>
+</div>
+<!-- Ingredients Section -->
+<section>
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-3">
+                            Ingredients
+                            <span class="text-body-sm text-on-surface-variant font-normal">(serves 2)</span>
+</h2>
+<button class="text-primary font-label-bold flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm" data-icon="shopping_cart">shopping_cart</span>
+                            Add all to Cart
+                        </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<!-- Ingredient Items -->
+<label class="flex items-center gap-4 p-4 bg-secondary-container/30 rounded-xl cursor-pointer hover:bg-secondary-container/50 transition-colors group">
+<input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary-container" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-label-bold">200g Ramen Noodles</span>
+<p class="text-xs text-on-surface-variant">Fresh or dried</p>
+</div>
+<span class="material-symbols-outlined text-primary-container opacity-0 group-hover:opacity-100" data-icon="info">info</span>
+</label>
+<label class="flex items-center gap-4 p-4 bg-secondary-container/30 rounded-xl cursor-pointer hover:bg-secondary-container/50 transition-colors group">
+<input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary-container" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-label-bold">150g Firm Tempeh</span>
+<p class="text-xs text-on-surface-variant">Cut into thin cubes</p>
+</div>
+<span class="material-symbols-outlined text-primary-container" data-icon="eco" style="font-variation-settings: 'FILL' 1;">eco</span>
+</label>
+<label class="flex items-center gap-4 p-4 bg-secondary-container/30 rounded-xl cursor-pointer hover:bg-secondary-container/50 transition-colors group">
+<input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary-container" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-label-bold">2 tbsp Sambal Oelek</span>
+<p class="text-xs text-on-surface-variant">Adjust for heat</p>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 bg-secondary-container/30 rounded-xl cursor-pointer hover:bg-secondary-container/50 transition-colors group">
+<input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary-container" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-label-bold">400ml Coconut Milk</span>
+<p class="text-xs text-on-surface-variant">Full fat for creaminess</p>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 bg-secondary-container/30 rounded-xl cursor-pointer hover:bg-secondary-container/50 transition-colors group">
+<input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary-container" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-label-bold">1 bunch Bok Choy</span>
+<p class="text-xs text-on-surface-variant">Washed and halved</p>
+</div>
+</label>
+<label class="flex items-center gap-4 p-4 bg-secondary-container/30 rounded-xl cursor-pointer hover:bg-secondary-container/50 transition-colors group">
+<input class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary-container" type="checkbox"/>
+<div class="flex-1">
+<span class="text-body-md font-label-bold">Garnish: Sesame Seeds</span>
+<p class="text-xs text-on-surface-variant">Toasted lightly</p>
+</div>
+</label>
+</div>
+</section>
+<!-- Cooking Steps Section -->
+<section class="space-y-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface">Cooking Steps</h2>
+<div class="space-y-xl">
+<!-- Step 1 -->
+<div class="flex gap-lg">
+<div class="flex-none">
+<div class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center font-display-lg text-headline-md shadow-lg">1</div>
+</div>
+<div class="pt-2">
+<h3 class="font-title-sm text-title-sm mb-2">Prepare the Crispy Tempeh</h3>
+<p class="text-body-md text-on-surface-variant">Toss the tempeh cubes with cornstarch and a pinch of salt. Pan-fry in hot oil until every side is golden brown and crunchy. Set aside on a paper towel.</p>
+<img alt="Step 1 Visual" class="mt-md rounded-xl w-full h-48 object-cover border border-orange-100" data-alt="Close-up of golden brown crispy tempeh cubes being tossed in a skillet with minimal oil and steam rising" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCure7XYn1Mg1H62jKZnogGXqqf9_FJYvkwbym4E5wEEnNvuShv7esd1Kpnxfw-4_9SPGNv3lv9Dijqpv31FPIJyUMweWbKOz5YxfcyLFAxIzN1g7As-GnNdO7UzVRr2ui5tNsmjuYLg-mby0WKQoq11s960e6HfQ2CTa6em6-njWYagb9qqtvnUT0chC5YKFX5eixwXd8QCQUcLp1dRQ05bpNzyiRhCHLbLybeE8-9UEnCacHG2NG8y6jqjPy5vLR9OhwgKt5WEG4"/>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-lg">
+<div class="flex-none">
+<div class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center font-display-lg text-headline-md shadow-lg">2</div>
+</div>
+<div class="pt-2">
+<h3 class="font-title-sm text-title-sm mb-2">Simmer the Broth</h3>
+<p class="text-body-md text-on-surface-variant">In a large pot, sauté aromatics then stir in coconut milk and sambal. Bring to a gentle simmer for 10 minutes to let the flavors marry.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-lg">
+<div class="flex-none">
+<div class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center font-display-lg text-headline-md shadow-lg">3</div>
+</div>
+<div class="pt-2">
+<h3 class="font-title-sm text-title-sm mb-2">Assemble &amp; Serve</h3>
+<p class="text-body-md text-on-surface-variant">Cook noodles separately. Place noodles in a bowl, pour over the hot broth, and top with bok choy, crispy tempeh, and sesame seeds.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Comments & Ratings -->
+<section class="pt-xl border-t border-gray-100">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xl">Community Ratings</h2>
+<!-- Rating Input -->
+<div class="bg-surface-container-low p-lg rounded-2xl mb-xl">
+<p class="font-title-sm text-title-sm mb-md">How was your dish?</p>
+<div class="flex gap-2 mb-md">
+<button class="text-primary-container">
+<span class="material-symbols-outlined text-[32px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-primary-container">
+<span class="material-symbols-outlined text-[32px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-primary-container">
+<span class="material-symbols-outlined text-[32px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-primary-container">
+<span class="material-symbols-outlined text-[32px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button class="text-outline">
+<span class="material-symbols-outlined text-[32px]" data-icon="star">star</span>
+</button>
+</div>
+<textarea class="w-full bg-white rounded-xl p-md border-none focus:ring-2 focus:ring-primary-container min-h-[100px] text-body-md mb-md" placeholder="Share your cooking experience..."></textarea>
+<button class="bg-primary-container text-white px-xl py-3 rounded-full font-label-bold shadow-lg hover:scale-105 active:scale-95 transition-all">Post Review</button>
+</div>
+<!-- Reviews List -->
+<div class="space-y-xl">
+<div class="flex gap-md">
+<img alt="Reviewer" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a young woman with smiling eyes and natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBFoNurG0OxVGuCH9LV2zPJJqh9zgnj7XxA2f8lIlUzdnzvT8z4k-HuvCzFwoBULxelAsfNcLca_KHIY8pxUgGYk159E-zEFmIPHgqj8LKoNhTQ9XO9ax0vW-fU0n7fx5uR0iSFnSm_BjqDkWAyvzV3onxxFVUfLZIBRXL640gVdDRTEvCfsaeOHHoJO56QyMzxIkRZNmYffDOMnw8m5a7U8LkYEXv5-QG-suv62QZN5-8sn_ifTONUD5fsNjulOL2zDI80MaeBI0"/>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-bold text-on-surface">Maya Putri</span>
+<span class="text-xs text-on-surface-variant">2 days ago</span>
+</div>
+<div class="flex text-primary-container scale-75 origin-left mb-1">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">The crispy tempeh is a game changer! I added some lime juice at the end for extra tang.</p>
+</div>
+</div>
+<div class="flex gap-md">
+<img alt="Reviewer" class="w-10 h-10 rounded-full object-cover" data-alt="Close up portrait of a cheerful young man with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy5yCUGMsNhXRocIg-QShZ_JMbfF4FivodykWakKewvbmKvYb05OU45G3tnqUY5-mQU-3gOEPCxzmdW6nSsvKIHOO1ml9_tlAmkiUJZSbH2sgm4peNf4bLzuXH00sfym4FlYshdRHWcbrSxzILatr7ClES-K5VmBQsHmNtCVNDv1orag0P2u9Yrb6R5sLv4ZkhShRC3OU9kbChZif9xWQVvMbGhFaXr-iZuPVhgz4hpxDxMxQ7fELAOHfFEI77Un-oejLa-CcqBjg"/>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-bold text-on-surface">Budi Santoso</span>
+<span class="text-xs text-on-surface-variant">1 week ago</span>
+</div>
+<div class="flex text-primary-container scale-75 origin-left mb-1">
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 0;">star</span>
+</div>
+<p class="text-body-sm text-on-surface-variant">Great fusion idea. Broth was a bit spicy for me, maybe use 1 tbsp sambal instead of 2 next time.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Side: Sidebar Actions -->
+<div class="space-y-xl">
+<!-- Share Card -->
+<div class="bg-white p-lg rounded-2xl orange-glow sticky top-24">
+<h3 class="font-title-sm text-title-sm mb-md">Recipe Action</h3>
+<div class="space-y-md">
+<button class="w-full bg-primary-container text-white flex items-center justify-center gap-3 py-3 rounded-xl font-label-bold shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+                            Start Cooking Mode
+                        </button>
+<button class="w-full border-2 border-outline-variant text-on-surface flex items-center justify-center gap-3 py-3 rounded-xl font-label-bold hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+                            Share with Friends
+                        </button>
+<button class="w-full border-2 border-outline-variant text-on-surface flex items-center justify-center gap-3 py-3 rounded-xl font-label-bold hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+                            Save to Collection
+                        </button>
+</div>
+<!-- Chef Info -->
+<div class="mt-xl pt-xl border-t border-gray-100 flex items-center gap-4">
+<img alt="Chef" class="w-12 h-12 rounded-full object-cover" data-alt="Portrait of a creative chef in a clean white uniform against a blurred kitchen background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0eZEC5O_Z6TgSQLBulNSDklTdgxSlVMf9UaMIacg8ZZrCAciRkYHDKlvodQlllKsfhA87yzizkwj06FlBDYzAM1Ah4_NNJQmH5PKs73y6HCinmzJiDfGgEz6gf3oUmZDuz8IwIr4j8vjnqKpd5Cow-h0BRRXwP2YiZ2z57DwbxcLSwQjeSaRvcJykC-NOZT2NYtNZoQDk64XZlzKeM157IRBubFOpKYE5G5H2FG9Swloa7DbRnivcHAq0QYAKaOUHwJfxtq5be6g"/>
+<div>
+<p class="text-xs text-on-surface-variant">Recipe by</p>
+<p class="font-label-bold text-on-surface">Chef Rinrin</p>
+</div>
+<button class="ml-auto text-primary">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+</div>
+</div>
+<!-- Suggested Recipes -->
+<div class="space-y-md">
+<h3 class="font-title-sm text-title-sm">Similar Recipes</h3>
+<div class="flex gap-md bg-secondary-container/20 p-sm rounded-xl hover:bg-secondary-container/40 transition-all cursor-pointer">
+<img alt="Related" class="w-20 h-20 rounded-lg object-cover" data-alt="Appetizing photo of an Indonesian Gado-Gado salad with peanut sauce and crackers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAz9UF3Es3JK51znSdLWHS6oCsNJJTSUSHb5DTqK2EGwBMVoq8u6stJGe48CkpKR86Dcq3YjfhOAH4S8u-WcEFTJDi3Od0iR-SA4itQDmtlnE6mw4y8XrUE7LH70fHq1YFBFEPeWsCImOxE4GHoUGmDAx_9J9Eq22PZXKaMPSzkuIYMcrfArHY75xNQgo_WQWhp45OE3J72wpH33UxTyUC2_OiRoKwziiqkZ9Jg3umoT9sft7F8ULd1kCarxO3Q6bN_tAbttTMvMY"/>
+<div class="flex-1 py-1">
+<p class="font-label-bold text-body-sm line-clamp-2">Authentic Indo Gado-Gado with Satay Sauce</p>
+<p class="text-xs text-primary-container font-label-bold mt-1">20 Mins</p>
+</div>
+</div>
+<div class="flex gap-md bg-secondary-container/20 p-sm rounded-xl hover:bg-secondary-container/40 transition-all cursor-pointer">
+<img alt="Related" class="w-20 h-20 rounded-lg object-cover" data-alt="Steaming bowl of spicy Laksa noodle soup with shrimp and fresh herbs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6NOEha4-fcoriyUAqPnlwEJD0IZD_AOx5GtTnoM8F0z0YfvPBXAnpZFTtb2DhDHlmW1G3rC97CddqOvFftSlo7V_RVkNGklvZ2o3UFfgCvV0l8Fl-J76IDk5AYqMu8Z5KVvc0LMOy8SfvAGXl7XyxMEF-zNEVSl52aDbYRy2FguiK95PpcfmIPU7afhXAnFnOUaFCYyWOZchZJf2kN-EgkSZOnuvxmH77dte2GSZXuIdd6SCrCIwpy2Wbvk2jjPQEBAKkto56vhY"/>
+<div class="flex-1 py-1">
+<p class="font-label-bold text-body-sm line-clamp-2">Creamy Seafood Laksa Bowl</p>
+<p class="text-xs text-primary-container font-label-bold mt-1">45 Mins</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-50 dark:bg-gray-950 w-full border-t border-gray-200 dark:border-gray-800 py-8 px-5 flex flex-col items-center gap-4 text-center font-plus-jakarta-sans">
+<div class="text-orange-600 font-bold text-lg">RasaRekomendasi</div>
+<div class="flex gap-6 text-xs text-gray-500">
+<a class="hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+<p class="text-xs text-gray-500">© 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_20px_rgba(255,112,67,0.08)] flex justify-around items-center px-4 py-3 rounded-t-3xl font-plus-jakarta-sans">
+<div class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 dark:active:bg-gray-800 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[11px] font-medium mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center text-orange-600 dark:text-orange-400 scale-110 active:bg-orange-50 dark:active:bg-gray-800 transition-all">
+<span class="material-symbols-outlined" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-[11px] font-medium mt-1">Recommend</span>
+</div>
+<div class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 dark:active:bg-gray-800 transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[11px] font-medium mt-1">Profile</span>
+</div>
+</nav>
+<!-- FAB for Cooking Mode (Mobile Only) -->
+<button class="lg:hidden fixed bottom-24 right-5 w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+</button>
+</body></html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Management - Admin RasaRekomendasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background-color: #F8F9FA;
+            color: #333;
+        }
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 0;
+            background: white;
+            z-index: 100;
+            width: 260px;
+        }
+        .sidebar-header-top {
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .sidebar-header-top .brand {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 16px;
+        }
+        .sidebar-header-top .divider {
+            color: #ccc;
+        }
+        .sidebar-header-top .sub {
+            color: #999;
+        }
+
+        .admin-profile-block {
+            padding: 0 30px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .profile-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .profile-info h4 {
+            font-size: 14px;
+            margin: 0;
+            color: #333;
+        }
+        .profile-info p {
+            font-size: 11px;
+            margin: 0;
+            color: #888;
+        }
+
+        .admin-menu li a {
+            padding: 15px 30px;
+            color: #666;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .admin-menu li a i {
+            width: 20px;
+            font-size: 16px;
+        }
+        .admin-menu li a.active {
+            background-color: #FFF0ED;
+            color: var(--primary);
+            border-right: none;
+            box-shadow: inset 4px 0 0 var(--primary);
+        }
+
+        .admin-content {
+            margin-left: 260px;
+            background-color: #F8F9FA;
+            min-height: 100vh;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 15px 50px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+        .search-wrapper {
+            position: relative;
+            margin-right: auto;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .search-wrapper input {
+            padding: 10px 15px 10px 40px;
+            width: 300px;
+            border-radius: 20px;
+            border: 1px solid #eee;
+            background: #F8F9FA;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #666;
+            font-size: 20px;
+        }
+        .header-actions img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .page-content {
+            padding: 40px 50px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .page-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .btn-add {
+            background: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(255, 90, 54, 0.2);
+        }
+
+        .card-white {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border: 1px solid #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <div>
+                <div class="sidebar-header-top">
+                    <span class="brand">RasaRekomendasi</span>
+                    <span class="divider">/</span>
+                    <span class="sub">Admin Panel</span>
+                </div>
+
+                <div class="admin-profile-block">
+                    <div class="profile-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h4>Admin Panel</h4>
+                        <p>Manage RasaRekomendasi</p>
+                    </div>
+                </div>
+                
+                <ul class="admin-menu">
+                    <li><a href="../admin_dashboard/index.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="../recipe_management/index.html"><i class="fas fa-book-open"></i> Recipes</a></li>
+                    <li><a href="../category_management/index.html" class="active"><i class="fas fa-shapes"></i> Categories</a></li>
+                    <li><a href="../comment_moderation/index.html"><i class="fas fa-comments"></i> Moderation</a></li>
+                    <li><a href="../statistics_page/index.html"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            
+            <div class="header-top">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search categories...">
+                </div>
+                <div class="header-actions">
+                    <i class="far fa-bell"></i>
+                    <i class="far fa-heart"></i>
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User">
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="page-header">
+                    <div>
+                        <h1>Category Management</h1>
+                        <p>Manage and organize recipe categories across the platform</p>
+                    </div>
+                    <button class="btn-add"><i class="fas fa-plus"></i> Add Category</button>
+                </div>
+                <div class="card-white">
+                    <p style="color: #666;">Categories list and management interface goes here...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

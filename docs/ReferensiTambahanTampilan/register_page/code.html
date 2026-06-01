@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recipe-card-shadow {
+            box-shadow: 0 10px 40px -10px rgba(255, 112, 67, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex flex-col font-body-md text-on-background">
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center px-container-margin py-xl">
+<div class="w-full max-w-[480px]">
+<!-- Registration Card -->
+<div class="bg-surface-container-lowest rounded-[32px] overflow-hidden recipe-card-shadow border border-surface-variant/30">
+<!-- Card Header with Appetizing Visual -->
+<div class="relative h-48 w-full">
+<img alt="Cooking Background" class="w-full h-full object-cover" data-alt="Close-up of fresh colorful vegetables and herbs on a rustic wooden table with soft morning light, creating a warm kitchen atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8BQQYZ35l_3wofFYIHblnrnJCeUFkJ4TCV1pInZTYbkMTKZp4NWpcAvnHICJDSUT9_ioM30IBEIV97hhphLzN4kN-mGOYFIl0B5sXIaE4k2Ooh9ezB0SQFWgGAYkKysGhC0k3jVtuVPC8UztRFikrcSrlKAv0LJdURQni4hxDiJshJKg_nDGCPnj7-e2pmEzrkHrrq9X-9vqhoWy5Z1aR2ZOQ2zVExOWY9SrMULc1iA7EH-QRI7FqhEMLnCde6bZsHGhUFMTjPWc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest to-transparent"></div>
+<div class="absolute bottom-4 left-8">
+<span class="text-primary-container font-display-lg text-[28px] leading-tight">Join the Kitchen</span>
+<p class="text-on-surface-variant font-body-sm">Start your flavor journey today</p>
+</div>
+</div>
+<!-- Registration Form -->
+<div class="p-8 pt-4">
+<form class="space-y-5">
+<!-- Full Name -->
+<div class="space-y-1.5">
+<label class="font-label-bold text-label-bold text-on-surface-variant flex items-center gap-2" for="full_name">
+<span class="material-symbols-outlined text-[18px]">person</span>
+                                FULL NAME
+                            </label>
+<input class="w-full px-5 py-3.5 bg-surface rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all font-body-md placeholder:text-outline/50" id="full_name" name="full_name" placeholder="Indra Wijaya" type="text"/>
+</div>
+<!-- Email -->
+<div class="space-y-1.5">
+<label class="font-label-bold text-label-bold text-on-surface-variant flex items-center gap-2" for="email">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                EMAIL ADDRESS
+                            </label>
+<input class="w-full px-5 py-3.5 bg-surface rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all font-body-md placeholder:text-outline/50" id="email" name="email" placeholder="indra@rasarekomendasi.com" type="email"/>
+</div>
+<!-- Password Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Password -->
+<div class="space-y-1.5">
+<label class="font-label-bold text-label-bold text-on-surface-variant flex items-center gap-2" for="password">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+                                    PASSWORD
+                                </label>
+<input class="w-full px-5 py-3.5 bg-surface rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all font-body-md" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+<!-- Confirm Password -->
+<div class="space-y-1.5">
+<label class="font-label-bold text-label-bold text-on-surface-variant flex items-center gap-2" for="confirm_password">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+                                    CONFIRM
+                                </label>
+<input class="w-full px-5 py-3.5 bg-surface rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary-container focus:border-primary-container outline-none transition-all font-body-md" id="confirm_password" name="confirm_password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<!-- Terms Checkbox -->
+<div class="flex items-start gap-3 py-2">
+<div class="pt-0.5">
+<input class="w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container cursor-pointer transition-colors" id="terms" name="terms" type="checkbox"/>
+</div>
+<label class="font-body-sm text-on-surface-variant cursor-pointer select-none" for="terms">
+                                I agree to the <a class="text-primary-container font-semibold hover:underline" href="#">Terms of Service</a> and <a class="text-primary-container font-semibold hover:underline" href="#">Privacy Policy</a>
+</label>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-xl font-title-sm text-title-sm shadow-lg shadow-primary-container/20 hover:opacity-90 active:scale-[0.98] transition-all flex justify-center items-center gap-2" type="submit">
+                            Create Account
+                            <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="relative my-8 text-center">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-surface-variant"></div>
+</div>
+<span class="relative px-4 bg-surface-container-lowest text-outline text-xs font-label-bold">ALREADY A CHEF?</span>
+</div>
+<!-- Login Link -->
+<div class="text-center">
+<p class="font-body-md text-on-surface-variant">
+                            Already have an account? 
+                            <a class="text-primary font-bold hover:text-primary-container transition-colors ml-1" href="#">Login here</a>
+</p>
+</div>
+</div>
+</div>
+<!-- Brand Logo Floating (Bottom) -->
+<div class="mt-8 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-weight="fill" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="text-primary font-display-lg text-xl">RasaRekomendasi</span>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-5 flex flex-col items-center gap-4 text-center bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+<div class="flex flex-wrap justify-center gap-6 mb-2">
+<a class="text-gray-500 hover:text-orange-400 transition-colors font-plus-jakarta-sans text-xs" href="#">About Us</a>
+<a class="text-gray-500 hover:text-orange-400 transition-colors font-plus-jakarta-sans text-xs" href="#">Terms of Service</a>
+<a class="text-gray-500 hover:text-orange-400 transition-colors font-plus-jakarta-sans text-xs" href="#">Privacy Policy</a>
+<a class="text-gray-500 hover:text-orange-400 transition-colors font-plus-jakarta-sans text-xs" href="#">Contact</a>
+</div>
+<p class="font-plus-jakarta-sans text-xs text-gray-500">© 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+</footer>
+</body></html>

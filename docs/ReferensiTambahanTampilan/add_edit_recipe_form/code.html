@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin - Add/Edit Recipe | RasaRekomendasi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #ff7043;
+            box-shadow: 0 0 0 4px rgba(255, 112, 67, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Sidebar Navigation (Mandatory for Admin Screens) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-100 shadow-lg shadow-orange-500/5 z-40 font-plus-jakarta-sans text-sm">
+<div class="p-6">
+<h1 class="text-lg font-black text-orange-600">Admin Panel</h1>
+<p class="text-xs text-gray-500">Manage RasaRekomendasi</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-50 text-orange-600 border-r-4 border-orange-500 font-semibold transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Recipes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span>Moderation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-orange-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Statistics</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-gray-100">
+<div class="flex items-center gap-3 px-4 py-2">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="Admin Avatar" data-alt="close-up portrait of a professional modern chef in white uniform with friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg4WmZ0EFmjBSAK4A5UDaSfo9TbtR9mQxLOotTvFVmub15R-WqtID4kS4mC3O1BZKVVHt18Cgv9GkPiSJFg_KRZwXssjKhVr949rGWnkMz1KkvCy2iCg1cwzZpfrcuB0txC7dn7ywxb2xvJl6Cz2fPCvp3t20DDnymAaZmQrnM7YjgyocEVqdY_aoFVI-lYqsyeJD4d2PCcl4R-pgXjlDHIxQUQuKBub2a3nH-agxQe7jdpJPT4_pnXUts0VYDobVDGOfBfViidSc"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Chef Admin</p>
+<p class="text-[10px] uppercase tracking-wider text-gray-400">Super User</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 min-h-screen pb-24 lg:pb-12">
+<!-- Top App Bar -->
+<header class="sticky top-0 bg-white/80 backdrop-blur-md z-30 border-b border-gray-100">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto font-plus-jakarta-sans">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 hover:bg-orange-50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="text-xl font-bold text-orange-600">Add New Recipe</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden md:flex items-center gap-2 px-4 py-2 text-gray-500 hover:bg-gray-100 rounded-xl transition-all font-medium">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+<span>Cancel</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-2 bg-primary-container text-white rounded-xl shadow-lg shadow-orange-500/20 hover:opacity-90 active:scale-95 transition-all font-bold">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+<span>Publish</span>
+</button>
+</div>
+</div>
+</header>
+<div class="max-w-5xl mx-auto px-5 lg:px-10 py-8">
+<form class="space-y-8">
+<!-- Section 1: Basic Info -->
+<div class="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-orange-100/50">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Basic Information</h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Recipe Title</label>
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-xl px-4 py-3 form-input-focus transition-all text-body-md font-body-md" placeholder="e.g. Spicy Rendang Padang" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Description</label>
+<textarea class="w-full bg-surface-container-lowest border-outline-variant rounded-xl px-4 py-3 form-input-focus transition-all text-body-md font-body-md" placeholder="Briefly describe your recipe..." rows="4"></textarea>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Hero Image</label>
+<div class="relative group cursor-pointer border-2 border-dashed border-outline-variant rounded-3xl h-64 overflow-hidden flex flex-col items-center justify-center bg-surface-container-low hover:bg-orange-50/30 transition-all">
+<img alt="Recipe Preview" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-105 transition-transform duration-700" data-alt="a vibrant salad bowl with fresh greens, tomatoes, and grilled chicken, top-down view, professional culinary lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB81u7EjdmCYsJ-VltZBLjtUUeYXJPHWMJqjjl4M00njCUiEwpADC8oQj0cLsa4UaQy6mBcP7zoAU7IIBLX0BZTo97gS4vo282zEpNrwvmg2KQo820B4Hp7-L58QeqC6sppL23MR1r-7ui4JchqBY760WSXdMVY-Bf1ZwxI75rW9pdeKTkSE3xfeI9GRtV68LK_bRxOXlaATbcMWBFBiSQ0_zAzVwuBNNvFKu08UBksWnWPeAoJMXIIbWt1ohQ1NY5JHta9g6CawKI"/>
+<div class="relative z-10 flex flex-col items-center">
+<span class="material-symbols-outlined text-4xl text-orange-500 mb-2" data-icon="cloud_upload">cloud_upload</span>
+<p class="font-title-sm text-title-sm text-on-surface">Click to upload photo</p>
+<p class="text-body-sm text-on-surface-variant">Max size 5MB (PNG, JPG)</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Details Grid -->
+<div class="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-orange-100/50">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Recipe Details</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Category</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded-xl px-4 py-3 form-input-focus transition-all text-body-md font-body-md">
+<option>Main Course</option>
+<option>Snack</option>
+<option>Dessert</option>
+<option>Drink</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Taste Profile</label>
+<select class="w-full bg-surface-container-lowest border-outline-variant rounded-xl px-4 py-3 form-input-focus transition-all text-body-md font-body-md">
+<option>Spicy</option>
+<option>Sweet</option>
+<option>Savory</option>
+<option>Sour</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Difficulty</label>
+<div class="flex gap-2">
+<button class="flex-1 py-3 px-2 border border-outline-variant rounded-xl text-body-sm font-label-bold bg-orange-50 text-orange-600 border-orange-500" type="button">Easy</button>
+<button class="flex-1 py-3 px-2 border border-outline-variant rounded-xl text-body-sm font-label-bold text-on-surface-variant hover:bg-gray-50 transition-all" type="button">Med</button>
+<button class="flex-1 py-3 px-2 border border-outline-variant rounded-xl text-body-sm font-label-bold text-on-surface-variant hover:bg-gray-50 transition-all" type="button">Hard</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-bold text-label-bold text-on-surface-variant uppercase">Prep Time (Min)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-outline-variant rounded-xl px-4 py-3 form-input-focus transition-all text-body-md font-body-md pr-12" placeholder="30" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 font-label-bold">min</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Ingredients List -->
+<div class="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-orange-100/50">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Ingredients</h3>
+</div>
+<button class="text-orange-600 font-label-bold flex items-center gap-1 hover:bg-orange-50 px-3 py-1 rounded-lg transition-all" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span> Add New
+                        </button>
+</div>
+<div class="space-y-4">
+<!-- Ingredient Item -->
+<div class="grid grid-cols-12 gap-3 items-center">
+<div class="col-span-7 md:col-span-8">
+<input class="w-full bg-surface-container-low border-transparent rounded-xl px-4 py-3 focus:bg-white form-input-focus transition-all text-body-md font-body-md" placeholder="Ingredient name (e.g. Garlic)" type="text"/>
+</div>
+<div class="col-span-3 md:col-span-3">
+<input class="w-full bg-surface-container-low border-transparent rounded-xl px-4 py-3 focus:bg-white form-input-focus transition-all text-body-md font-body-md text-right" placeholder="Qty (e.g. 2 Cloves)" type="text"/>
+</div>
+<div class="col-span-2 md:col-span-1 flex justify-center">
+<button class="p-2 text-gray-400 hover:text-error hover:bg-error-container/20 rounded-full transition-all" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Ingredient Item -->
+<div class="grid grid-cols-12 gap-3 items-center">
+<div class="col-span-7 md:col-span-8">
+<input class="w-full bg-surface-container-low border-transparent rounded-xl px-4 py-3 focus:bg-white form-input-focus transition-all text-body-md font-body-md" placeholder="Ingredient name (e.g. Shallots)" type="text"/>
+</div>
+<div class="col-span-3 md:col-span-3">
+<input class="w-full bg-surface-container-low border-transparent rounded-xl px-4 py-3 focus:bg-white form-input-focus transition-all text-body-md font-body-md text-right" placeholder="Qty (e.g. 100g)" type="text"/>
+</div>
+<div class="col-span-2 md:col-span-1 flex justify-center">
+<button class="p-2 text-gray-400 hover:text-error hover:bg-error-container/20 rounded-full transition-all" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Cooking Steps -->
+<div class="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-orange-100/50">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="format_list_numbered">format_list_numbered</span>
+</div>
+<h3 class="font-headline-md text-headline-md">Cooking Steps</h3>
+</div>
+<button class="text-orange-600 font-label-bold flex items-center gap-1 hover:bg-orange-50 px-3 py-1 rounded-lg transition-all" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span> Add Step
+                        </button>
+</div>
+<div class="space-y-6">
+<!-- Step Item -->
+<div class="flex gap-4 group">
+<div class="flex-shrink-0 w-10 h-10 rounded-2xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold font-plus-jakarta-sans">1</div>
+<div class="flex-1 space-y-4">
+<textarea class="w-full bg-surface-container-low border-transparent rounded-xl px-4 py-3 focus:bg-white form-input-focus transition-all text-body-md font-body-md" placeholder="Describe this cooking step..." rows="2"></textarea>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-500 rounded-lg text-sm font-label-bold hover:bg-gray-200 transition-all" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="image">image</span> Add Photo
+                                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-500 rounded-lg text-sm font-label-bold hover:bg-gray-200 transition-all" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span> Add Timer
+                                    </button>
+</div>
+</div>
+<div class="flex-shrink-0">
+<button class="p-2 text-gray-300 hover:text-error transition-all" type="button">
+<span class="material-symbols-outlined" data-icon="drag_indicator">drag_indicator</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Sticky Mobile Actions -->
+<div class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md border-t border-gray-100 p-4 flex gap-3 shadow-[0_-4px_20px_rgba(255,112,67,0.08)]">
+<button class="flex-1 px-4 py-4 bg-gray-100 text-gray-700 rounded-2xl font-bold active:scale-95 transition-all">Cancel</button>
+<button class="flex-[2] px-4 py-4 bg-primary-container text-white rounded-2xl font-bold shadow-lg shadow-orange-500/20 active:scale-95 transition-all">Save Changes</button>
+</div>
+<!-- Footer (Internal Admin Only) -->
+<footer class="w-full py-8 px-5 flex flex-col items-center gap-4 text-center border-t border-gray-200 bg-gray-50 mt-12">
+<div class="font-plus-jakarta-sans text-xs text-gray-500">
+                © 2024 RasaRekomendasi. Admin Dashboard v2.4.0
+            </div>
+<div class="flex gap-4">
+<a class="text-xs font-plus-jakarta-sans text-gray-400 hover:text-orange-500 transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs font-plus-jakarta-sans text-gray-400 hover:text-orange-500 transition-colors" href="#">Help Center</a>
+<a class="text-xs font-plus-jakarta-sans text-gray-400 hover:text-orange-500 transition-colors" href="#">System Status</a>
+</div>
+</footer>
+</main>
+</body></html>

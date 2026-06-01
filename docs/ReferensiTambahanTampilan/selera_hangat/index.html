@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending - RasaRekomendasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="top-navbar">
+        <div class="brand">RasaRekomendasi</div>
+        <div class="nav-center">
+            <a href="../home_page/index.html" class="active">Home</a>
+            <a href="../recommendation_results/index.html">Recommend</a>
+            <a href="../user_profile/index.html">Profile</a>
+        </div>
+        <div class="nav-right">
+            <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search recipes...">
+            </div>
+            <i class="far fa-bell"></i>
+            <i class="far fa-heart"></i>
+            <img src="https://i.pravatar.cc/150?img=11" alt="Profile" onclick="window.location.href='../user_profile/index.html'">
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 style="margin-bottom: 10px;">Trending Banget 🔥</h1>
+        <p style="color: var(--text-light); margin-bottom: 40px;">Resep paling banyak recook minggu ini</p>
+
+        <div class="grid-3">
+            <a href="../recipe_detail/index.html"><div class="card"><h3>Seblak Jeletot Viral</h3><p>By @DapurGenZ</p></div></a>
+            <a href="../recipe_detail/index.html"><div class="card"><h3>Fluffy Soufflé Pancake</h3><p>By @ChefAlvin</p></div></a>
+            <a href="../recipe_detail/index.html"><div class="card"><h3>Protein Packed Bowl</h3><p>By @FitWithFebby</p></div></a>
+            <a href="../recipe_detail/index.html"><div class="card"><h3>Summer Avocado Quinoa</h3><p>By Budi Santoso</p></div></a>
+        </div>
+    </div>
+</body>
+</html>
