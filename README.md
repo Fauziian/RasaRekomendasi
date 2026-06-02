@@ -387,7 +387,7 @@ Table: tags
 | 2 | Rizky Ramdan | Business Analyst | 🔄 IN PROGRESS | Analisis kebutuhan, spesifikasi fitur, user stories |
 | 3 | Fahmi Nashruddin | UI/UX Designer | ✅ | Desain interface, wireframe, prototyping |
 | 4 | Putra | UI/UX Designer | ✅ | Desain interface, UI consistency, testing desain |
-| 5 | Ahmad Faiz Zaenuddin | QA (SQA) | ❌ BELUM | Testing, bug reporting, quality assurance |
+| 5 | Ahmad Faiz Zaenuddin | QA (SQA) | 🔄 IN PROGRESS | Testing, bug reporting, quality assurance |
 | 6 | Rifqi Fauzi Anwar | Lead Programmer | ✅ | Arsitektur sistem, auth, dashboard, queue notification |
 | 7 | Azfa Salsabila | Business Analyst | 🔄 IN PROGRESS | Requirement analysis, dokumentasi, user research |
 | 8 | Atik Wulandari | Scrum Master | 🔄 IN PROGRESS | Agile facilitation, sprint planning, retrospective |
