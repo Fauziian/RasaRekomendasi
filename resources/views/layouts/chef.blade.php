@@ -96,7 +96,13 @@
                 <li><a href="{{ route('chef.recipes.index') }}" class="{{ request()->routeIs('chef.recipes.*') ? 'active' : '' }}"><i class="fas fa-book-open"></i> Pengguna Pemesanan</a></li>
                 <li><a href="{{ route('chef.consultations.index') }}" class="{{ request()->routeIs('chef.consultations.*') ? 'active' : '' }}"><i class="fas fa-comments"></i> Chat Konsultasi</a></li>
                 <li><a href="{{ route('chef.consultations.index') }}"><i class="fas fa-history"></i> Riwayat Chat</a></li>
-                <li><a href="{{ route('profile.edit') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}"><i class="fas fa-cog"></i> Settings</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form-chef" style="display:none;">
+                        @csrf
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-chef').submit();" style="color: #C62828;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
             </ul>
         </div>
         

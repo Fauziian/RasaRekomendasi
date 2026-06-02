@@ -117,6 +117,13 @@
                 <li><a href="{{ route('admin.moderation.index') }}" class="{{ request()->routeIs('admin.moderation.*') ? 'active' : '' }}"><i class="fas fa-comments"></i> Moderation</a></li>
                 <li><a href="{{ route('admin.transactions.index') }}" class="{{ request()->routeIs('admin.transactions.*') ? 'active' : '' }}"><i class="fas fa-receipt"></i> Transactions</a></li>
                 <li><a href="{{ route('admin.statistics') }}" class="{{ request()->routeIs('admin.statistics') ? 'active' : '' }}"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                <li><a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}"><i class="fas fa-user-cog"></i> Profile Settings</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" id="logout-form-admin" style="display:none;">
+                        @csrf
+                    </form>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-admin').submit();" style="color: #C62828;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
             </ul>
         </div>
         <div>

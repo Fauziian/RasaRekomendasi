@@ -156,6 +156,10 @@
             <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
                 <h1 style="font-size:32px; font-weight:800; color:#111; font-family:'Outfit',sans-serif;">{{ $user->name }}</h1>
                 <button class="btn-edit-profile" onclick="switchTab('settings')"><i class="far fa-edit"></i> EDIT PROFILE</button>
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn-edit-profile" style="background: #e74c3c;"><i class="fas fa-sign-out-alt"></i> KELUAR</button>
+                </form>
             </div>
             
             <p style="font-size:14px; color:#555; max-width:640px; margin-top:10px; line-height:1.6;">
