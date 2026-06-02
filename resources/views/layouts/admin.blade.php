@@ -8,11 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root{--primary:#FF5A36;--primary-h:#E04D2C;--primary-bg:#FFF0EC;--bg:#F8F9FA;--white:#FFFFFF;--text:#333;--text-m:#777;--border:#EEE;--radius:16px;--radius-sm:10px;--shadow:0 4px 15px rgba(0,0,0,.04);}
+        :root{--primary:#FF5A36;--primary-h:#E04D2C;--primary-bg:#FFF0EC;--bg:linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;--white:#FFFFFF;--text:#333;--text-m:#777;--border:#EEE;--radius:16px;--radius-sm:10px;--shadow:0 4px 15px rgba(0,0,0,.04);}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);}
         a{text-decoration:none;color:inherit;transition:color .2s;}
-        .admin-sidebar{position:fixed;top:0;left:0;width:250px;height:100vh;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;z-index:100;}
+        .admin-sidebar{position:fixed;top:70px;left:0;width:250px;bottom:0;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:space-between;z-index:900;}
         .admin-brand{padding:28px 28px 20px;}
         .admin-brand h2{font-size:20px;font-weight:800;color:var(--primary);}
         .admin-brand p{font-size:11px;color:var(--text-m);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
@@ -25,7 +25,7 @@
         .sidebar-user img{width:36px;height:36px;border-radius:50%;object-fit:cover;}
         .sidebar-user h4{font-size:13px;font-weight:700;margin:0;}
         .sidebar-user p{font-size:11px;color:var(--text-m);margin:0;}
-        .admin-main{margin-left:250px;min-height:100vh;padding:32px 48px;flex:1;min-width:0;}
+        .admin-main{margin-left:250px;margin-top:70px;min-height:calc(100vh - 70px);padding:32px 48px;flex:1;min-width:0;}
         .admin-topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;}
         .admin-search{position:relative;}
         .admin-search i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#aaa;font-size:13px;}
@@ -102,13 +102,29 @@
     @stack('styles')
 </head>
 <body>
+<!-- Full-width Admin Topbar matching Figma -->
+<header style="position:fixed;top:0;left:0;right:0;height:70px;background:var(--white);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 28px;z-index:1000;">
+    <div style="display:flex;align-items:center;gap:8px;">
+        <h2 style="font-size:22px;font-weight:800;color:var(--primary);font-family:'Outfit',sans-serif;margin:0;letter-spacing:-0.5px;">RasaRekomendasi</h2>
+        <span style="font-size:12px;color:#aaa;font-weight:600;margin-top:4px;">/ Admin Panel</span>
+    </div>
+    
+    <div style="position:relative;margin-left:auto;margin-right:24px;">
+        <i class="fas fa-search" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#aaa;font-size:13px;"></i>
+        <input type="text" placeholder="Search data..." style="padding:10px 16px 10px 38px;width:280px;background:#F5F6F8;border:1px solid transparent;border-radius:var(--radius-sm);font-family:inherit;font-size:13px;outline:none;transition:all 0.2s;" onfocus="this.style.background='#fff';this.style.borderColor='var(--primary)'">
+    </div>
+
+    <div style="display:flex;align-items:center;gap:20px;color:var(--text-m);font-size:18px;">
+        <i class="far fa-bell" style="cursor:pointer;transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-m)'"></i>
+        <i class="far fa-heart" style="cursor:pointer;transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-m)'"></i>
+        <img src="{{ Auth::user()->avatar_url }}" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #FFE0D8;" alt="">
+    </div>
+</header>
+
 <div style="display:flex">
     <aside class="admin-sidebar">
         <div>
-            <div class="admin-brand">
-                <h2>RasaRekomendasi</h2>
-                <p>Admin Panel</p>
-            </div>
+            <div style="padding-top:20px;"></div>
             <ul class="admin-menu">
                 <li><a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="fas fa-th-large"></i> Dashboard</a></li>
                 <li><a href="{{ route('admin.recipes.index') }}" class="{{ request()->routeIs('admin.recipes.*') ? 'active' : '' }}"><i class="fas fa-book-open"></i> Recipes</a></li>
@@ -143,18 +159,6 @@
     </aside>
 
     <main class="admin-main">
-        <div class="admin-topbar">
-            <div class="admin-search">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search insights...">
-            </div>
-            <div class="topbar-right">
-                <i class="far fa-bell" style="cursor:pointer"></i>
-                <i class="far fa-heart" style="cursor:pointer"></i>
-                <img src="{{ Auth::user()->avatar_url }}" alt="">
-            </div>
-        </div>
-
         @if(session('success'))<div class="alert alert-success"><i class="fas fa-check-circle"></i> {{ session('success') }}</div>@endif
         @if(session('error'))<div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> {{ session('error') }}</div>@endif
 

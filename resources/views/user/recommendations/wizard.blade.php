@@ -138,7 +138,7 @@
         <p>Personalisasi pengalaman memasakmu agar sesuai dengan selera hari ini.</p>
     </div>
 
-    <form method="POST" action="{{ route('recommendations.results') }}">
+    <form method="POST" action="{{ route('recommendations.submit') }}">
         @csrf
 
         <!-- Section 1: Kategori Masakan -->

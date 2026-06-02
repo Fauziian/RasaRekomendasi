@@ -8,9 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ChefConsultationController extends Controller
 {
-    public function index() {
-        $consultations = Consultation::where('chef_id', Auth::id())->with('user')->latest()->paginate(15);
-        return view('chef.consultations.index', compact('consultations'));
+    public function index(Request $request) {
+        $query = Consultation::where('chef_id', Auth::id())->with('user');
+        if ($request->has('history')) {
+            $query->whereIn('status', ['completed', 'cancelled']);
+        } else {
+            $query->whereIn('status', ['pending', 'confirmed', 'ongoing', 'active']);
+        }
+        $consultations = $query->latest()->paginate(15);
+        $isHistory = $request->has('history');
+        return view('chef.consultations.index', compact('consultations', 'isHistory'));
     }
     public function chat(Consultation $consultation) {
         if ($consultation->chef_id !== Auth::id()) abort(403);
@@ -23,8 +30,17 @@ class ChefConsultationController extends Controller
         Message::create([
             'consultation_id' => $consultation->id,
             'sender_id' => Auth::id(),
-            'message' => $request->message
+            'sender_role' => 'chef',
+            'body' => $request->message,
         ]);
         return back();
+    }
+    public function complete(Consultation $consultation) {
+        if ($consultation->chef_id !== Auth::id()) abort(403);
+        $consultation->update([
+            'status' => 'completed',
+            'ended_at' => now(),
+        ]);
+        return redirect()->route('chef.consultations.index', ['history' => 1])->with('success', 'Sesi konsultasi telah diselesaikan!');
     }
 }

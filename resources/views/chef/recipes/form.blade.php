@@ -47,7 +47,7 @@
                         </select>
                     </div>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px">
                     <div class="form-group">
                         <label class="form-label">PERSIAPAN (MENIT)</label>
                         <input type="number" name="prep_time" class="form-control" value="{{ old('prep_time',$recipe->prep_time ?? '') }}" required>
@@ -59,6 +59,10 @@
                     <div class="form-group">
                         <label class="form-label">KALORI (KCAL)</label>
                         <input type="number" name="calories" class="form-control" value="{{ old('calories',$recipe->calories ?? '') }}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">PORSI (SERVINGS)</label>
+                        <input type="number" name="servings" class="form-control" value="{{ old('servings',$recipe->servings ?? '') }}">
                     </div>
                 </div>
             </div>
@@ -82,7 +86,27 @@
                         </div>
                     @endif
                 </div>
-                <button type="button" onclick="addIngredient()" class="btn btn-white btn-sm"><i class="fas fa-plus"></i> Tambah Bahan</button>
+                <button type="button" onclick="addIngredient()" class="btn btn-white btn-sm" style="margin-bottom:10px;"><i class="fas fa-plus"></i> Tambah Bahan</button>
+            </div>
+
+            <div class="white-card">
+                <h3 style="font-size:16px;font-weight:700;margin-bottom:18px">Langkah Memasak</h3>
+                <div id="stepsList">
+                    @if(isset($recipe) && $recipe->cooking_steps)
+                        @foreach($recipe->cooking_steps as $i => $step)
+                        <div style="display:grid;grid-template-columns:auto 1fr;gap:10px;margin-bottom:10px;align-items:center">
+                            <span style="font-weight:700;color:var(--text-m)">{{ $i + 1 }}</span>
+                            <input type="text" name="cooking_steps[{{ $i }}][instruction]" class="form-control" value="{{ $step['instruction'] ?? '' }}" placeholder="Instruksi Langkah">
+                        </div>
+                        @endforeach
+                    @else
+                        <div style="display:grid;grid-template-columns:auto 1fr;gap:10px;margin-bottom:10px;align-items:center">
+                            <span style="font-weight:700;color:var(--text-m)">1</span>
+                            <input type="text" name="cooking_steps[0][instruction]" class="form-control" placeholder="Instruksi Langkah">
+                        </div>
+                    @endif
+                </div>
+                <button type="button" onclick="addStep()" class="btn btn-white btn-sm"><i class="fas fa-plus"></i> Tambah Langkah</button>
             </div>
         </div>
 
@@ -95,6 +119,10 @@
                         <option value="published" {{ old('status',($recipe->status ?? '')) == 'published' ? 'selected':'' }}>Published</option>
                         <option value="draft" {{ old('status',($recipe->status ?? '')) == 'draft' ? 'selected':'' }}>Draft</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">LINK VIDEO YOUTUBE</label>
+                    <input type="url" name="video_url" class="form-control" placeholder="e.g. https://www.youtube.com/watch?v=..." value="{{ old('video_url',$recipe->video_url ?? '') }}">
                 </div>
                 <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--border)">
                     <input type="checkbox" name="is_vip_content" id="vipCheck" value="1" style="accent-color:var(--primary);width:18px;height:18px" {{ old('is_vip_content',($recipe->is_vip_content ?? false)) ? 'checked':'' }}>
@@ -116,6 +144,16 @@ function addIngredient() {
             <input type="text" name="ingredients[${ingCount}][unit]" class="form-control" placeholder="Satuan" style="width:80px">
         </div>`);
     ingCount++;
+}
+
+let stepCount = {{ isset($recipe) && $recipe->cooking_steps ? count($recipe->cooking_steps) : 1 }};
+function addStep() {
+    document.getElementById('stepsList').insertAdjacentHTML('beforeend',
+        `<div style="display:grid;grid-template-columns:auto 1fr;gap:10px;margin-bottom:10px;align-items:center">
+            <span style="font-weight:700;color:var(--text-m)">${stepCount + 1}</span>
+            <input type="text" name="cooking_steps[${stepCount}][instruction]" class="form-control" placeholder="Instruksi Langkah">
+        </div>`);
+    stepCount++;
 }
 </script>
 @endpush

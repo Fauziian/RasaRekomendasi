@@ -15,22 +15,22 @@
     <!-- Card 1: Total Booked -->
     <div class="white-card" style="margin-bottom:0;padding:24px;background:#FFF0EC;border:none;border-radius:16px;">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8B2500;letter-spacing:0.8px;opacity:0.7;">Total Booked</div>
-        <div style="font-size:36px;font-weight:800;color:#8B2500;margin-top:6px;">24</div>
-        <div style="font-size:12px;color:#8B2500;margin-top:6px;opacity:0.8;">Slots this month</div>
+        <div style="font-size:36px;font-weight:800;color:#8B2500;margin-top:6px;">{{ $totalBooked }}</div>
+        <div style="font-size:12px;color:#8B2500;margin-top:6px;opacity:0.8;">Slots booked</div>
     </div>
 
     <!-- Card 2: Available -->
     <div class="white-card" style="margin-bottom:0;padding:24px;background:#E8F5E9;border:none;border-radius:16px;">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#2E7D32;letter-spacing:0.8px;opacity:0.7;">Available</div>
-        <div style="font-size:36px;font-weight:800;color:#2E7D32;margin-top:6px;">12</div>
-        <div style="font-size:12px;color:#2E7D32;margin-top:6px;opacity:0.8;">Next: Tomorrow, 09:00</div>
+        <div style="font-size:36px;font-weight:800;color:#2E7D32;margin-top:6px;">{{ $availableSlots }}</div>
+        <div style="font-size:12px;color:#2E7D32;margin-top:6px;opacity:0.8;">Upcoming slots</div>
     </div>
 
     <!-- Card 3: Earnings -->
     <div class="white-card" style="margin-bottom:0;padding:24px;background:#FFF9EF;border:none;border-radius:16px;">
         <div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8B6508;letter-spacing:0.8px;opacity:0.7;">Earnings</div>
-        <div style="font-size:36px;font-weight:800;color:#8B6508;margin-top:6px;">Rp 4.2M</div>
-        <div style="font-size:12px;color:#8B6508;margin-top:6px;opacity:0.8;">+15% from last week</div>
+        <div style="font-size:36px;font-weight:800;color:#8B6508;margin-top:6px;">Rp {{ number_format($earnings, 0, ',', '.') }}</div>
+        <div style="font-size:12px;color:#8B6508;margin-top:6px;opacity:0.8;">Total chef payout</div>
     </div>
 </div>
 
@@ -73,23 +73,23 @@
             @foreach($schedules as $s)
             <tr>
                 <td style="padding:16px 0;vertical-align:middle;font-weight:700;color:#111;">
-                    {{ \Carbon\Carbon::parse($s->consultation_date)->format('M d, Y') }}
+                    {{ \Carbon\Carbon::parse($s->available_date)->format('M d, Y') }}
                 </td>
                 <td style="padding:16px 0;vertical-align:middle;color:#555;">
-                    {{ \Carbon\Carbon::parse($s->start_time)->format('h:i A') }}
+                    {{ \Carbon\Carbon::parse($s->available_time_start)->format('h:i A') }}
                 </td>
                 <td style="padding:16px 0;vertical-align:middle;color:#555;">
-                    {{ \Carbon\Carbon::parse($s->end_time)->format('h:i A') }}
+                    {{ \Carbon\Carbon::parse($s->available_time_end)->format('h:i A') }}
                 </td>
                 <td style="padding:16px 0;vertical-align:middle;">
-                    @if($s->is_available)
+                    @if($s->status === 'available')
                         <span class="badge" style="background:#E8F5E9;color:#2E7D32;font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;text-transform:uppercase;">AVAILABLE</span>
                     @else
                         <span class="badge" style="background:#FFEBEE;color:#C62828;font-size:10px;font-weight:700;padding:5px 12px;border-radius:20px;text-transform:uppercase;">BOOKED</span>
                     @endif
                 </td>
                 <td style="padding:16px 0;vertical-align:middle;text-align:right;">
-                    @if($s->is_available)
+                    @if($s->status === 'available')
                         <form method="POST" action="{{ route('chef.schedules.destroy', $s) }}" onsubmit="return confirm('Hapus slot jadwal ini?')" style="display:inline;">
                             @csrf @method('DELETE')
                             <button style="border:none;background:#FFEBEE;color:#C62828;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;margin-left:auto;">
@@ -134,7 +134,10 @@
     </table>
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid #F8F9FA">
-        <span style="font-size:13px;color:var(--text-m)">Showing {{ $schedules->count() }} items</span>
+        <span style="font-size:13px;color:var(--text-m)">Showing {{ $schedules->count() }} of {{ $schedules->total() }} items</span>
+        <div>
+            {{ $schedules->links() }}
+        </div>
     </div>
 </div>
 

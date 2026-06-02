@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        :root{--primary:#FF5A36;--primary-h:#E04D2C;--primary-bg:#FFF0EC;--bg:#F8F9FA;--white:#FFFFFF;--text:#333;--text-m:#777;--border:#EEE;--radius:16px;--radius-sm:10px;--shadow:0 4px 15px rgba(0,0,0,.04);}
+        :root{--primary:#FF5A36;--primary-h:#E04D2C;--primary-bg:#FFF0EC;--bg:linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;--white:#FFFFFF;--text:#333;--text-m:#777;--border:#EEE;--radius:16px;--radius-sm:10px;--shadow:0 4px 15px rgba(0,0,0,.04);}
         *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
         body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);}
         a{text-decoration:none;color:inherit;transition:color .2s;}
@@ -93,9 +93,11 @@
             <ul class="chef-menu">
                 <li><a href="{{ route('chef.dashboard') }}" class="{{ request()->routeIs('chef.dashboard') ? 'active' : '' }}"><i class="fas fa-th-large"></i> Dashboard</a></li>
                 <li><a href="{{ route('chef.schedules.index') }}" class="{{ request()->routeIs('chef.schedules.*') ? 'active' : '' }}"><i class="fas fa-calendar-alt"></i> Jadwal Konsultasi</a></li>
-                <li><a href="{{ route('chef.recipes.index') }}" class="{{ request()->routeIs('chef.recipes.*') ? 'active' : '' }}"><i class="fas fa-book-open"></i> Pengguna Pemesanan</a></li>
-                <li><a href="{{ route('chef.consultations.index') }}" class="{{ request()->routeIs('chef.consultations.*') ? 'active' : '' }}"><i class="fas fa-comments"></i> Chat Konsultasi</a></li>
-                <li><a href="{{ route('chef.consultations.index') }}"><i class="fas fa-history"></i> Riwayat Chat</a></li>
+                <li><a href="{{ route('chef.recipes.index') }}" class="{{ request()->routeIs('chef.recipes.*') ? 'active' : '' }}"><i class="fas fa-book-open"></i> Resep Saya</a></li>
+                <li><a href="{{ route('chef.consultations.index') }}" class="{{ request()->routeIs('chef.consultations.*') && !request()->has('history') ? 'active' : '' }}"><i class="fas fa-comments"></i> Chat Konsultasi</a></li>
+                <li><a href="{{ route('chef.consultations.index', ['history' => 1]) }}" class="{{ request()->has('history') ? 'active' : '' }}"><i class="fas fa-history"></i> Riwayat Chat</a></li>
+                <li><a href="{{ route('chef.analytics') }}" class="{{ request()->routeIs('chef.analytics') ? 'active' : '' }}"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="{{ route('chef.earnings') }}" class="{{ request()->routeIs('chef.earnings') ? 'active' : '' }}"><i class="fas fa-wallet"></i> Earnings</a></li>
                 <li><a href="{{ route('profile.edit') }}" class="{{ request()->routeIs('profile.edit') ? 'active' : '' }}"><i class="fas fa-cog"></i> Settings</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" id="logout-form-chef" style="display:none;">

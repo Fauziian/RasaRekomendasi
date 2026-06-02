@@ -35,8 +35,17 @@ class UserRecipeController extends Controller
     }
 
     public function save(Recipe $recipe) {
-        $user = \Illuminate\Support\Facades\Auth::user();
-        $user->savedRecipes()->toggle($recipe->id);
-        return back()->with('success', 'Koleksi resep berhasil diperbarui!');
+        $user   = \Illuminate\Support\Facades\Auth::user();
+        $result = $user->savedRecipes()->toggle($recipe->id);
+        $isSaved = count($result['attached']) > 0;
+
+        if (request()->expectsJson()) {
+            return response()->json([
+                'saved'   => $isSaved,
+                'message' => $isSaved ? 'Resep disimpan ke favorit!' : 'Resep dihapus dari favorit.'
+            ]);
+        }
+
+        return back()->with('success', $isSaved ? 'Resep disimpan ke favorit!' : 'Resep dihapus dari favorit.');
     }
 }

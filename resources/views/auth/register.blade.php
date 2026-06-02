@@ -5,7 +5,7 @@
 <style>
     /* Premium Figma signup styles */
     .register-body {
-        background-color: #FAF9F6;
+        background: linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;
         min-height: 100vh;
         display: flex;
         align-items: center;
