@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -123,10 +124,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
-    /** Recipes saved/bookmarked by this user */
-    public function savedRecipes(): HasMany
+    /** Recipes saved/bookmarked by this user (pivot: recipe_saves) */
+    public function savedRecipes(): BelongsToMany
     {
-        return $this->hasMany(RecipeSave::class);
+        return $this->belongsToMany(Recipe::class, 'recipe_saves', 'user_id', 'recipe_id')
+                    ->withTimestamps();
     }
 
     /** Schedules set by this chef */

@@ -172,16 +172,50 @@
                 <a href="{{ route('vip.index') }}" class="btn" style="background:#F57F17; color:#FFF; font-weight:700; border-radius:24px; padding:10px 24px;">Upgrade VIP</a>
             </div>
         @else
-            <!-- Giant high-fidelity HTML5 visual player -->
-            <div style="position:relative; background:#000; border-radius:20px; overflow:hidden; height:380px; display:flex; align-items:center; justify-content:center; margin-bottom:36px; box-shadow:0 12px 30px rgba(0,0,0,0.06);">
-                <img src="{{ $recipe->image ? asset('storage/' . $recipe->image) : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80' }}" style="width:100%; height:100%; object-fit:cover; opacity:0.65;" alt="">
-                <a href="#" style="position:absolute; font-size:64px; color:#FF5A36; cursor:pointer; transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                    <i class="fas fa-play-circle"></i>
-                </a>
-                <div style="position:absolute; bottom:20px; left:20px; color:#FFF; font-weight:700; text-shadow:0 2px 4px rgba(0,0,0,0.6); font-size:13px; display:flex; align-items:center; gap:6px;">
-                    <i class="fas fa-crown" style="color:#FFD700;"></i> Tutorial Video Masak Eksklusif VIP
+            <!-- YouTube Video Embed Player -->
+            @if($recipe->video_url)
+                @php
+                    $embedUrl = $recipe->video_url;
+                    if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|[^/]+\?v=)|youtu\.be/)([^"&?/ ]{11})%i', $embedUrl, $match)) {
+                        $youtube_id = $match[1];
+                        $startTime = '';
+                        if (preg_match('/[?&]t=(\d+)s?/', $embedUrl, $timeMatch)) {
+                            $startTime = '?start=' . $timeMatch[1];
+                        }
+                        $embedUrl = "https://www.youtube.com/embed/" . $youtube_id . $startTime;
+                    }
+                @endphp
+                <div style="position:relative; border-radius:20px; overflow:hidden; margin-bottom:36px; box-shadow:0 12px 30px rgba(0,0,0,0.12); background:#000;">
+                    <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                        <iframe
+                            id="recipe-youtube-player"
+                            src="{{ $embedUrl }}{{ str_contains($embedUrl, '?') ? '&' : '?' }}rel=0&modestbranding=1&autoplay=0&showinfo=0&iv_load_policy=3"
+                            title="Tutorial Video: {{ $recipe->title }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                            style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    @if($recipe->is_vip_content)
+                    <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(0,0,0,0.7)); padding:20px 20px 14px; pointer-events:none;">
+                        <span style="color:#FFD700; font-weight:700; font-size:13px; display:flex; align-items:center; gap:6px;">
+                            <i class="fas fa-crown"></i> Tutorial Video Masak Eksklusif VIP
+                        </span>
+                    </div>
+                    @endif
                 </div>
-            </div>
+            @else
+                <!-- Fallback thumbnail if no video URL -->
+                <div style="position:relative; background:#000; border-radius:20px; overflow:hidden; height:380px; display:flex; align-items:center; justify-content:center; margin-bottom:36px; box-shadow:0 12px 30px rgba(0,0,0,0.06);">
+                    <img src="{{ $recipe->image ? asset('storage/' . $recipe->image) : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80' }}" style="width:100%; height:100%; object-fit:cover; opacity:0.65;" alt="">
+                    <div style="position:absolute; text-align:center; color:#FFF;">
+                        <i class="fas fa-video-slash" style="font-size:48px; opacity:0.6; margin-bottom:12px; display:block;"></i>
+                        <span style="font-size:14px; opacity:0.8;">Video belum tersedia</span>
+                    </div>
+                </div>
+            @endif
         @endif
 
         <!-- Ingredients Checklist Grid -->

@@ -12,7 +12,9 @@ class ProfileController
     public function edit()
     {
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+        $savedRecipes = $user->savedRecipes()->with('category')->latest('recipe_saves.created_at')->get();
+        $myComments   = $user->commentsRatings()->with('recipe')->latest()->take(20)->get();
+        return view('profile.edit', compact('user', 'savedRecipes', 'myComments'));
     }
 
     public function update(Request $request)
@@ -20,12 +22,12 @@ class ProfileController
         $user = Auth::user();
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $user->name = $request->name;
+        $user->name  = $request->name;
         $user->email = $request->email;
 
         if ($request->filled('password')) {

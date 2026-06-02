@@ -20,6 +20,7 @@ class ChefRecipeController extends Controller
             'title'=>'required','description'=>'required','category_id'=>'required',
             'difficulty'=>'required','prep_time'=>'required|integer','cook_time'=>'required|integer',
             'calories'=>'nullable|integer','servings'=>'nullable|integer','status'=>'required',
+            'video_url'=>'nullable|url',
         ]);
         $data['chef_id'] = Auth::id();
         $data['ingredients'] = $request->ingredients ?? [];
@@ -38,8 +39,11 @@ class ChefRecipeController extends Controller
         $data = $request->validate([
             'title'=>'required','description'=>'required','category_id'=>'required',
             'difficulty'=>'required','prep_time'=>'required|integer','cook_time'=>'required|integer',
-            'status'=>'required',
+            'calories'=>'nullable|integer','servings'=>'nullable|integer','status'=>'required',
+            'video_url'=>'nullable|url',
         ]);
+        $data['ingredients'] = $request->ingredients ?? [];
+        $data['cooking_steps'] = $request->cooking_steps ?? [];
         $data['is_vip_content'] = $request->boolean('is_vip_content');
         $recipe->update($data);
         return redirect()->route('chef.recipes.index')->with('success','Resep berhasil diperbarui!');

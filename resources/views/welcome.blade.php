@@ -11,13 +11,13 @@
         display: flex; align-items: center;
         position: relative; overflow: hidden;
         padding: 4rem 2rem;
+        background: linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;
     }
     .hero-bg {
         position: absolute; inset: 0;
         background:
-            radial-gradient(ellipse 80% 60% at 70% 40%, rgba(224,92,0,.18) 0%, transparent 60%),
-            radial-gradient(ellipse 60% 80% at 20% 70%, rgba(247,201,72,.08) 0%, transparent 50%),
-            linear-gradient(160deg, #0f0f0f 0%, #1a0d00 100%);
+            radial-gradient(ellipse 80% 60% at 70% 40%, rgba(224,92,0,.08) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 80% at 20% 70%, rgba(247,201,72,.04) 0%, transparent 50%);
     }
     .hero-grid {
         position: absolute; inset: 0; opacity: .04;
@@ -93,7 +93,10 @@
     .recipe-card-float .rc-meta { font-size: .75rem; color: var(--text-muted); display: flex; gap: 1rem; }
 
     /* ── Sections ── */
-    .section { padding: 5rem 2rem; }
+    .section { 
+        padding: 5rem 2rem;
+        background: linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;
+    }
     .section-inner { max-width: 1280px; margin: 0 auto; }
     .section-header { margin-bottom: 2.5rem; }
     .section-header h2 {

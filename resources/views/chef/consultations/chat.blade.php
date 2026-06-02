@@ -75,18 +75,18 @@
                     <div style="display:flex;align-items:flex-start;gap:12px;justify-content:flex-end;">
                         <div style="text-align:right;">
                             <div style="background:#A03010;color:#FFF;padding:12px 16px;border-radius:16px 0 16px 16px;box-shadow:0 2px 8px rgba(160,48,16,0.15);font-size:13.5px;max-width:380px;line-height:1.4;text-align:left;">
-                                {{ $msg->message }}
+                                {{ $msg->body }}
                             </div>
                             <div style="font-size:10px;color:#999;margin-top:4px;margin-right:4px;">{{ $msg->created_at->format('H:i A') }} <i class="fas fa-check-double" style="color:#A03010;"></i></div>
                         </div>
-                        <div style="width:36px;height:36px;border-radius:50%;background:#FFF0EC;color:#A03010;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px;border:1px solid #FFE0D8;">BK</div>
+                        <img src="{{ Auth::user()->avatar_url }}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid #EEE;" alt="">
                     </div>
                 @else
                     <div style="display:flex;align-items:flex-start;gap:12px;">
-                        <img src="{{ Auth::user()->avatar_url }}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid #EEE;" alt="">
+                        <img src="{{ $consultation->user->avatar_url }}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1px solid #EEE;" alt="">
                         <div>
                             <div style="background:#FFF;padding:12px 16px;border-radius:0 16px 16px 16px;box-shadow:0 2px 8px rgba(0,0,0,0.02);font-size:13.5px;color:#111;max-width:380px;line-height:1.4;">
-                                {{ $msg->message }}
+                                {{ $msg->body }}
                             </div>
                             <div style="font-size:10px;color:#999;margin-top:4px;margin-left:4px;">{{ $msg->created_at->format('H:i A') }}</div>
                         </div>

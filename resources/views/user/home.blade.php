@@ -126,7 +126,7 @@
         display: grid;
         grid-template-columns: 240px 1fr;
         min-height: 90vh;
-        background: #FAF9F6;
+        background: linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;
     }
     
     /* Left Sidebar */

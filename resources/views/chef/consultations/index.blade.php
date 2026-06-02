@@ -1,9 +1,9 @@
 @extends('layouts.chef')
-@section('title', 'Daftar Konsultasi VIP')
+@section('title', isset($isHistory) && $isHistory ? 'Riwayat Konsultasi VIP' : 'Daftar Konsultasi VIP')
 @section('content')
 <div style="margin-bottom:26px">
-    <h1 style="font-size:28px;font-weight:700;color:#111">Daftar Konsultasi VIP</h1>
-    <p style="color:var(--text-m);margin-top:4px">Bantu dan berikan instruksi kepada user yang berlangganan sesi VIP Anda.</p>
+    <h1 style="font-size:28px;font-weight:700;color:#111">{{ isset($isHistory) && $isHistory ? 'Riwayat Konsultasi VIP' : 'Daftar Konsultasi VIP' }}</h1>
+    <p style="color:var(--text-m);margin-top:4px">{{ isset($isHistory) && $isHistory ? 'Daftar riwayat sesi konsultasi VIP Anda yang telah selesai atau dibatalkan.' : 'Bantu dan berikan instruksi kepada user yang berlangganan sesi VIP Anda.' }}</p>
 </div>
 
 <div class="white-card">

@@ -91,12 +91,17 @@
             </td>
             <td style="padding:14px 0;vertical-align:middle;">
                 @php
-                    // Dynamic color mapping based on Category name to make it look premium
                     $catColors = [
-                        'healthy' => ['#E8F5E9', '#2E7D32'],
-                        'fusion' => ['#FFF9EF', '#FF9800'],
-                        'vegan' => ['#E8F5E9', '#2E7D32'],
-                        'breakfast' => ['#FFF0EC', '#FF5A36'],
+                        'sarapan' => ['#FFF0EC', '#FF5A36'],
+                        'vegetarian & vegan' => ['#E8F5E9', '#2E7D32'],
+                        'makanan sehat' => ['#E8F5E9', '#2E7D32'],
+                        'masakan indonesia' => ['#FFF9EF', '#FF9800'],
+                        'masakan asia' => ['#F3E5F5', '#7B1FA2'],
+                        'masakan barat' => ['#E2F1E7', '#1B5E20'],
+                        'dessert & kue' => ['#FCE4EC', '#C2185B'],
+                        'minuman' => ['#E0F7FA', '#00838F'],
+                        'makanan bayi' => ['#E0F2F1', '#00695C'],
+                        'seafood' => ['#E8EAF6', '#283593'],
                     ];
                     $catName = strtolower($recipe->category->name ?? '');
                     $color = $catColors[$catName] ?? ['#E3F2FD', '#1565C0'];
@@ -105,21 +110,21 @@
                     {{ $recipe->category->name ?? 'Uncategorized' }}
                 </span>
             </td>
-            <td style="padding:14px 0;vertical-align:middle;font-size:13px;font-weight:700;color:#FF9800;">
-                ★ {{ number_format($recipe->rating_avg ?? 4.8, 1) }}
+            <td style="padding:14px 0;vertical-align:middle;font-size:13px;font-weight:700;color:#111;">
+                <span style="color:#FF9800;margin-right:2px;">★</span> {{ number_format($recipe->rating_avg ?? 4.8, 1) }}
             </td>
             <td style="padding:14px 0;vertical-align:middle;color:var(--text-m);font-size:13px;">
                 {{ $recipe->created_at->format('M d, Y') }}
             </td>
             <td style="padding:14px 0;vertical-align:middle;text-align:right;">
-                <div style="display:inline-flex;gap:8px;">
-                    <a href="{{ route('admin.recipes.edit',$recipe) }}" style="border:none;background:#F0F4F8;color:#1A56B0;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;text-decoration:none;" title="Edit Recipe">
-                        <i class="fas fa-pencil-alt"></i>
+                <div style="display:inline-flex;gap:12px;align-items:center;">
+                    <a href="{{ route('admin.recipes.edit',$recipe) }}" style="color:#A0A0A0;font-size:15px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#FF5A36'" onmouseout="this.style.color='#A0A0A0'" title="Edit Recipe">
+                        <i class="far fa-edit"></i>
                     </a>
                     <form method="POST" action="{{ route('admin.recipes.destroy',$recipe) }}" onsubmit="return confirm('Hapus resep ini?')" style="display:inline;">
                         @csrf @method('DELETE')
-                        <button style="border:none;background:#FFEBEE;color:#C62828;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;" title="Delete Recipe">
-                            <i class="fas fa-trash-alt"></i>
+                        <button style="border:none;background:transparent;color:#A0A0A0;font-size:15px;cursor:pointer;padding:0;transition:color 0.2s;" onmouseover="this.style.color='#C62828'" onmouseout="this.style.color='#A0A0A0'" title="Delete Recipe">
+                            <i class="far fa-trash-alt"></i>
                         </button>
                     </form>
                 </div>

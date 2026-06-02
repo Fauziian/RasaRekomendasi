@@ -42,7 +42,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Recommendation AI Wizard
     Route::get('/recommendations', [UserRecommendationController::class, 'index'])->name('recommendations.index');
-    Route::post('/recommendations/results', [UserRecommendationController::class, 'results'])->name('recommendations.results');
+    Route::post('/recommendations/submit', [UserRecommendationController::class, 'submit'])->name('recommendations.submit');
+    Route::get('/recommendations/results', [UserRecommendationController::class, 'results'])->name('recommendations.results');
 
     // VIP Area
     Route::get('/vip', [UserVipController::class, 'index'])->name('vip.index');
@@ -89,6 +90,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/consultations/{consultation}/chat', [ChefConsultationController::class, 'chat'])->name('chef.consultations.chat');
         Route::get('/consultations/{consultation}/room', [ChefConsultationController::class, 'chat'])->name('consultations.chat');
         Route::post('/consultations/{consultation}/message', [ChefConsultationController::class, 'sendMessage'])->name('consultations.message');
+        Route::post('/consultations/{consultation}/complete', [ChefConsultationController::class, 'complete'])->name('consultations.complete');
+        Route::get('/analytics', [ChefDashboardController::class, 'analytics'])->name('analytics');
+        Route::get('/earnings', [ChefDashboardController::class, 'earnings'])->name('earnings');
     });
 });
 

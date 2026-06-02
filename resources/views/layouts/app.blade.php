@@ -16,8 +16,8 @@
             --primary-h:    #E04D2C;
             --primary-l:    #FF7A5A;
             --primary-bg:   #FFF0EC;
-            --bg:           #FDFCF8;
-            --bg-dash:      #F4F6F8;
+            --bg:           linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;
+            --bg-dash:      linear-gradient(0deg, #FCF9F8, #FCF9F8), #FFFFFF;
             --white:        #FFFFFF;
             --text:         #333333;
             --text-m:       #777777;
@@ -244,14 +244,122 @@
 
         /* ── Footer ── */
         footer {
-            background: var(--bg); border-top: 1px solid var(--border);
-            padding: 40px 5%; text-align: center;
-            color: var(--text-m); font-size: 14px;
+            background: #FCF9F8;
+            border-top: 1px solid var(--border);
+            padding: 60px 0 30px;
+            color: var(--text-m);
+            font-size: 14px;
         }
-        .footer-brand { color: var(--primary); font-weight: 800; font-size: 18px; margin-bottom: 10px; }
-        .footer-links { display: flex; justify-content: center; gap: 24px; margin: 14px 0; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-m); font-size: 13px; }
-        .footer-links a:hover { color: var(--primary); }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 40px;
+            text-align: left;
+        }
+        .footer-col h4 {
+            color: #111111;
+            font-weight: 800;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .footer-col p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            transition: all 0.2s ease;
+            background: #FFF;
+        }
+        .social-link:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links-list li {
+            margin-bottom: 12px;
+        }
+        .footer-links-list a {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer-links-list a:hover {
+            color: var(--primary);
+        }
+        .newsletter-form {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 4px;
+            background: #FFF;
+            margin-top: 12px;
+            max-width: 320px;
+        }
+        .newsletter-input {
+            border: none;
+            outline: none;
+            padding: 10px 14px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text);
+            background: transparent;
+            flex: 1;
+            width: 100%;
+        }
+        .newsletter-btn {
+            background: var(--primary);
+            border: none;
+            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .newsletter-btn:hover {
+            background: var(--primary-h);
+        }
+        .newsletter-btn i {
+            font-size: 14px;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding: 24px 20px 0;
+            border-top: 1px solid #EAE6DF;
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+        }
 
         /* ── Section Header ── */
         .section-header {
@@ -274,9 +382,11 @@
             .nav-search { width: 160px; }
             .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
             .grid-2 { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr 1fr; gap: 30px; }
         }
         @media (max-width: 480px) {
             .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+            .footer-container { grid-template-columns: 1fr; gap: 24px; }
         }
     </style>
     @stack('styles')
@@ -363,14 +473,56 @@
 @yield('content')
 
 <footer>
-    <div class="footer-brand">RasaRekomendasi</div>
-    <div class="footer-links">
-        <a href="#">About Us</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Contact</a>
+    <div class="footer-container">
+        <!-- Col 1: Brand & Socials -->
+        <div class="footer-col">
+            <h4 style="color: var(--primary); font-size: 22px;">RasaRekomendasi</h4>
+            <p>Platfrom komunitas masak nomor satu untuk Gen Z Indonesia. Temukan kebahagiaan di dapurmu.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-link" title="Website"><i class="fas fa-globe"></i></a>
+                <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <!-- Col 2: Navigasi -->
+        <div class="footer-col">
+            <h4>Navigasi</h4>
+            <ul class="footer-links-list">
+                <li><a href="{{ route('welcome') }}">Beranda</a></li>
+                <li><a href="{{ route('recipes.index') }}">Daftar Resep</a></li>
+                <li><a href="{{ route('recommendations.index') }}">Rekomendasi</a></li>
+                <li><a href="{{ route('vip.index') }}">Paket VIP</a></li>
+            </ul>
+        </div>
+
+        <!-- Col 3: Dukungan -->
+        <div class="footer-col">
+            <h4>Dukungan</h4>
+            <ul class="footer-links-list">
+                <li><a href="#">Pusat Bantuan</a></li>
+                <li><a href="#">Kebijakan Privasi</a></li>
+                <li><a href="#">Syarat & Ketentuan</a></li>
+                <li><a href="#">Hubungi Kami</a></li>
+            </ul>
+        </div>
+
+        <!-- Col 4: Newsletter -->
+        <div class="footer-col">
+            <h4>Newsletter</h4>
+            <p>Dapatkan update resep terbaru langsung ke emailmu.</p>
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Terima kasih telah mendaftar!');" class="newsletter-form">
+                <input type="email" placeholder="Email kamu" class="newsletter-input" required>
+                <button type="submit" class="newsletter-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
     </div>
-    <p>&copy; 2026 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+
+    <div class="footer-bottom">
+        &copy; 2024 RasaRekomendasi. Built for Gen Z Home Chefs.
+    </div>
 </footer>
 
 <script>
