@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Recipe - Admin RasaRekomendasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .admin-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .section-icon {
+            width: 40px; height: 40px;
+            background: #FFF0ED;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 20px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            background: #fafafa;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .upload-area:hover { border-color: var(--primary); background: #FFF0ED; }
+        .upload-area i { font-size: 40px; color: var(--primary); margin-bottom: 10px; }
+
+        .dynamic-list-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .delete-btn { color: #999; cursor: pointer; transition: 0.3s; }
+        .delete-btn:hover { color: #D32F2F; }
+
+        .step-container { background: #f9f9f9; padding: 20px; border-radius: 15px; margin-bottom: 15px; position: relative; }
+        .step-number-admin { position: absolute; top: 20px; left: -15px; width: 30px; height: 30px; background: #EAEAEA; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #555; }
+        
+        .admin-sidebar { min-height: 100vh; position: sticky; top: 0; }
+        .admin-brand h2 { font-weight: 800; font-size: 22px; color: var(--primary); margin-bottom: 5px; }
+        .admin-brand p { font-size: 12px; color: var(--text-light); margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <div class="admin-brand">
+                <h2>Admin Panel</h2>
+                <p>Manage RasaRekomendasi</p>
+            </div>
+            <ul class="admin-menu">
+                <li><a href="../admin_dashboard/index.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                <li><a href="../recipe_management/index.html" class="active"><i class="fas fa-book-open"></i> Recipes</a></li>
+                <li><a href="../category_management/index.html"><i class="fas fa-shapes"></i> Categories</a></li>
+                <li><a href="../comment_moderation/index.html"><i class="fas fa-comments"></i> Moderation</a></li>
+                <li><a href="../statistics_page/index.html"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+            </ul>
+            
+            <div style="margin-top: auto; padding: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="https://i.pravatar.cc/150?img=11" style="width: 45px; height: 45px; border-radius: 50%;">
+                    <div>
+                        <div style="font-weight: 700; font-size: 14px;">Chef Admin</div>
+                        <div style="font-size: 10px; color: var(--text-light); text-transform: uppercase;">Super User</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            <div class="admin-topbar">
+                <h1 style="color: var(--primary);">Add New Recipe</h1>
+                <div style="display: flex; gap: 15px;">
+                    <a href="../recipe_management/index.html" class="btn btn-outline" style="border: none; color: #555;"><i class="fas fa-times"></i> Cancel</a>
+                    <button class="btn"><i class="fas fa-save"></i> Publish</button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">
+                    <div class="section-icon"><i class="fas fa-info"></i></div>
+                    Basic Information
+                </div>
+                
+                <div class="grid-2">
+                    <div>
+                        <div class="form-group">
+                            <label>RECIPE TITLE</label>
+                            <input type="text" class="form-control" placeholder="e.g. Spicy Rendang Padang">
+                        </div>
+                        <div class="form-group">
+                            <label>DESCRIPTION</label>
+                            <textarea class="form-control" rows="5" placeholder="Briefly describe your recipe..."></textarea>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label>HERO IMAGE</label>
+                            <div class="upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div style="font-weight: 600; font-size: 18px;">Click to upload photo</div>
+                                <div style="font-size: 12px; margin-top: 5px;">Max size 5MB (PNG, JPG)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title">
+                    <div class="section-icon"><i class="fas fa-sliders-h"></i></div>
+                    Recipe Details
+                </div>
+                
+                <div class="grid-4" style="gap: 15px;">
+                    <div class="form-group">
+                        <label>CATEGORY</label>
+                        <select class="form-control" style="appearance: auto;">
+                            <option>Main Course</option>
+                            <option>Dessert</option>
+                            <option>Appetizer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>TASTE PROFILE</label>
+                        <select class="form-control" style="appearance: auto;">
+                            <option>Spicy</option>
+                            <option>Sweet</option>
+                            <option>Savory</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>DIFFICULTY</label>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline" style="flex:1; padding: 14px 10px; color: var(--primary); border-color: var(--primary); background: #FFF0ED;">Easy</button>
+                            <button class="btn btn-outline" style="flex:1; padding: 14px 10px; border-color: #ddd; color: #777;">Med</button>
+                            <button class="btn btn-outline" style="flex:1; padding: 14px 10px; border-color: #ddd; color: #777;">Hard</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>PREP TIME (MIN)</label>
+                        <div style="position: relative;">
+                            <input type="number" class="form-control" value="30">
+                            <span style="position: absolute; right: 20px; top: 15px; color: #999;">min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title" style="justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="section-icon"><i class="fas fa-utensils"></i></div>
+                        Ingredients
+                    </div>
+                    <button class="btn btn-outline" style="border: none; font-size: 14px; padding: 5px 10px;">+ Add New</button>
+                </div>
+                
+                <div class="dynamic-list-item">
+                    <input type="text" class="form-control" placeholder="Ingredient name (e.g. Garlic)" value="Ingredient name (e.g. Garlic)" style="flex: 2;">
+                    <input type="text" class="form-control" placeholder="Qty (e.g. 2 Cloves)" value="Qty (e.g. 2 Cloves)" style="flex: 1;">
+                    <i class="fas fa-trash-alt delete-btn"></i>
+                </div>
+                <div class="dynamic-list-item">
+                    <input type="text" class="form-control" placeholder="Ingredient name (e.g. Shallots)" value="Ingredient name (e.g. Shallots)" style="flex: 2;">
+                    <input type="text" class="form-control" placeholder="Qty (e.g. 100g)" value="Qty (e.g. 100g)" style="flex: 1;">
+                    <i class="fas fa-trash-alt delete-btn"></i>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-title" style="justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="section-icon"><i class="fas fa-list-ol"></i></div>
+                        Cooking Steps
+                    </div>
+                    <button class="btn btn-outline" style="border: none; font-size: 14px; padding: 5px 10px;">+ Add Step</button>
+                </div>
+                
+                <div style="padding-left: 20px;">
+                    <div class="step-container">
+                        <div class="step-number-admin">1</div>
+                        <textarea class="form-control" rows="3" placeholder="Describe this cooking step..." style="background: #f4f2eb; border: none; margin-bottom: 10px;"></textarea>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-outline" style="border-color: #ddd; color: #777; padding: 8px 15px; font-size: 12px;"><i class="fas fa-image"></i> Add Photo</button>
+                            <button class="btn btn-outline" style="border-color: #ddd; color: #777; padding: 8px 15px; font-size: 12px;"><i class="fas fa-clock"></i> Add Timer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer style="background: transparent; padding: 20px 0;">
+                <p>&copy; 2024 RasaRekomendasi. Admin Dashboard v2.4.0</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-background min-h-screen">
+<!-- SideNavBar (Admin) -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 shadow-lg shadow-orange-500/5 z-50">
+<div class="p-6">
+<h1 class="text-lg font-black text-orange-600 dark:text-orange-400 font-plus-jakarta-sans">Admin Panel</h1>
+<p class="text-xs text-gray-500 dark:text-gray-400 font-plus-jakarta-sans">Manage RasaRekomendasi</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Recipes</span>
+</a>
+<!-- Active Tab: Categories -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-r-4 border-orange-500 font-plus-jakarta-sans text-sm font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span>Moderation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ease-in-out text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 font-plus-jakarta-sans text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Statistics</span>
+</a>
+</nav>
+<div class="p-4 border-t border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-3 p-2">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional chef wearing a white uniform smiling in a bright kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6OZ28Xhc1IoTs7OnQ4-ulLCKvtV5_0WfkHUD6uqcZ2f8pDMIgo9Pg56mm0lTd4AZG6U1zelifXENZ08Zb-6eqTy9IpWuCf971mWDlZb6junU40SfnO6nQBaZyDMbCzd7vZmJudP5jOz5nGEDHffWgoJL3yc-uKAkE0qELyCvm6wn5PddZQlrQ7wYUpRUhTaElMEt1gOIK4zjLLzxP9-GQftNgKZcZMkESWsIy04e1PLuA0TF0STwlu_S_GKkTVJsvk-Y1bi2lGuY"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Chef Admin</p>
+<p class="text-[10px] text-gray-500 uppercase tracking-wider">Superuser</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-64 min-h-screen pb-20">
+<!-- Top Header for Mobile/Web -->
+<header class="sticky top-0 z-40 w-full h-16 bg-white/80 backdrop-blur-md dark:bg-gray-900/80 border-b border-gray-100 dark:border-gray-800 px-container-margin flex items-center justify-between">
+<div class="flex items-center gap-4">
+<button class="lg:hidden p-2 text-on-surface">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-on-background">Category Management</h2>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:bg-orange-50 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</div>
+</header>
+<div class="p-container-margin max-w-7xl mx-auto space-y-8">
+<!-- Quick Stats/Info Bento -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-primary-container p-6 rounded-3xl text-white shadow-lg shadow-orange-500/20 flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="restaurant_menu">restaurant_menu</span>
+<h3 class="font-title-sm text-title-sm mb-1">Active Categories</h3>
+</div>
+<div class="text-4xl font-extrabold font-plus-jakarta-sans">12</div>
+</div>
+<div class="bg-secondary-container p-6 rounded-3xl text-on-secondary-container flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="trending_up">trending_up</span>
+<h3 class="font-title-sm text-title-sm mb-1">Most Popular</h3>
+</div>
+<div class="text-2xl font-bold font-plus-jakarta-sans">Indonesian Food</div>
+</div>
+<div class="bg-tertiary-container p-6 rounded-3xl text-on-tertiary-container flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="new_releases">new_releases</span>
+<h3 class="font-title-sm text-title-sm mb-1">Pending Sync</h3>
+</div>
+<div class="text-4xl font-extrabold font-plus-jakarta-sans">0</div>
+</div>
+</section>
+<!-- Actions Row -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Live Categories</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Manage how recipes are grouped for users.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary px-6 py-3 rounded-full text-white font-title-sm shadow-md hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>New Category</span>
+</button>
+</div>
+<!-- Categories Grid -->
+<div class="recipe-grid">
+<!-- Category Card: Indonesian -->
+<div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 group hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-orange-50 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="ramen_dining">ramen_dining</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Indonesian</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Authentic local flavors from Sabang to Merauke.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-gray-50 dark:border-gray-700">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Recipes</span>
+<span class="font-bold text-on-surface">124</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Status</span>
+<span class="flex items-center gap-1 text-[12px] font-bold text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active
+                            </span>
+</div>
+</div>
+</div>
+<!-- Category Card: Dessert -->
+<div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 group hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-pink-50 dark:bg-pink-900/30 rounded-2xl flex items-center justify-center text-pink-500 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="icecream">icecream</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Dessert</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Sweet treats, cakes, and traditional sweets.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-gray-50 dark:border-gray-700">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Recipes</span>
+<span class="font-bold text-on-surface">86</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Status</span>
+<span class="flex items-center gap-1 text-[12px] font-bold text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active
+                            </span>
+</div>
+</div>
+</div>
+<!-- Category Card: Vegan -->
+<div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 group hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-green-50 dark:bg-green-900/30 rounded-2xl flex items-center justify-center text-green-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="eco">eco</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Vegan</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Plant-based goodness for a healthy lifestyle.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-gray-50 dark:border-gray-700">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Recipes</span>
+<span class="font-bold text-on-surface">42</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Status</span>
+<span class="flex items-center gap-1 text-[12px] font-bold text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active
+                            </span>
+</div>
+</div>
+</div>
+<!-- Category Card: Seafood -->
+<div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 group hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-blue-600 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl" data-icon="set_meal">set_meal</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<h4 class="font-title-sm text-title-sm text-on-surface mb-1">Seafood</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Fresh catch from the ocean to your plate.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-gray-50 dark:border-gray-700">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Recipes</span>
+<span class="font-bold text-on-surface">65</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold text-gray-400">Status</span>
+<span class="flex items-center gap-1 text-[12px] font-bold text-tertiary">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Active
+                            </span>
+</div>
+</div>
+</div>
+<!-- Add New Placeholder -->
+<button class="bg-surface-container border-2 border-dashed border-outline-variant rounded-3xl p-6 flex flex-col items-center justify-center gap-4 group hover:bg-white transition-all duration-300">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-outline group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</div>
+<p class="font-title-sm text-title-sm text-on-surface-variant group-hover:text-primary">Add Category</p>
+</button>
+</div>
+<!-- New Category Modal (Simulated Contextual Section) -->
+<section class="bg-white dark:bg-gray-900 rounded-[32px] p-8 shadow-xl border border-orange-100 dark:border-gray-800">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="edit_square">edit_square</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Create New Category</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fill in the details to add a new classification.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-6">
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-2">CATEGORY NAME</label>
+<input class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-on-surface bg-surface-container-lowest" placeholder="e.g. Street Food" type="text"/>
+</div>
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-2">DESCRIPTION</label>
+<textarea class="w-full px-4 py-3 rounded-xl border border-outline-variant focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-on-surface bg-surface-container-lowest" placeholder="Briefly describe what goes in here..." rows="3"></textarea>
+</div>
+</div>
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-2">PICK AN ICON</label>
+<div class="grid grid-cols-5 gap-3 p-4 bg-surface-container-low rounded-2xl border border-outline-variant/30">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="local_pizza">local_pizza</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="soup_kitchen">soup_kitchen</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="breakfast_dining">breakfast_dining</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="coffee">coffee</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="kebab_dining">kebab_dining</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="local_bar">local_bar</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="cake">cake</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-white shadow-sm"><span class="material-symbols-outlined" data-icon="egg_alt">egg_alt</span></button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-white shadow-sm text-on-surface hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined" data-icon="search">search</span></button>
+</div>
+<p class="mt-3 text-[12px] text-on-surface-variant italic">Select an icon that best represents the food group.</p>
+</div>
+</div>
+<div class="mt-8 flex justify-end gap-4">
+<button class="px-6 py-3 rounded-full font-title-sm text-on-surface-variant hover:bg-surface-variant transition-colors">Discard</button>
+<button class="px-8 py-3 rounded-full font-title-sm bg-primary text-white shadow-lg hover:brightness-110 active:scale-95 transition-all">Save Category</button>
+</div>
+</section>
+</div>
+<footer class="w-full py-8 px-5 flex flex-col items-center gap-4 text-center bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 mt-20">
+<span class="text-orange-600 font-bold font-plus-jakarta-sans">RasaRekomendasi</span>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+<p class="text-gray-500 font-plus-jakarta-sans text-xs">© 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+</footer>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_20px_rgba(255,112,67,0.08)] rounded-t-3xl">
+<button class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 dark:active:bg-gray-800 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center text-orange-600 dark:text-orange-400 scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Recommend</span>
+</button>
+<button class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 dark:active:bg-gray-800 transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Profile</span>
+</button>
+</nav>
+</body></html>

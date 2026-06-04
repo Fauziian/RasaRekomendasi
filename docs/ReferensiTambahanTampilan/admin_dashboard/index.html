@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Dashboard - RasaRekomendasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background-color: #F8F9FA;
+        }
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 0;
+        }
+        .admin-brand h2 {
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .admin-brand p {
+            font-size: 12px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .admin-menu li a {
+            border-radius: 0 30px 30px 0;
+            margin-right: 20px;
+            color: #555;
+        }
+        .admin-menu li a i {
+            width: 20px;
+        }
+        .admin-menu li a.active {
+            background-color: #FFF0ED;
+            color: var(--primary);
+            border-right: none;
+            box-shadow: 2px 0 0 var(--primary) inset;
+        }
+        .admin-user-profile {
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+        .admin-user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .admin-user-profile .info h4 {
+            font-size: 14px;
+            margin: 0;
+            color: var(--text-dark);
+        }
+        .admin-user-profile .info p {
+            font-size: 12px;
+            margin: 0;
+            color: var(--text-light);
+        }
+        
+        .admin-content {
+            margin-left: 250px;
+            padding: 30px 50px;
+            background-color: #F8F9FA;
+            min-height: 100vh;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .search-wrapper {
+            position: relative;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .search-wrapper input {
+            padding-left: 40px;
+            width: 300px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            background: #fff;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #666;
+            font-size: 20px;
+        }
+        .header-actions img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+        .dashboard-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .dashboard-header p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-white {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.2fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .stat-card-new {
+            background: #FFF9EF;
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .stat-card-new.orange {
+            background: var(--primary);
+            color: white;
+        }
+        .stat-icon-new {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .stat-card-new.orange .stat-icon-new {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            box-shadow: none;
+        }
+        .trend-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .live-badge {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .stat-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .stat-card-new.orange .stat-label {
+            color: rgba(255,255,255,0.9);
+        }
+        .stat-value {
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1;
+            color: #111;
+        }
+        .stat-card-new.orange .stat-value {
+            color: white;
+        }
+        .avatar-group {
+            display: flex;
+            margin-top: 15px;
+        }
+        .avatar-group img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            margin-left: -10px;
+        }
+        .avatar-group img:first-child {
+            margin-left: 0;
+        }
+        .avatar-more {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: -10px;
+            border: 2px solid var(--primary);
+            z-index: 10;
+        }
+
+        .middle-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .chart-title h3 {
+            font-size: 22px;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .chart-title p {
+            font-size: 14px;
+            color: #666;
+        }
+        .chart-legend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .chart-legend span {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        /* SVG Line Chart styling */
+        .chart-area {
+            height: 200px;
+            width: 100%;
+            position: relative;
+        }
+        .chart-area svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .chart-line {
+            fill: none;
+            stroke: #C2410C;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .chart-fill {
+            fill: url(#gradient);
+            opacity: 0.2;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            color: #999;
+            font-size: 12px;
+            padding: 0 10px;
+        }
+
+        .popular-kitchens {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+        }
+        .popular-kitchens h3 {
+            font-size: 22px;
+            color: #111;
+            margin-bottom: 25px;
+        }
+        .kitchen-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .kitchen-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .kitchen-info {
+            flex: 1;
+        }
+        .kitchen-info h4 {
+            font-size: 15px;
+            margin-bottom: 5px;
+            color: #111;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #eee;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+        .kitchen-percent {
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            width: 35px;
+            text-align: right;
+        }
+        .view-full-btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 1px solid #ddd;
+            color: var(--primary);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .view-full-btn:hover {
+            border-color: var(--primary);
+            background: #FFF0ED;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .table-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .table-header-flex h3 {
+            font-size: 22px;
+            color: #111;
+        }
+        .table-header-flex a {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 15px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            border-bottom: 1px solid #eee;
+        }
+        td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: middle;
+        }
+        .recipe-cell {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .recipe-cell img {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .recipe-cell div h4 {
+            font-size: 15px;
+            color: #111;
+            margin-bottom: 3px;
+        }
+        .recipe-cell div p {
+            font-size: 12px;
+            color: #888;
+        }
+        .chef-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+        .chef-cell img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .status-pending {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+        .status-flagged {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            color: white;
+        }
+        .btn-approve { background: var(--primary); }
+        .btn-reject { background: white; color: #D32F2F; border: 1px solid #ddd; }
+        .btn-delete { background: white; color: #D32F2F; border: 1px solid #ddd; }
+
+        .footer-simple {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+            color: #888;
+            font-size: 13px;
+        }
+        .footer-simple .links {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-simple a {
+            color: #888;
+        }
+        .footer-simple strong {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <div>
+                <div class="admin-brand">
+                    <h2>RasaRekomendasi</h2>
+                    <p>Admin Panel</p>
+                </div>
+                <ul class="admin-menu">
+                    <li><a href="../admin_dashboard/index.html" class="active"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="../recipe_management/index.html"><i class="fas fa-book-open"></i> Recipes</a></li>
+                    <li><a href="../category_management/index.html"><i class="fas fa-shapes"></i> Categories</a></li>
+                    <li><a href="../comment_moderation/index.html"><i class="fas fa-comments"></i> Moderation</a></li>
+                    <li><a href="../statistics_page/index.html"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                </ul>
+            </div>
+            <div class="admin-user-profile">
+                <img src="https://i.pravatar.cc/150?img=11" alt="Admin">
+                <div class="info">
+                    <h4>Admin Panel</h4>
+                    <p>Manage RasaRekomendasi</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            
+            <div class="header-top">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="form-control" placeholder="Search insights...">
+                </div>
+                <div class="header-actions">
+                    <i class="far fa-bell"></i>
+                    <i class="far fa-heart"></i>
+                    <img src="https://i.pravatar.cc/150?img=33" alt="User">
+                </div>
+            </div>
+
+            <div class="dashboard-header">
+                <div>
+                    <h1>Kitchen Dashboard</h1>
+                    <p>Good morning, Chef. Here's what's simmering today.</p>
+                </div>
+                <div class="header-buttons">
+                    <button class="btn-white"><i class="far fa-calendar"></i> This Week</button>
+                    <button class="btn-primary"><i class="fas fa-plus"></i> Post Recipe</button>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card-new">
+                    <div class="stat-icon-new"><i class="fas fa-utensils"></i></div>
+                    <div class="trend-badge"><i class="fas fa-arrow-trend-up"></i> 12%</div>
+                    <div class="stat-label">Total Recipes</div>
+                    <div class="stat-value">1,284</div>
+                </div>
+                
+                <div class="stat-card-new">
+                    <div class="stat-icon-new"><i class="fas fa-user-friends"></i></div>
+                    <div class="trend-badge"><i class="fas fa-arrow-trend-up"></i> 8%</div>
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-value">42,019</div>
+                </div>
+
+                <div class="stat-card-new orange">
+                    <div class="stat-icon-new"><i class="fas fa-comment"></i></div>
+                    <div class="live-badge">Live Activity</div>
+                    <div class="stat-label">New Comments Today</div>
+                    <div class="stat-value">856</div>
+                    <div class="avatar-group">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="user">
+                        <img src="https://i.pravatar.cc/150?img=2" alt="user">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="user">
+                        <div class="avatar-more">+12</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="middle-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">
+                            <h3>User Activity</h3>
+                            <p>Weekly engagement traffic</p>
+                        </div>
+                        <div class="chart-legend">
+                            <span></span> Sessions
+                        </div>
+                    </div>
+                    <div class="chart-area">
+                        <svg viewBox="0 0 500 150" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" stop-color="#C2410C" stop-opacity="0.4" />
+                                    <stop offset="100%" stop-color="#C2410C" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <path class="chart-fill" d="M 0 130 C 50 130, 80 110, 120 110 C 160 110, 180 140, 210 140 C 240 140, 260 50, 290 50 C 320 50, 340 140, 360 140 C 380 140, 390 10, 420 10 C 450 10, 480 90, 500 100 L 500 150 L 0 150 Z" />
+                            <path class="chart-line" d="M 0 130 C 50 130, 80 110, 120 110 C 160 110, 180 140, 210 140 C 240 140, 260 50, 290 50 C 320 50, 340 140, 360 140 C 380 140, 390 10, 420 10 C 450 10, 480 90, 500 100" />
+                        </svg>
+                    </div>
+                    <div class="chart-labels">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+                </div>
+
+                <div class="popular-kitchens">
+                    <h3>Popular Kitchens</h3>
+                    
+                    <div class="kitchen-item">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&q=80" alt="Healthy" class="kitchen-img">
+                        <div class="kitchen-info">
+                            <h4>Healthy Indonesian</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%; background: #4CAF50;"></div>
+                            </div>
+                        </div>
+                        <div class="kitchen-percent">85%</div>
+                    </div>
+                    
+                    <div class="kitchen-item">
+                        <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?w=100&q=80" alt="Spicy" class="kitchen-img">
+                        <div class="kitchen-info">
+                            <h4>Spicy Comfort Food</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 62%; background: var(--primary);"></div>
+                            </div>
+                        </div>
+                        <div class="kitchen-percent">62%</div>
+                    </div>
+
+                    <div class="kitchen-item">
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=100&q=80" alt="Dessert" class="kitchen-img">
+                        <div class="kitchen-info">
+                            <h4>Gen Z Desserts</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%; background: #D7CCC8;"></div>
+                            </div>
+                        </div>
+                        <div class="kitchen-percent">45%</div>
+                    </div>
+
+                    <button class="view-full-btn">View Full Statistics</button>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-header-flex">
+                    <h3>Awaiting Moderation</h3>
+                    <a href="#">Manage All</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recipe</th>
+                            <th>Chef</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="recipe-cell">
+                                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&q=80" alt="Poke">
+                                    <div>
+                                        <h4>Rainbow Poke Bowl</h4>
+                                        <p>Submitted 2h ago</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="chef-cell">
+                                    <img src="https://i.pravatar.cc/150?img=12" alt="chef">
+                                    @IndoCookie24
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status-badge status-pending">Pending Review</span>
+                            </td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn btn-approve"><i class="fas fa-check"></i></button>
+                                    <button class="action-btn btn-reject"><i class="fas fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="recipe-cell">
+                                    <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=100&q=80" alt="Satay">
+                                    <div>
+                                        <h4>Satay Maranggi Pro</h4>
+                                        <p>Submitted 5h ago</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="chef-cell">
+                                    <img src="https://i.pravatar.cc/150?img=15" alt="chef">
+                                    @ChefBambang
+                                </div>
+                            </td>
+                            <td>
+                                <span class="status-badge status-flagged">Flagged</span>
+                            </td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn btn-approve"><i class="fas fa-check"></i></button>
+                                    <button class="action-btn btn-delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="footer-simple">
+                <div class="links">
+                    <a href="#">About Us</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div>
+                    &copy; 2024 <strong>RasaRekomendasi</strong>. Built for Gen Z Home Chefs.
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

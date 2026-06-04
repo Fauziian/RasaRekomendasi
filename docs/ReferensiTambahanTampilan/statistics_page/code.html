@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Statistics - RasaRekomendasi Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .chart-bar {
+            transition: height 0.3s ease;
+        }
+        .tonal-layer {
+            background-color: rgba(255, 112, 67, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-40 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto font-plus-jakarta-sans">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold text-orange-600 dark:text-orange-400">RasaRekomendasi</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex relative items-center">
+<span class="material-symbols-outlined absolute left-3 text-gray-400">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary-container text-sm w-64" placeholder="Search data..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-gray-500 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-full transition-all active:opacity-80 active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-gray-500 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-full transition-all active:opacity-80 active:scale-95">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border-2 border-primary-container" data-alt="close-up portrait of a young professional woman with a friendly smile, soft natural indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEQnpm0Us5QCnnF9l9fuJ1dmkdztIp2QGZkhdzb33RBMNGVBnQplhGZM-P6IKEA6BENqyVQ_vKan_LN783pe9Z44EVYtnVrMNFVMGreLvSRokY_499x-QIplgnjqqOUlaLW3LiGKweEIqVEtdh-meax3LFfDxstQPEW-BL_kel2F-dhajI11zq096KSjC6wO6YkU3z8RKTw-NfJp6H775yWLstWyAclA6HS-cwJPB-hINFoRQ68uaMqJ4ijkmh2um0EGZdUqcPmxM"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 shadow-lg shadow-orange-500/5 font-plus-jakarta-sans text-sm z-30 pt-20">
+<div class="px-6 mb-8">
+<h2 class="text-lg font-black text-orange-600 dark:text-orange-400">Admin Panel</h2>
+<p class="text-xs text-gray-600 dark:text-gray-400">Manage RasaRekomendasi</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Recipes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+                Categories
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+                Moderation
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-r-4 border-orange-500 transition-all duration-200 ease-in-out rounded-lg font-semibold" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Statistics
+            </a>
+</nav>
+<div class="p-6 mt-auto">
+<div class="bg-primary-container/10 p-4 rounded-2xl">
+<p class="text-xs font-bold text-primary uppercase tracking-wider mb-2">System Status</p>
+<div class="flex items-center gap-2 text-green-600">
+<span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+<span class="text-xs font-medium">All systems active</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 pt-24 pb-12 px-container-margin">
+<div class="max-w-6xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Growth &amp; Metrics</h1>
+<p class="text-on-surface-variant font-body-md max-w-lg">Insights and real-time data analysis of user interactions and recipe performance for RasaRekomendasi.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-full text-sm font-label-bold hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+                        Last 30 Days
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-full text-sm font-label-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Stats -->
+<div class="stats-grid">
+<!-- Growth Metrics Chart (Main Area) -->
+<div class="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-[0_4px_20px_rgba(255,112,67,0.05)] border border-gray-50 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Growth Metrics</h3>
+<div class="flex items-center gap-4 text-xs font-label-bold">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> New Users</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary"></span> Active Sessions</div>
+</div>
+</div>
+<div class="relative h-[300px] flex items-end justify-between gap-2 pt-10">
+<!-- Simulated Area Chart using SVG Background + CSS Overlays -->
+<div class="absolute inset-0 flex flex-col justify-between text-xs text-gray-400 font-label-bold py-10 pointer-events-none">
+<div class="border-b border-gray-100 w-full flex justify-between"><span>10k</span></div>
+<div class="border-b border-gray-100 w-full flex justify-between"><span>7.5k</span></div>
+<div class="border-b border-gray-100 w-full flex justify-between"><span>5k</span></div>
+<div class="border-b border-gray-100 w-full flex justify-between"><span>2.5k</span></div>
+<div class="w-full flex justify-between"><span>0</span></div>
+</div>
+<!-- Decorative Background Graph Lines -->
+<div class="absolute inset-0 z-0 opacity-10 flex items-center justify-center">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<path d="M0,300 C150,250 300,280 450,150 C600,20 750,100 1000,50 L1000,300 L0,300 Z" fill="url(#grad1)"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color: #ff7043; stop-opacity: 1"></stop>
+<stop offset="100%" style="stop-color: #ff7043; stop-opacity: 0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<!-- Active Data Points (Mock) -->
+<div class="flex-1 h-32 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+<div class="flex-1 h-48 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+<div class="flex-1 h-40 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+<div class="flex-1 h-64 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+<div class="flex-1 h-56 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+<div class="flex-1 h-72 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+<div class="flex-1 h-80 bg-primary rounded-t-lg opacity-40 hover:opacity-80 transition-opacity"></div>
+</div>
+<div class="flex justify-between px-2 text-[10px] font-label-bold text-gray-400">
+<span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span>
+</div>
+</div>
+<!-- User Distribution (Pie Chart Mock) -->
+<div class="col-span-12 lg:col-span-4 bg-[#FFF9E1] p-6 rounded-3xl shadow-[0_4px_20px_rgba(255,112,67,0.05)] border border-orange-100/50 flex flex-col gap-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Preferences</h3>
+<div class="relative w-48 h-48 mx-auto flex items-center justify-center">
+<!-- Custom CSS Donut Chart -->
+<div class="absolute inset-0 rounded-full border-[16px] border-tertiary-container border-r-primary border-b-secondary-container transform rotate-45"></div>
+<div class="flex flex-col items-center">
+<span class="font-display-lg text-headline-md text-primary">84%</span>
+<span class="text-[10px] font-label-bold text-on-surface-variant uppercase tracking-widest">Savory</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-white/50 rounded-xl">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-sm bg-primary"></span>
+<span class="text-sm font-medium">Savory Lovers</span>
+</div>
+<span class="text-sm font-bold">842</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/50 rounded-xl">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-sm bg-tertiary-container"></span>
+<span class="text-sm font-medium">Spicy Adventurers</span>
+</div>
+<span class="text-sm font-bold">415</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white/50 rounded-xl">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-sm bg-secondary-container"></span>
+<span class="text-sm font-medium">Sweet Tooths</span>
+</div>
+<span class="text-sm font-bold">120</span>
+</div>
+</div>
+</div>
+<!-- Most Popular Recipes (Bar Chart) -->
+<div class="col-span-12 lg:col-span-12 bg-white p-6 rounded-3xl shadow-[0_4px_20px_rgba(255,112,67,0.05)] border border-gray-50">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Most Popular Recipes</h3>
+<p class="text-xs text-on-surface-variant">Ranked by total views and saves this month</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-orange-50 rounded-lg text-gray-400"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<div class="space-y-6">
+<!-- Bar Item -->
+<div class="group">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-4">
+<img alt="Nasi Goreng" class="w-12 h-12 rounded-xl object-cover border border-orange-100" data-alt="close up of Indonesian Nasi Goreng with a fried egg on top, vibrant colors, appetizing food photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB80j5kQe4lq4jkZfuWvM5jWvTYhJ3fJ-RBTu-42e-driUJYJBfVOpkYEgGKgjjeXr3ctyBCNPKUYWWc3QBOyP4TxjAGhB7QtdgDXReqAvd2KQ2_N_rYoR4Wj-JWl_21Ab8iQCH1krTFc966im00z6MV8hXHSQk6ziYB1CjGUuH1HYJbowAxrt1IV4ZzqK5ibdm7GUq-Q20BI6-OmU0bRqtrAO7QpTJURTRwCfx-gJ3Q7njG_RDFjnSWRiGhPZdjNIiLA2npVHixE"/>
+<div>
+<p class="font-title-sm text-sm">Special Seafood Nasi Goreng</p>
+<p class="text-[10px] text-on-surface-variant">Main Course • 12k Views</p>
+</div>
+</div>
+<span class="text-primary font-bold">92%</span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all group-hover:opacity-90" style="width: 92%"></div>
+</div>
+</div>
+<!-- Bar Item -->
+<div class="group">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-4">
+<img alt="Soto Ayam" class="w-12 h-12 rounded-xl object-cover border border-orange-100" data-alt="warm bowl of Soto Ayam with lime and sambal, cinematic lighting, steam rising from the bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdciNK6aGf6Rd92z4gjl0KOUdUc4bycprxLcJgSpD4TyqdmAKXmz04WgWacIDgeXvem6bcFPPv3fwscIVtT_uFe3Ng5g46z4OeUK-u0UVyy20YIGKx_sCm9xdPRU7aeic5YGgv5a3OZrZB-kEhbwjbyZkydfgOcXqFrNjuV6POnU2Z0suqudYku2ZR04Xljp5of8FlN5cmCPDpPCZA2z_nQ-M97xhWVCkjX9E0veUi7G8f3Ii89J1U3b0PBmjImmijlgGECH1IDpU"/>
+<div>
+<p class="font-title-sm text-sm">Authentic Soto Ayam Lamongan</p>
+<p class="text-[10px] text-on-surface-variant">Soup • 10.4k Views</p>
+</div>
+</div>
+<span class="text-primary font-bold">78%</span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all group-hover:opacity-90" style="width: 78%"></div>
+</div>
+</div>
+<!-- Bar Item -->
+<div class="group">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-4">
+<img alt="Satay" class="w-12 h-12 rounded-xl object-cover border border-orange-100" data-alt="succulent skewers of chicken satay with peanut sauce on a banana leaf, bright daylight, vibrant Indonesian street food aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-k9dw1XQTVp_5Wq3_lCedXTKZsAz6vAIMqsEwnhokqr_vvuc8kycOUutvjez4ipvz1bNakQgBSuSi5ptHoPEX7EGDBUp3cpqIgx_JuLW3-7TKaXl3cX6x_VlrG7WCVk5_HCIvgMcSziW-VIbLdmThrpII5AYCVRfalmxMrHe8_cYSKSb_knxTh-24SHAA7IvDFsCJOHFmyUbtH27uqaKoJs-KeC9WEwfngssNsB0yOnoivfKUtn_5VgtiT96DATqyQmdCuAOFX30"/>
+<div>
+<p class="font-title-sm text-sm">Madura Chicken Satay</p>
+<p class="text-[10px] text-on-surface-variant">Snack • 8.1k Views</p>
+</div>
+</div>
+<span class="text-primary font-bold">64%</span>
+</div>
+<div class="w-full bg-surface-container-low h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all group-hover:opacity-90" style="width: 64%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Difficulty Stats (Mini Cards) -->
+<div class="col-span-12 md:col-span-4 p-6 bg-surface-container-low rounded-3xl flex items-center gap-4 border border-white">
+<div class="w-12 h-12 bg-green-100 text-green-700 flex items-center justify-center rounded-2xl">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<p class="text-[10px] font-label-bold uppercase text-on-surface-variant">Avg. Difficulty</p>
+<p class="text-xl font-bold">Beginner</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 p-6 bg-surface-container-low rounded-3xl flex items-center gap-4 border border-white">
+<div class="w-12 h-12 bg-orange-100 text-orange-700 flex items-center justify-center rounded-2xl">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<div>
+<p class="text-[10px] font-label-bold uppercase text-on-surface-variant">Avg. Cook Time</p>
+<p class="text-xl font-bold">24 mins</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 p-6 bg-surface-container-low rounded-3xl flex items-center gap-4 border border-white">
+<div class="w-12 h-12 bg-blue-100 text-blue-700 flex items-center justify-center rounded-2xl">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<div>
+<p class="text-[10px] font-label-bold uppercase text-on-surface-variant">Engagement Rate</p>
+<p class="text-xl font-bold">+12.4%</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="lg:pl-64 w-full py-8 px-5 flex flex-col items-center gap-4 text-center bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 font-plus-jakarta-sans text-xs">
+<span class="text-orange-600 font-bold">RasaRekomendasi</span>
+<div class="flex flex-wrap justify-center gap-6 text-gray-500">
+<a class="hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+<p class="text-gray-400 mt-2">© 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+</footer>
+<!-- Mobile Navigation (Suppressed for focused admin view per rule, but following JSON structure if required for responsiveness) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_20px_rgba(255,112,67,0.08)] rounded-t-3xl font-plus-jakarta-sans text-[11px] font-medium">
+<a class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center text-orange-600 dark:text-orange-400 scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+            Recommend
+        </a>
+<a class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+            Profile
+        </a>
+</nav>
+</body></html>

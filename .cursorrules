@@ -1,0 +1,62 @@
+# .cursorrules — RasaRekomendasi Project
+
+## Konteks Proyek
+Ini adalah aplikasi web **Rekomendasi Resep Makanan** berbasis Laravel.
+Tujuan: membantu pengguna menemukan resep makanan berdasarkan preferensi dan bahan yang dimiliki.
+
+## Stack Teknologi
+- **Backend**: Laravel (PHP)
+- **Frontend**: Blade Templates + Tailwind CSS + Vite
+- **Database**: MySQL (via XAMPP)
+- **Package Manager**: Composer (PHP) & NPM (JS)
+
+## Konvensi Koding
+- Gunakan **PSR-12** untuk standar kode PHP.
+- Nama Controller: `PascalCase` + suffix `Controller` (contoh: `ResepController`).
+- Nama Model: Singular `PascalCase` (contoh: `Resep`, `User`).
+- Nama Migration: snake_case deskriptif (contoh: `create_resep_table`).
+- Nama Route: snake_case atau kebab-case (contoh: `resep.index`, `resep-detail`).
+- View Blade: snake_case (contoh: `resep_detail.blade.php`).
+
+## Struktur Direktori Penting
+```
+RasaRekomendasi/
+├── docs/                          ← Dokumentasi proyek
+│   ├── SDD REKOMENDASI RESEP MAKANAN.docx
+│   └── ReferensiTambahanTampilan/ ← Aset referensi UI
+├── app/
+│   ├── Http/Controllers/          ← Semua controller
+│   ├── Models/                    ← Eloquent models
+│   └── ...
+├── resources/
+│   ├── views/                     ← Blade templates
+│   ├── js/                        ← JavaScript (Vue/Alpine)
+│   └── css/                       ← Stylesheet
+├── routes/
+│   ├── web.php                    ← Route web utama
+│   └── api.php                    ← Route API
+└── database/
+    ├── migrations/
+    └── seeders/
+```
+
+## Panduan Pengembangan
+1. Selalu gunakan **Eloquent ORM**, hindari raw SQL kecuali benar-benar diperlukan.
+2. Validasi input menggunakan **Form Request** (`php artisan make:request`).
+3. Gunakan **Resource Controller** untuk CRUD standar.
+4. Simpan konfigurasi sensitif di `.env`, jangan di-hardcode.
+5. Jalankan `npm run dev` untuk development frontend (Vite HMR).
+6. Jalankan `php artisan serve` untuk server Laravel lokal.
+
+## Perintah Berguna
+```bash
+php artisan make:model NamaModel -mcr   # Model + Migration + Controller (resource)
+php artisan migrate                      # Jalankan migration
+php artisan db:seed                      # Jalankan seeder
+npm run dev                              # Jalankan Vite dev server
+php artisan route:list                   # Lihat semua route
+```
+
+## Catatan Tambahan
+- Referensi desain UI tersedia di: `docs/ReferensiTambahanTampilan/`
+- SDD (Software Design Document) tersedia di: `docs/SDD REKOMENDASI RESEP MAKANAN.docx`

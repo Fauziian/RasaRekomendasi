@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moderation - Admin RasaRekomendasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background-color: #F8F9FA;
+            color: #333;
+        }
+        .admin-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 0;
+            background: white;
+            z-index: 100;
+            width: 260px;
+        }
+        .sidebar-header-top {
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .sidebar-header-top .brand {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 16px;
+        }
+        .sidebar-header-top .divider {
+            color: #ccc;
+        }
+        .sidebar-header-top .sub {
+            color: #999;
+        }
+
+        .admin-profile-block {
+            padding: 0 30px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .profile-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .profile-info h4 {
+            font-size: 14px;
+            margin: 0;
+            color: #333;
+        }
+        .profile-info p {
+            font-size: 11px;
+            margin: 0;
+            color: #888;
+        }
+
+        .admin-menu li a {
+            padding: 15px 30px;
+            color: #666;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .admin-menu li a i {
+            width: 20px;
+            font-size: 16px;
+        }
+        .admin-menu li a.active {
+            background-color: #FFF0ED;
+            color: var(--primary);
+            border-right: none;
+            box-shadow: inset 4px 0 0 var(--primary);
+        }
+
+        .pro-system-card {
+            margin: auto 30px 30px;
+            background: #F8F9FA;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+        .pro-system-card h5 {
+            color: #C62828;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .pro-system-card p {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .uptime-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .uptime-fill {
+            width: 99.9%;
+            height: 100%;
+            background: #2E7D32;
+        }
+
+        .admin-content {
+            margin-left: 260px;
+            background-color: #F8F9FA;
+            min-height: 100vh;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 15px 50px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+        .search-wrapper {
+            position: relative;
+            margin-right: auto;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .search-wrapper input {
+            padding: 10px 15px 10px 40px;
+            width: 300px;
+            border-radius: 20px;
+            border: 1px solid #eee;
+            background: #F8F9FA;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #666;
+            font-size: 20px;
+        }
+        .header-actions img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .page-content {
+            padding: 40px 50px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 5px;
+        }
+        .page-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .header-btns {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-filter {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-approve-all {
+            background: var(--primary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(255, 90, 54, 0.2);
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .stat-card-mini {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border: 1px solid #f9f9f9;
+        }
+        .sc-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .sc-icon.orange { background: #FFF0ED; color: var(--primary); }
+        .sc-icon.green { background: #E8F5E9; color: #2E7D32; }
+        .sc-icon.red { background: #FFEBEE; color: #C62828; }
+        .sc-info p {
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .sc-info h3 {
+            font-size: 28px;
+            color: #111;
+            line-height: 1;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 15px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #999;
+            text-transform: uppercase;
+            border-bottom: 2px solid #f0f0f0;
+            letter-spacing: 1px;
+        }
+        td {
+            padding: 20px 10px;
+            border-bottom: 1px solid #f5f5f5;
+            vertical-align: top;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .user-col { display: flex; gap: 15px; }
+        .user-col img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+        .user-col .name { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 3px; }
+        .user-col .time { font-size: 11px; color: #999; }
+
+        .recipe-col { display: flex; align-items: center; gap: 10px; }
+        .recipe-col img { width: 35px; height: 35px; border-radius: 8px; object-fit: cover; }
+        .recipe-col span { font-size: 13px; font-weight: 600; color: #333; }
+
+        .comment-col { font-size: 13px; color: #555; line-height: 1.5; max-width: 250px; }
+        .rating-col { font-size: 14px; font-weight: 700; color: var(--primary); }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-pending, .status-new {
+            background: #FFF0ED;
+            color: var(--primary);
+        }
+        .status-reviewed {
+            background: #F0F0F0;
+            color: #888;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .act-btn {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .btn-check {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-check.faded {
+            background: #E8F5E9;
+            color: #4CAF50;
+        }
+        .btn-cross {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 10px;
+        }
+        .pagination-info {
+            font-size: 12px;
+            color: #888;
+        }
+        .pagination-info strong {
+            color: #333;
+        }
+        .pagination {
+            display: flex;
+            gap: 5px;
+        }
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #555;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .page-btn:not(.active):hover {
+            background: #f9f9f9;
+        }
+
+        .footer-simple {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+        .footer-simple p {
+            margin-bottom: 10px;
+        }
+        .footer-simple .links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .footer-simple a {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <div>
+                <div class="sidebar-header-top">
+                    <span class="brand">RasaRekomendasi</span>
+                    <span class="divider">/</span>
+                    <span class="sub">Admin Panel</span>
+                </div>
+
+                <div class="admin-profile-block">
+                    <div class="profile-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h4>Admin Panel</h4>
+                        <p>Manage RasaRekomendasi</p>
+                    </div>
+                </div>
+
+                <ul class="admin-menu">
+                    <li><a href="../admin_dashboard/index.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="../recipe_management/index.html"><i class="fas fa-book-open"></i> Recipes</a></li>
+                    <li><a href="../category_management/index.html"><i class="fas fa-shapes"></i> Categories</a></li>
+                    <li><a href="../comment_moderation/index.html" class="active"><i class="fas fa-comments"></i> Moderation</a></li>
+                    <li><a href="../statistics_page/index.html"><i class="fas fa-chart-bar"></i> Statistics</a></li>
+                </ul>
+            </div>
+
+            <div class="pro-system-card">
+                <h5>PRO SYSTEM</h5>
+                <p>All systems operational with 99.9% uptime.</p>
+                <div class="uptime-bar">
+                    <div class="uptime-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-content">
+            
+            <div class="header-top">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search comments...">
+                </div>
+                <div class="header-actions">
+                    <i class="far fa-bell"></i>
+                    <i class="far fa-heart"></i>
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User">
+                </div>
+            </div>
+
+            <div class="page-content">
+                
+                <div class="page-header">
+                    <div>
+                        <h1>Moderation</h1>
+                        <p>Review and moderate community feedback</p>
+                    </div>
+                    <div class="header-btns">
+                        <button class="btn-filter"><i class="fas fa-sliders-h"></i> Filters</button>
+                        <button class="btn-approve-all"><i class="fas fa-check"></i> Approve All</button>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card-mini">
+                        <div class="sc-icon orange"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="sc-info">
+                            <p>Pending Review</p>
+                            <h3>24</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card-mini">
+                        <div class="sc-icon green"><i class="fas fa-check-circle"></i></div>
+                        <div class="sc-info">
+                            <p>Approved Today</p>
+                            <h3>158</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card-mini">
+                        <div class="sc-icon red"><i class="fas fa-exclamation-circle"></i></div>
+                        <div class="sc-info">
+                            <p>Flagged</p>
+                            <h3>3</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Recipe</th>
+                                <th>Comment Text</th>
+                                <th>Rating</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-col">
+                                        <img src="https://i.pravatar.cc/150?img=5" alt="user">
+                                        <div>
+                                            <div class="name">Siti Aminah</div>
+                                            <div class="time">2 mins ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="recipe-col">
+                                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&q=80" alt="recipe">
+                                        <span>Spicy Avoca...</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-col">The lime juice really makes it pop! I added some extra...</div>
+                                </td>
+                                <td>
+                                    <div class="rating-col"><i class="fas fa-star"></i> 5.0</div>
+                                </td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="act-btn btn-check"><i class="fas fa-check"></i></button>
+                                        <button class="act-btn btn-cross"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-col">
+                                        <img src="https://i.pravatar.cc/150?img=8" alt="user">
+                                        <div>
+                                            <div class="name">Budi Santoso</div>
+                                            <div class="time">15 mins ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="recipe-col">
+                                        <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=100&q=80" alt="recipe">
+                                        <span>Classic Soto ...</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-col">The broth recipe is spot on. Tastes exactly like my...</div>
+                                </td>
+                                <td>
+                                    <div class="rating-col"><i class="fas fa-star"></i> 4.8</div>
+                                </td>
+                                <td><span class="status-badge status-new">New</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="act-btn btn-check"><i class="fas fa-check"></i></button>
+                                        <button class="act-btn btn-cross"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-col">
+                                        <img src="https://i.pravatar.cc/150?img=12" alt="user">
+                                        <div>
+                                            <div class="name">Rendi Wijaya</div>
+                                            <div class="time">1 hour ago</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="recipe-col">
+                                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&q=80" alt="recipe">
+                                        <span>Kampung Na...</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="comment-col">Very easy to follow. I replaced the chicken with...</div>
+                                </td>
+                                <td>
+                                    <div class="rating-col"><i class="fas fa-star"></i> 4.0</div>
+                                </td>
+                                <td><span class="status-badge status-reviewed">Reviewed</span></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="act-btn btn-check faded"><i class="fas fa-check"></i></button>
+                                        <button class="act-btn btn-cross"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            Showing <strong>1-10</strong> of 1,240 comments
+                        </div>
+                        <div class="pagination">
+                            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+                            <button class="page-btn active">1</button>
+                            <button class="page-btn">2</button>
+                            <button class="page-btn">3</button>
+                            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-simple">
+                <p>&copy; 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+                <div class="links">
+                    <a href="#">About Us</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

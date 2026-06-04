@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile - RasaRekomendasi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recipe-card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(255, 112, 67, 0.15);
+        }
+        .soft-cream-bg {
+            background-color: #FFF9E1;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<nav class="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold text-orange-600 dark:text-orange-400 font-plus-jakarta-sans">RasaRekomendasi</span>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-gray-500 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 transition-colors px-3 py-2 rounded-lg" href="#">Home</a>
+<a class="text-gray-500 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 transition-colors px-3 py-2 rounded-lg" href="#">Recommend</a>
+<a class="text-orange-600 dark:text-orange-400 font-semibold px-3 py-2 rounded-lg" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-gray-500 hover:bg-orange-50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="p-2 text-gray-500 hover:bg-orange-50 rounded-full transition-all relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="Portrait of a friendly Indonesian Gen Z home chef smiling warmly in a bright kitchen setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxn6PIkdDH3ipMYomhM2CsaDJuTLSdZWOFr2tubM6-kPe5UP8OGGsWw8DocweezrKxdqLF2zMdB4yf2RcLxU4ed9GaKkmz1WrKPODaih-Na3geHF-hLuZCtZZPTMowyfoeB92Nt0HabB-zfvAGjoVzNKbdvFj3DWxnlsWB3Gwl1jsgn9jXQhuGP7-MY3aTPp3MqR0MaT6-yrBDaitWohI7UqhMCSH3TIlTvvDN4W5vuSOGDC2r6Twq_LXbg69wG3HwUA42h7tQ7ZQ"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-container-margin pb-24 md:pb-12 pt-8">
+<!-- Profile Header Section -->
+<header class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
+<div class="relative group">
+<div class="w-32 h-32 md:w-40 md:h-40 rounded-full p-1 bg-gradient-to-tr from-primary to-orange-300 shadow-xl">
+<div class="w-full h-full rounded-full overflow-hidden border-4 border-white">
+<img class="w-full h-full object-cover" data-alt="Detailed close-up portrait of a young man with a creative and friendly expression, natural sunlight and soft bokeh background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF4CbIw4FpWRUazNeKrH8JwXh-fUAyCprvLHIkZbAG7VFmsB2t3giiA2BmjCnCV-XNrajeygUK30I6u8_n2Vt8aZJIYiCcTY3iqErk6nIqY48BFU1hSA2oR33cNgR6nNm_MJMUk92fOh2IQEBQjRz_3-kxMLC19tvZPBcVNZvjnioyOnF-2_DuR_hQ8O2Bcs7UpCkbtlesstZsknqkIT7KExIUH3DX-_1So85edsoDMnrRjDf0yu_Pw2manZ5qWJmeqzB-nXpweXY"/>
+</div>
+</div>
+<button class="absolute bottom-2 right-2 bg-primary text-white p-2 rounded-full shadow-lg hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+<div class="flex-1 text-center md:text-left pt-2">
+<div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+<h1 class="font-display-lg text-display-lg text-on-background">Budi Santoso</h1>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-bold text-label-bold hover:opacity-90 active:scale-95 transition-all shadow-md">
+                        EDIT PROFILE
+                    </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mb-6">
+                    Cooking my way through Jakarta, one spice at a time. Lover of authentic Sambal and modern fusion experiments. Making home cooking fun for everyone! 🌶️🍳
+                </p>
+<div class="flex flex-wrap justify-center md:justify-start gap-6 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary">24</span>
+<span class="font-body-sm text-body-sm">Recipes</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary">1.2k</span>
+<span class="font-body-sm text-body-sm">Followers</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary">86</span>
+<span class="font-body-sm text-body-sm">Following</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Profile Tabs -->
+<div class="flex border-b border-surface-variant mb-8 overflow-x-auto no-scrollbar">
+<button class="px-6 py-4 border-b-2 border-primary text-primary font-title-sm text-title-sm whitespace-nowrap">
+                My Favorite Recipes
+            </button>
+<button class="px-6 py-4 border-b-2 border-transparent text-on-surface-variant hover:text-primary transition-colors font-title-sm text-title-sm whitespace-nowrap">
+                My Comments
+            </button>
+<button class="px-6 py-4 border-b-2 border-transparent text-on-surface-variant hover:text-primary transition-colors font-title-sm text-title-sm whitespace-nowrap">
+                Account Settings
+            </button>
+</div>
+<!-- Recipe Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<!-- Recipe Card 1 -->
+<article class="flex flex-col bg-white rounded-[2rem] overflow-hidden recipe-card-shadow hover:-translate-y-1 transition-all duration-300 group">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Vibrant healthy salad bowl with fresh avocado, quinoa, and colorful vegetables, bright overhead lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlX6DY3VMR7JgXAZ_9-y5mrz3jGS4H2854kZanInp6sw8zyTflXVDpDNzp_WJGSOZlv-JVnc_nrJLH9clEDaHPQTcGH8_yGZYygjOt7TLDBjK2qdlYTyWglaudIfQjHud-eZhw5HXmY5V16OTmDKLDZAXFSGCI7IEQY1iEHI66em7R8U-4KNImjfu9EMuE0XvuUZVVYwZq2CIEFAtnGL3zN3UKQP2_zQsXbQt4jjenUIPtfH2B1jBBElJ3NtYNXQw-82AdcmG0gU8"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full text-orange-600 shadow-md">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-4 left-4">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase tracking-wider">HEALTHY</span>
+</div>
+</div>
+<div class="soft-cream-bg p-6 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-2">Summer Avocado Quinoa Bowl</h3>
+<div class="flex items-center gap-3 text-on-surface-variant mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="text-xs font-medium">15 min</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-xs font-medium">Easy</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-white border-2 border-primary-container text-primary font-label-bold rounded-xl hover:bg-primary-container hover:text-white transition-all">
+                        COOK NOW
+                    </button>
+</div>
+</article>
+<!-- Recipe Card 2 -->
+<article class="flex flex-col bg-white rounded-[2rem] overflow-hidden recipe-card-shadow hover:-translate-y-1 transition-all duration-300 group">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Aromatic Indonesian Beef Rendang served in a clay bowl with steamed rice and garnished with lime leaves, warm moody lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC37zQdcVNK0XVuIKZsK7k8PAziwNORt4VrjIHXwEvjchHUy7qazmSqPOa44YbQz3HjPlK1j7eN9kCCnwDnytAfmPPgeFFssJFcOaxBaONPVnW3lUTK0ODC2a-7P85sCm1cR8U3ZdFEMrfJIurSh6_WgRwjy0iLl8qShuuPusP03bUJ2ScQ5uKJz5xuAd4MqF-Be6o0DvbFe81WAyxTHvrUOmbl-xYMPjLTqK4FfC4nQbxrRPVrWy5J4QeEpZh9Mi5LRamwL5M5-o8"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full text-orange-600 shadow-md">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-4 left-4">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase tracking-wider">AUTHENTIC</span>
+</div>
+</div>
+<div class="soft-cream-bg p-6 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-2">Slow-Cooked Beef Rendang</h3>
+<div class="flex items-center gap-3 text-on-surface-variant mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="text-xs font-medium">120 min</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-xs font-medium">Expert</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-white border-2 border-primary-container text-primary font-label-bold rounded-xl hover:bg-primary-container hover:text-white transition-all">
+                        COOK NOW
+                    </button>
+</div>
+</article>
+<!-- Recipe Card 3 -->
+<article class="flex flex-col bg-white rounded-[2rem] overflow-hidden recipe-card-shadow hover:-translate-y-1 transition-all duration-300 group">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Artisanal personal pizza with melting mozzarella, fresh basil, and tomato sauce on a rustic wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0NWl4E8vNob73TamRDIXN1lFOD8vmdAYiSUyrJ01ednquCz_ZuyeeR1bz4NjPtuVna4dBk_mWHgDClqYxvCZM2IDhf_oxFwgaGCMn7uD7IjDDqq5UsxvTskzaSAt29kbDQlNlxrgxAecViWOpTPO58Ec0smL2okpQh5SMLB2YZVSqWYxfJCixw-jOkUdVGk8BDjqd5p5WoL1-YYiosSZGSmcSxV14suo4X6FJBTzCj5IIMrZ2Dpv_rIoBqgeH7oBE1diyEg1x7C0"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full text-orange-600 shadow-md">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-4 left-4">
+<span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-label-bold uppercase tracking-wider">FUSION</span>
+</div>
+</div>
+<div class="soft-cream-bg p-6 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-2">Thin Crust Margherita</h3>
+<div class="flex items-center gap-3 text-on-surface-variant mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="text-xs font-medium">30 min</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-xs font-medium">Medium</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-white border-2 border-primary-container text-primary font-label-bold rounded-xl hover:bg-primary-container hover:text-white transition-all">
+                        COOK NOW
+                    </button>
+</div>
+</article>
+<!-- Recipe Card 4 -->
+<article class="flex flex-col bg-white rounded-[2rem] overflow-hidden recipe-card-shadow hover:-translate-y-1 transition-all duration-300 group">
+<div class="relative aspect-[4/5] overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Classic Italian pasta with pesto sauce, cherry tomatoes, and parmesan cheese on a white plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqY3jBl1EQQqmMRhOjdrGmHwLM80oJLS-HBreCy5Vw4x6fgYMEscKm23Dj5-qyz1G22IR37qQtShmP4xnX_G9_RAMvBd8V6Z-xy2I1kDiQI72KRalO6_PHZ3KOJ6XN59bOBWj1SEpCqtI0OH4thUMqhQ2okH_6XnYmgBVRp1a9wgXPRDW4CRJgkqZaPqv7jv5bdeSPx3GbOWl0LDYL4vyWSn3XJhpHgwk0uQvqzwdOg52ujnylWaEZCvJlADFqp0jj5F6oc_7UG6Q"/>
+<button class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full text-orange-600 shadow-md">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<div class="absolute bottom-4 left-4">
+<span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-[10px] font-label-bold uppercase tracking-wider">QUICK BITE</span>
+</div>
+</div>
+<div class="soft-cream-bg p-6 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface mb-2">Basil Pesto Penne</h3>
+<div class="flex items-center gap-3 text-on-surface-variant mb-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+<span class="text-xs font-medium">20 min</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="local_fire_department">local_fire_department</span>
+<span class="text-xs font-medium">Easy</span>
+</div>
+</div>
+</div>
+<button class="w-full py-3 bg-white border-2 border-primary-container text-primary font-label-bold rounded-xl hover:bg-primary-container hover:text-white transition-all">
+                        COOK NOW
+                    </button>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_20px_rgba(255,112,67,0.08)] rounded-t-3xl">
+<button class="flex flex-col items-center text-gray-400 dark:text-gray-500 font-plus-jakarta-sans text-[11px] font-medium active:bg-orange-50 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span>Home</span>
+</button>
+<button class="flex flex-col items-center text-gray-400 dark:text-gray-500 font-plus-jakarta-sans text-[11px] font-medium active:bg-orange-50 transition-all">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span>Recommend</span>
+</button>
+<button class="flex flex-col items-center text-orange-600 dark:text-orange-400 font-plus-jakarta-sans text-[11px] font-medium active:bg-orange-50 scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</button>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-8 px-5 flex flex-col items-center gap-4 text-center bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
+<div class="text-orange-600 font-bold text-lg">RasaRekomendasi</div>
+<div class="flex flex-wrap justify-center gap-6 text-gray-500 text-xs font-plus-jakarta-sans">
+<a class="hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+<p class="text-gray-500 text-xs font-plus-jakarta-sans">
+            © 2024 RasaRekomendasi. Built for Gen Z Home Chefs.
+        </p>
+</footer>
+</body></html>

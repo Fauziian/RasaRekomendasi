@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RasaRekomendasi - Recommendations for You</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recipe-card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(255, 112, 67, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md">
+<!-- TopAppBar -->
+<header class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-sm fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold text-orange-600 dark:text-orange-400 font-plus-jakarta-sans">RasaRekomendasi</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-orange-600 dark:text-orange-400 font-semibold transition-colors hover:bg-orange-50 dark:hover:bg-gray-800 p-2 rounded-lg" href="#">Home</a>
+<a class="text-gray-500 dark:text-gray-400 transition-colors hover:bg-orange-50 dark:hover:bg-gray-800 p-2 rounded-lg" href="#">Recommend</a>
+<a class="text-gray-500 dark:text-gray-400 transition-colors hover:bg-orange-50 dark:hover:bg-gray-800 p-2 rounded-lg" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-gray-500 hover:bg-orange-50 rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-gray-500 hover:bg-orange-50 rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border-2 border-primary-container" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2j6QsTzY1azJ9nCK3mbJeEKNob6zD2UufSf8YcHX_YQLdIAqvbTocJr0kG8o2yu8mEn6ij5_cmhWiQPJ6gEzwlvQBRhgKBi5Igqa0SvtZj6ghjbiy8VjnfpiR4U3ESUXjqlIg2D7LmyQEHM1iPgdPwAP34FnQRuIQknhYTUuOJ7zIogoh-PRngW0SnR6G7QJzdJkfPqw8_xZJO8GpAc4z7ksyjdWPi-MGNWy0vUHi0LpBkce_3EeCpNDdJSQQwcyhqS4Oc3BfvHg"/>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-20 px-container-margin max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+<!-- Filter Sidebar -->
+<aside class="w-full md:w-64 flex-shrink-0 space-y-8">
+<div class="bg-white p-6 rounded-2xl border border-gray-100 recipe-card-shadow">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline-md text-title-sm text-on-surface">Filters</h2>
+<span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+</div>
+<!-- Taste Section -->
+<div class="mb-8">
+<h3 class="font-label-bold text-label-bold uppercase text-on-surface-variant mb-4">Taste</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary-container" type="checkbox"/>
+<span class="font-body-sm text-on-surface group-hover:text-primary transition-colors">Spicy</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary-container" type="checkbox"/>
+<span class="font-body-sm text-on-surface group-hover:text-primary transition-colors">Sweet</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary-container" type="checkbox"/>
+<span class="font-body-sm text-on-surface group-hover:text-primary transition-colors">Savory</span>
+</label>
+</div>
+</div>
+<!-- Difficulty Section -->
+<div class="mb-8">
+<h3 class="font-label-bold text-label-bold uppercase text-on-surface-variant mb-4">Difficulty</h3>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-white font-label-bold text-[11px]">Easy</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-bold text-[11px] hover:bg-orange-50">Medium</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-bold text-[11px] hover:bg-orange-50">Hard</button>
+</div>
+</div>
+<!-- Time Section -->
+<div>
+<h3 class="font-label-bold text-label-bold uppercase text-on-surface-variant mb-4">Cooking Time</h3>
+<div class="space-y-3">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 border-outline text-primary focus:ring-primary-container" name="time" type="radio"/>
+<span class="font-body-sm text-on-surface">&lt; 30 mins</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 border-outline text-primary focus:ring-primary-container" name="time" type="radio"/>
+<span class="font-body-sm text-on-surface">30-60 mins</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 border-outline text-primary focus:ring-primary-container" name="time" type="radio"/>
+<span class="font-body-sm text-on-surface">1 hr+</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Promotion Card -->
+<div class="bg-primary-fixed rounded-2xl p-6 relative overflow-hidden">
+<div class="relative z-10">
+<h4 class="font-title-sm text-on-primary-fixed mb-2">Gen Z Pantry</h4>
+<p class="font-body-sm text-on-primary-fixed-variant mb-4">Stock up on essential spices for that authentic Indonesian kick.</p>
+<button class="bg-primary text-white px-4 py-2 rounded-xl font-label-bold text-[12px] uppercase">Shop Now</button>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-20">
+<span class="material-symbols-outlined text-8xl" data-icon="cooking">cooking</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<section class="flex-1">
+<header class="mb-8">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Recommendations for You</h1>
+<p class="font-body-md text-on-surface-variant">We've found 12 spicy &amp; savory dishes that take less than 30 mins.</p>
+</header>
+<!-- Recipe Grid - Bento Style -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Recipe Card 1 -->
+<div class="group relative bg-white rounded-3xl overflow-hidden recipe-card-shadow transition-transform hover:-translate-y-2">
+<div class="aspect-[4/5] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Close-up of a vibrant Indonesian spicy chicken dish with chili garnish and steam rising, warm studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnQnsHagbtokGOxHAz3p-qgRJHpYfzjhu-f4nh7teLyi_LIhvuW-a6JjoPWnTTgi7wVkp6HQFgwMXaz9UnGcIrHXRuGuyfhfwq36RAu5npK7qUV8PDJ4I06eAYe_cej5ZDFDVezxKd9FmOq_C2YsB8wTBMt88gnFCcXArqa3GJ0N33tB2oPNH3Anw3tywJ9lYqjJPBNB6htLxsqTjzuY9bDhNYY_G6X4FBWI91F1KzvdjzjESclk1TUwnPJFnCwUMjnlikRLykA1c"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-error" data-icon="favorite" data-weight="fill">favorite</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Healthy</span>
+<span class="bg-primary-container text-white px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Spicy</span>
+</div>
+</div>
+<div class="p-6 bg-[#FFF9E1]">
+<h3 class="font-title-sm text-on-surface mb-2 line-clamp-1">Ayam Geprek Spesial</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-body-sm">15 mins</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-[12px] font-body-sm">Easy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recipe Card 2 -->
+<div class="group relative bg-white rounded-3xl overflow-hidden recipe-card-shadow transition-transform hover:-translate-y-2">
+<div class="aspect-[4/5] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Colorful vegetable salad bowl with spicy peanut dressing, artistic presentation on a rustic wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVtZhlJyFNEuZVaNjf9xlqScAWDTg478jJG9d1B5LzrSAKywOsMqg_ZV07fXBGi7jxEO_9MteFAcpCuAqxQ2hUEnJXsWsSjyEmMZ6NvlVyW1kk-4Mv7P5LQhlmKoQA6sxOsD4dq2Z8gWmGAZl39-42_csGrLc2-abGxBGbGVuc84LDGlm4HGdIyP5Kyuo5qaKgy6k99ldP7pFe305nvBI9vc3Nd21XeRNha3KUEB6Q6Uq_C7N8C32UbBfy3H8A0vSAYaKk_yXiFdI"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-gray-400" data-icon="favorite">favorite</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Savory</span>
+</div>
+</div>
+<div class="p-6 bg-[#FFF9E1]">
+<h3 class="font-title-sm text-on-surface mb-2 line-clamp-1">Gado-Gado Bowl</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-body-sm">20 mins</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-[12px] font-body-sm">Easy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recipe Card 3 -->
+<div class="group relative bg-white rounded-3xl overflow-hidden recipe-card-shadow transition-transform hover:-translate-y-2">
+<div class="aspect-[4/5] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Spicy Indonesian mie goreng with a fried egg on top, garnished with green onions and crackers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5IN7ELvbjm3BtZY0c1sW8vqVgsxtqOa6Z0_gSbiuNZfzefQiaPi6K0_VCJIgmZmEyYpQcsxtkLyLxoJHiLZAu-ndrW80-uKVK7adRPNws0pmX7HhhgrqOYS-A4AJllg-KLKCYsI9Gs1yU5bM2TjkJaTp8Th9rmTnXqYJkvXI19FjtMEEbvu-ZPjnBXSiGr2FVhDeatXo--jZohWokXlFYhHl9N9PePnUc8TOFfXzGT9YxBa62ULyyVAiCCdomCg9QJAEGFHjPK1g"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-gray-400" data-icon="favorite">favorite</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-primary-container text-white px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Spicy</span>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Savory</span>
+</div>
+</div>
+<div class="p-6 bg-[#FFF9E1]">
+<h3 class="font-title-sm text-on-surface mb-2 line-clamp-1">Indomie Hack Level 5</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-body-sm">10 mins</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-[12px] font-body-sm">Easy</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recipe Card 4 -->
+<div class="group relative bg-white rounded-3xl overflow-hidden recipe-card-shadow transition-transform hover:-translate-y-2">
+<div class="aspect-[4/5] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Crispy tempeh mendoan with spicy soy dipping sauce, warm golden lighting, traditional Indonesian style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGIGb00mJUJ0ivlL7m_Lh2l7G66DUy0x3jZG6UgOAZH8IDTIIJBc0_8ILtnan8sslEeG7XRTfmd3URyKCn0-tXkE31qrSLMbqs9yaSWQk8G4k4buRk7X-L0TDm4proHHZHFmkOU9hQsUDrzelJaHpVLneyrg1aB1b97y_xfjFvRBVtYqxbMIcc25JBm322hsm0kh8HY1riSulQE2w6Ch99o6N2zHa4FDKm439QvCuIi4zmnwbTZEUplbmGM4yCRZILtWcKNp66ssQ"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-gray-400" data-icon="favorite">favorite</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Vegan</span>
+</div>
+</div>
+<div class="p-6 bg-[#FFF9E1]">
+<h3 class="font-title-sm text-on-surface mb-2 line-clamp-1">Tempeh Mendoan Crispy</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-body-sm">25 mins</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-[12px] font-body-sm">Medium</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recipe Card 5 -->
+<div class="group relative bg-white rounded-3xl overflow-hidden recipe-card-shadow transition-transform hover:-translate-y-2">
+<div class="aspect-[4/5] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Juicy beef satay skewers being grilled over charcoal, beautiful grill marks and smoke effects" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7iJ5SQNUsH3EfaxoN0ZCniYKnkLmnauQbDUKgwmO_WxDAz0g6HVdBRmT8o2DRnl_tjzlzDT6TtCp8uo7i01OTFp-CBbif4kuWChlXA648qqUBXACqVmzgJSDGD03GHCVq9pZO7K8JQzk4PVQb9pz4VySxsad5P_iJDvjnRnB69XdbI2MRJO2preD8JNDqBZVbCucOzzzBzi_55wUCCxAVgW3-t3RgCb8GWclbac0ChSze3PxTR3_haIC1chgk-mEfKlCMaCK6L84"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-gray-400" data-icon="favorite">favorite</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Savory</span>
+</div>
+</div>
+<div class="p-6 bg-[#FFF9E1]">
+<h3 class="font-title-sm text-on-surface mb-2 line-clamp-1">Sate Maranggi Quick</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-body-sm">30 mins</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-[12px] font-body-sm">Medium</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recipe Card 6 -->
+<div class="group relative bg-white rounded-3xl overflow-hidden recipe-card-shadow transition-transform hover:-translate-y-2">
+<div class="aspect-[4/5] w-full overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Hot and sour Indonesian shrimp soup with lemongrass and lime leaves, vibrant red broth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUjCAoS9ptKiG9xyuTi8ZeCZJSfctGb1Dc1th5A0R8aVo7Tkrhu_vqVN-5_GJYgdKcxgdtLO5UtdPxnl_-DaXTz3cXh3Wb-taMAbciPecQ7QhD6UuV9y7Zm6BcCdAv8Nb5OkgGM4Db56R59w4GbHP80oYvXDahe7DQAYzcuN2ZdnxUA89oSkanpazxomHzRBhrQEICY-xDtV8jlKRBROL-2LN1kwYRhMh6xaIren90hXEFXorm6zJ-YgTyfUyz5zQAWzcFrERzY7Q"/>
+<div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-gray-400" data-icon="favorite">favorite</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-primary-container text-white px-3 py-1 rounded-full text-[10px] font-label-bold uppercase">Spicy</span>
+</div>
+</div>
+<div class="p-6 bg-[#FFF9E1]">
+<h3 class="font-title-sm text-on-surface mb-2 line-clamp-1">Quick Udang Pedas</h3>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="text-[12px] font-body-sm">20 mins</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="signal_cellular_alt">signal_cellular_alt</span>
+<span class="text-[12px] font-body-sm">Easy</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination-ish -->
+<div class="mt-12 flex justify-center">
+<button class="bg-surface-container text-on-surface-variant px-8 py-3 rounded-2xl font-label-bold uppercase hover:bg-primary-container hover:text-white transition-all active:scale-95">
+                    Load More Recipes
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_20px_rgba(255,112,67,0.08)] flex justify-around items-center px-4 py-3 rounded-t-3xl">
+<button class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 transition-transform">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center text-orange-600 dark:text-orange-400 scale-110 active:bg-orange-50 transition-transform">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Recommend</span>
+</button>
+<button class="flex flex-col items-center text-gray-400 dark:text-gray-500 active:bg-orange-50 transition-transform">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Profile</span>
+</button>
+</nav>
+<!-- Footer -->
+<footer class="bg-gray-50 dark:bg-gray-950 w-full py-8 px-5 flex flex-col items-center gap-4 text-center border-t border-gray-200 dark:border-gray-800 pb-28 lg:pb-8">
+<span class="text-orange-600 font-bold font-plus-jakarta-sans">RasaRekomendasi</span>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="text-gray-500 font-plus-jakarta-sans text-xs hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+<p class="text-gray-500 font-plus-jakarta-sans text-xs">© 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+</footer>
+</body></html>

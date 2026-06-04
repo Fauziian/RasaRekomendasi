@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Comment Moderation - RasaRekomendasi Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#e4e2e1",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#59413a",
+                        "on-tertiary-fixed": "#002107",
+                        "inverse-primary": "#ffb59f",
+                        "surface": "#fcf9f8",
+                        "on-background": "#1b1c1c",
+                        "primary": "#ac3509",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container-low": "#f6f3f2",
+                        "primary-fixed-dim": "#ffb59f",
+                        "secondary-fixed": "#e8e3cb",
+                        "background": "#fcf9f8",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#eae7e7",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#286b33",
+                        "on-primary-fixed-variant": "#852300",
+                        "secondary-fixed-dim": "#ccc7b0",
+                        "on-secondary-fixed": "#1e1c0e",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1c1c",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f0eded",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface-tint": "#ac3509",
+                        "outline": "#8d7169",
+                        "tertiary-fixed-dim": "#90d792",
+                        "on-secondary-fixed-variant": "#4a4736",
+                        "on-secondary-container": "#686552",
+                        "on-primary-container": "#641800",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f3f0f0",
+                        "tertiary-fixed": "#abf4ac",
+                        "primary-container": "#ff7043",
+                        "tertiary-container": "#67ab6b",
+                        "primary-fixed": "#ffdbd0",
+                        "secondary": "#625f4c",
+                        "on-tertiary-container": "#003d12",
+                        "on-primary-fixed": "#3a0a00",
+                        "outline-variant": "#e0bfb6",
+                        "on-tertiary-fixed-variant": "#07521d",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-container": "#e8e3cb",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "title-sm": ["Plus Jakarta Sans"],
+                        "label-bold": ["Be Vietnam Pro"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "display-lg": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border { border-right: 4px solid #ac3509; }
+    </style>
+</head>
+<body class="bg-background font-body-md text-on-background">
+<!-- Top Navigation Bar -->
+<header class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50">
+<div class="flex justify-between items-center px-5 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold text-orange-600 dark:text-orange-400 font-plus-jakarta-sans">RasaRekomendasi</span>
+<span class="hidden md:block text-sm text-gray-400 font-medium">/ Admin Panel</span>
+</div>
+<div class="flex items-center gap-xl">
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-1.5 border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-body-sm w-48" placeholder="Search comments..." type="text"/>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 rounded-full hover:bg-orange-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-gray-500">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-orange-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-gray-500">favorite</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="User Avatar" class="h-full w-full object-cover" data-alt="Close-up portrait of a professional male admin with a friendly expression in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5xKaLTD_6ks6jpoVoX2LrrbigXx8nym39ArN4ClfzP35NeAAw2YkUkAZWDFkDsqpBi7YAJEADAYi_lR3_R8a4OD-HHQMRASspKcC0bow6Tdwfcatjj17dFOOHGs9ujfVzHBgM0GNHySx4cv_xGdyZ2Qil94Ubbso8T0tXoKUuLxkjwrxTF8hIaVYaZqPFLVKbHTTk39mM_jNnK5abzgDst2NP4Pjg6-GWJy1gSb76F0k2Gitxuq2UXcWiG8QIm3e4CjPWTrVJKBg"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:flex flex-col fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 shadow-lg shadow-orange-500/5 z-40">
+<div class="p-lg">
+<div class="flex items-center gap-sm mb-xl">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-weight="fill">shield_person</span>
+</div>
+<div>
+<p class="font-title-sm text-sm text-on-surface leading-tight">Admin Panel</p>
+<p class="text-xs text-gray-500 font-body-sm">Manage RasaRekomendasi</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-medium font-plus-jakarta-sans text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-medium font-plus-jakarta-sans text-sm">Recipes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-medium font-plus-jakarta-sans text-sm">Categories</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 border-r-4 border-orange-500 rounded-r-none rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-semibold font-plus-jakarta-sans text-sm">Moderation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-600 dark:text-gray-400 hover:bg-orange-50 dark:hover:bg-gray-800 rounded-xl transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-medium font-plus-jakarta-sans text-sm">Statistics</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-lg border-t border-gray-100">
+<div class="bg-surface-container-low p-4 rounded-2xl">
+<p class="text-xs font-bold text-primary mb-1">PRO SYSTEM</p>
+<p class="text-[11px] text-gray-500 mb-3">All systems operational with 99.9% uptime.</p>
+<div class="w-full bg-gray-200 rounded-full h-1">
+<div class="bg-tertiary h-1 rounded-full w-3/4"></div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 p-container-margin md:p-xl">
+<div class="max-w-6xl mx-auto">
+<!-- Header Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-xl">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Moderation</h1>
+<p class="font-body-md text-gray-500">Review and moderate community feedback</p>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant rounded-xl text-on-surface hover:bg-orange-50 transition-colors">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span class="text-sm font-label-bold">Filters</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white rounded-xl shadow-lg shadow-orange-500/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">done_all</span>
+<span class="text-sm font-label-bold">Approve All</span>
+</button>
+</div>
+</div>
+<!-- Stats Overview -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+<div class="bg-white p-lg rounded-2xl shadow-sm border border-gray-100 flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined">pending_actions</span>
+</div>
+<div>
+<p class="text-sm text-gray-500 font-body-sm">Pending Review</p>
+<p class="text-headline-md font-headline-md">24</p>
+</div>
+</div>
+<div class="bg-white p-lg rounded-2xl shadow-sm border border-gray-100 flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<p class="text-sm text-gray-500 font-body-sm">Approved Today</p>
+<p class="text-headline-md font-headline-md">158</p>
+</div>
+</div>
+<div class="bg-white p-lg rounded-2xl shadow-sm border border-gray-100 flex items-center gap-lg">
+<div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-red-600">
+<span class="material-symbols-outlined">report</span>
+</div>
+<div>
+<p class="text-sm text-gray-500 font-body-sm">Flagged</p>
+<p class="text-headline-md font-headline-md">3</p>
+</div>
+</div>
+</div>
+<!-- Moderation Table -->
+<div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-gray-50/50 border-b border-gray-100">
+<th class="px-lg py-4 font-label-bold text-gray-400 uppercase tracking-wider">User</th>
+<th class="px-lg py-4 font-label-bold text-gray-400 uppercase tracking-wider">Recipe</th>
+<th class="px-lg py-4 font-label-bold text-gray-400 uppercase tracking-wider">Comment Text</th>
+<th class="px-lg py-4 font-label-bold text-gray-400 uppercase tracking-wider text-center">Rating</th>
+<th class="px-lg py-4 font-label-bold text-gray-400 uppercase tracking-wider">Status</th>
+<th class="px-lg py-4 font-label-bold text-gray-400 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-50">
+<!-- Pending Row (Highlighted) -->
+<tr class="bg-orange-50/30 hover:bg-orange-50 transition-colors">
+<td class="px-lg py-5">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" data-alt="Profile headshot of a young woman with a warm smile, outdoor natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6ukKF1IWUkcyt1kiClLuqn5TehMWXpb0O17ERuIU8LjYGICJaaG9OcLpoStrKmiu19EfhmCecEgXCPjwFFJQDU1wk9sJKQ4IdeQiXzuxn14Yt0eFC__X-tXCjVNLlcxabG-VuV3Efah0WN18y1Q0mdvzIIBUtFX10PtcWvnKNqqwR7LtHN3KEIZsGMUwVX1Bhy-DN29_WeEIxnRTPAkcFRX4F_xUDBPswk34Pjh5bjotcC-Hs2Cvm4MZprEk52ppGqvyFgj6z-fc"/>
+<div>
+<p class="font-title-sm text-sm">Siti Aminah</p>
+<p class="text-[11px] text-gray-400">2 mins ago</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-5">
+<div class="flex items-center gap-2">
+<img alt="Recipe" class="w-8 h-8 rounded-lg object-cover" data-alt="Close-up of a vibrant healthy salad bowl with avocado, tomatoes, and quinoa" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbBdva6FReDcyWpwHouqZpwvnHp8-NAVG7jzHAvYcNCuFDsUPMuXxDXpZTmbHuM6IIz_DYT7qDIkwit-FZtIa7UEaeK3Dy8Xu_nQookS4NjWRocnwGfZ9fE3ohheveZ2Vyp4XiyNSC6imskeQy2S5594wWEPsDzvWJGQXvi2REi9reKlR_y1k6ulhpJeyQdzcelKx-OUxqQH8yD3QpXMwneHhrp3wuNoVfBwiph-ffAxMxnxvxN2HFd8UvyLQEmBA3QulcCrETkhU"/>
+<span class="text-sm font-medium text-on-surface truncate max-w-[120px]">Spicy Avocado Toast</span>
+</div>
+</td>
+<td class="px-lg py-5">
+<p class="text-sm font-body-sm text-on-surface line-clamp-2 max-w-xs">
+                                            The lime juice really makes it pop! I added some extra chili flakes for more heat. Best breakfast ever!
+                                        </p>
+</td>
+<td class="px-lg py-5 text-center">
+<div class="flex items-center justify-center gap-0.5 text-orange-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">5.0</span>
+</div>
+</td>
+<td class="px-lg py-5">
+<span class="px-3 py-1 bg-orange-100 text-orange-700 text-[11px] font-bold rounded-full border border-orange-200">PENDING</span>
+</td>
+<td class="px-lg py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Unread Row (Highlighted) -->
+<tr class="bg-orange-50/30 hover:bg-orange-50 transition-colors">
+<td class="px-lg py-5">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" data-alt="Headshot of a middle-aged man with glasses, professional and friendly studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLT9MuEM0pq4FC5kosppXvbu5mlPEtAY9Jmvtl9Ebr5-FASUCtQl7KEMTKUtniXFwhhpkhRSPaIQ3VA2qIjYPlaU6V37Dg0bItFaRkm8n99oZqbJt1s4JtJwBbYf_aY7FQlOxW9CEHRPWZ_onopNzau0Tqx1vEfE7tqZiOOuH93P4t2-r0FShuL7eYaRFfmRjSmAAb99R0JU0YisxgKsp_neNSEHsrUTMPWIJG0NTs9PJga2kWrldbOUVXgJVcHfn64XCoHRqVVTU"/>
+<div>
+<p class="font-title-sm text-sm">Budi Santoso</p>
+<p class="text-[11px] text-gray-400">15 mins ago</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-5">
+<div class="flex items-center gap-2">
+<img alt="Recipe" class="w-8 h-8 rounded-lg object-cover" data-alt="A steaming bowl of traditional Indonesian Soto Ayam soup with garnishes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2vbsCqiCZ2pJARYzPtQljSvzWJMrwPmwF52ycs9VoB-ldBwXkxDl6ifbui6LfHZVUXIb_sAAf5E6Odvk37m7m7s_h6SxycjfyygmNkI-hvqadi9inUWOnf68diw128qhAXaNbL2bBMhgHiHB0SY5We3RpWhLUTFsIeY22CQmCk0UmgRpA83khEQzPg0pT9NHR_4toSudyoY1B8wTCsmYvDfj72i7R9n3KEuiN65ttLnRhumUPzeCD4hthrw8y7HnzXnGTU4bMDcc"/>
+<span class="text-sm font-medium text-on-surface truncate max-w-[120px]">Classic Soto Ayam</span>
+</div>
+</td>
+<td class="px-lg py-5">
+<p class="text-sm font-body-sm text-on-surface line-clamp-2 max-w-xs">
+                                            The broth recipe is spot on. Tastes exactly like my grandmother's recipe. Thank you for sharing!
+                                        </p>
+</td>
+<td class="px-lg py-5 text-center">
+<div class="flex items-center justify-center gap-0.5 text-orange-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">4.8</span>
+</div>
+</td>
+<td class="px-lg py-5">
+<span class="px-3 py-1 bg-orange-100 text-orange-700 text-[11px] font-bold rounded-full border border-orange-200">NEW</span>
+</td>
+<td class="px-lg py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Regular Row -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-lg py-5">
+<div class="flex items-center gap-3">
+<img alt="User" class="w-10 h-10 rounded-full object-cover" data-alt="Close-up of a young man smiling, bright natural light, outdoor setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsMROhM6Btq2KEIBFCj2nLGIZN3Y9v7Ue_a7HuwZ3wOS3QU0qETZOklJkN3pHzpthqTiiP8VgFg1rVviMycFFTh3Xt-oDlevSf9gfMCSTiSfCq0guYMVQFvPptOEngCMxGbOv9gsbC1TTsya8P5r7UuDy5q4ThfxQ6bxNzv1Jt7Ct52ScPeV7uBlBzMvvT42ucv16GFNoeA9L1Np0aWTHhs8ycmAXlsork3NsCN2YeK2OSqmyYEwcHX7J6QQfIFSihdH8JzgI7snY"/>
+<div>
+<p class="font-title-sm text-sm text-gray-700">Rendi Wijaya</p>
+<p class="text-[11px] text-gray-400">1 hour ago</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-5">
+<div class="flex items-center gap-2">
+<img alt="Recipe" class="w-8 h-8 rounded-lg object-cover" data-alt="Delicious plate of Indonesian Nasi Goreng with a fried egg on top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfHB2bIngHrVO1jnD7RqZwP2QRpvfMUki93xCgZEm9OtbNcdbYwzM9LOYCtf8ZDyZlkwEAzPEhQSCxDqAvAGk9DfmwBOP8FM2ZU3fvdRhIrbHdxjW61oQHyT75ae61aLwtUSXGascQZx8Ebo0I9RT2tdVD9kitKPecQ2EHg88_FSUSBOq27MdMjm0Xb1paSNzhoJjs85eAbX0nFSg94iDtVsMEJfwdzbbgkuh7ZdpscMySYzJ7-HLuXTQFugyaQT-e7ibvxKDjp4Y"/>
+<span class="text-sm font-medium text-on-surface truncate max-w-[120px]">Kampung Nasi Goreng</span>
+</div>
+</td>
+<td class="px-lg py-5">
+<p class="text-sm font-body-sm text-gray-500 line-clamp-2 max-w-xs">
+                                            Very easy to follow. I replaced the chicken with tofu and it was still delicious!
+                                        </p>
+</td>
+<td class="px-lg py-5 text-center">
+<div class="flex items-center justify-center gap-0.5 text-orange-500">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-sm font-bold">4.0</span>
+</div>
+</td>
+<td class="px-lg py-5">
+<span class="px-3 py-1 bg-gray-100 text-gray-500 text-[11px] font-bold rounded-full border border-gray-200">REVIEWED</span>
+</td>
+<td class="px-lg py-5">
+<div class="flex items-center justify-end gap-2">
+<button class="p-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors">
+<span class="material-symbols-outlined text-lg">check</span>
+</button>
+<button class="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors">
+<span class="material-symbols-outlined text-lg">close</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-lg py-4 border-t border-gray-100 flex items-center justify-between bg-white">
+<p class="text-xs text-gray-500">Showing <span class="font-bold">1-10</span> of 1,240 comments</p>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400 hover:bg-gray-50">
+<span class="material-symbols-outlined text-lg">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary-container text-white text-xs font-bold shadow-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 text-xs font-bold hover:bg-gray-50">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-600 text-xs font-bold hover:bg-gray-50">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 text-gray-400 hover:bg-gray-50">
+<span class="material-symbols-outlined text-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 shadow-[0_-4px_20px_rgba(255,112,67,0.08)] px-4 py-3 flex justify-around items-center">
+<div class="flex flex-col items-center text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined text-lg">home</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center text-orange-600 dark:text-orange-400 scale-110 transition-transform">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Recommend</span>
+</div>
+<div class="flex flex-col items-center text-gray-400 dark:text-gray-500">
+<span class="material-symbols-outlined text-lg">person</span>
+<span class="font-plus-jakarta-sans text-[11px] font-medium">Profile</span>
+</div>
+</nav>
+<!-- Footer -->
+<footer class="w-full py-8 px-5 flex flex-col items-center gap-4 text-center bg-gray-50 dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800 lg:ml-64 lg:w-[calc(100%-16rem)]">
+<p class="font-plus-jakarta-sans text-xs text-gray-500">© 2024 RasaRekomendasi. Built for Gen Z Home Chefs.</p>
+<div class="flex gap-4">
+<a class="font-plus-jakarta-sans text-xs text-gray-500 hover:text-orange-400 transition-colors" href="#">About Us</a>
+<a class="font-plus-jakarta-sans text-xs text-gray-500 hover:text-orange-400 transition-colors" href="#">Terms of Service</a>
+<a class="font-plus-jakarta-sans text-xs text-gray-500 hover:text-orange-400 transition-colors" href="#">Privacy Policy</a>
+<a class="font-plus-jakarta-sans text-xs text-gray-500 hover:text-orange-400 transition-colors" href="#">Contact</a>
+</div>
+</footer>
+</body></html>
