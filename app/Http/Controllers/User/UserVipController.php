@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class UserVipController extends Controller
 {
     public function index() {
-        $packages = VipPackage::all();
+        $packages = VipPackage::where('is_active', true)->get();
         return view('user.vip.packages', compact('packages'));
     }
 
@@ -18,20 +18,26 @@ class UserVipController extends Controller
     }
 
     public function processCheckout(Request $request, VipPackage $package) {
-        $request->validate(['payment_method'=>'required']);
-        
-        $transaction = Transaction::create([
-            'user_id' => Auth::id(),
-            'vip_package_id' => $package->id,
-            'amount' => $package->price,
-            'payment_status' => 'success', // Simulated success payment gateway integration
-            'payment_method' => $request->payment_method
+        $request->validate([
+            'payment_method' => 'required|in:transfer,qris,virtual_account',
         ]);
 
-        // Enable user VIP access
-        $user = Auth::user();
-        $user->update(['is_vip' => true]);
+        // Buat transaksi dengan status PENDING — VIP belum diaktifkan
+        $transaction = Transaction::create([
+            'user_id'        => Auth::id(),
+            'vip_package_id' => $package->id,
+            'amount'         => $package->price,
+            'payment_status' => 'pending',
+            'payment_method' => $request->payment_method,
+        ]);
 
-        return redirect()->route('vip.index')->with('success', 'Selamat! Anda sekarang resmi menjadi Member VIP RasaRekomendasi! 🎉');
+        // Arahkan ke halaman menunggu pembayaran
+        return redirect()->route('transactions.pending', $transaction)
+            ->with('success', 'Transaksi dibuat! Silakan selesaikan pembayaran Anda.');
+    }
+
+    public function pendingPayment(Transaction $transaction) {
+        if ($transaction->user_id !== Auth::id()) abort(403);
+        return view('user.vip.payment_pending', compact('transaction'));
     }
 }

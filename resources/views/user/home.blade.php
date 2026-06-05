@@ -351,60 +351,39 @@
             <a href="{{ route('recipes.index') }}" style="color:var(--primary); font-weight:800; font-size:13px;">Lihat Semua ></a>
         </div>
 
-        <div style="display:grid; grid-template-columns: 1.1fr 0.9fr; gap:24px;">
-            <!-- Big card left -->
-            <div class="trending-big-card">
+        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px;">
+            @forelse($trending as $recipe)
+            <a href="{{ route('recipes.show', $recipe->slug) }}" style="text-decoration:none;color:inherit;" class="trending-big-card">
                 <div style="position:relative;">
-                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=800" alt="Nasi Goreng Gila Jakarta">
+                    @if($recipe->image)
+                    <img src="{{ asset('storage/'.$recipe->image) }}" alt="{{ $recipe->title }}">
+                    @else
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80" alt="{{ $recipe->title }}">
+                    @endif
                     <span style="position:absolute; bottom:16px; left:16px; background:#FF9800; color:#FFF; font-size:10px; font-weight:800; padding:4px 10px; border-radius:4px;">TRENDING</span>
                 </div>
-                <div style="padding:24px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="padding:20px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
                     <div>
-                        <div style="display:flex; gap:10px; font-size:11px; font-weight:700; color:#999; margin-bottom:8px;">
-                            <span>15 MINS</span>
-                            <span>•</span>
-                            <span>EASY</span>
-                        </div>
-                        <h3 style="font-size:22px; font-weight:800; color:#111; line-height:1.3;">Nasi Goreng Gila Jakarta</h3>
-                        <p style="color:var(--text-m); font-size:13px; margin-top:6px; line-height:1.5;">Nasi goreng kaya rasa dengan toping sosis, bakso, kol, dan telur orak-arik gila pedas.</p>
+                        @if($recipe->category)
+                        <div style="font-size:11px;font-weight:700;color:#999;margin-bottom:6px;">{{ strtoupper($recipe->category->name) }}</div>
+                        @endif
+                        <h3 style="font-size:17px; font-weight:800; color:#111; line-height:1.3;">{{ $recipe->title }}</h3>
+                        <p style="color:var(--text-m); font-size:12px; margin-top:6px; line-height:1.5;">{{ Str::limit(strip_tags($recipe->description ?? ''), 80) }}</p>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid #F0F0F0;">
-                        <span style="font-size:12px; color:#777;"><i class="far fa-eye"></i> 1.2k views</span>
-                        <span style="color:#FFA500; font-weight:800; font-size:13px;"><i class="fas fa-star"></i> 4.9</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid #F0F0F0;">
+                        <span style="font-size:11px; color:#777;">{{ $recipe->chef->name ?? 'RasaRekomendasi' }}</span>
+                        <span style="color:#FFA500; font-weight:800; font-size:12px;"><i class="fas fa-star"></i> {{ number_format($recipe->rating_avg ?? 0, 1) }}</span>
                     </div>
                 </div>
+            </a>
+            @empty
+            {{-- Fallback jika DB kosong --}}
+            <div class="trending-big-card" style="padding:40px;text-align:center;color:var(--text-m);">
+                <i class="fas fa-utensils" style="font-size:32px;margin-bottom:12px;display:block;opacity:.3;"></i>
+                <p style="font-size:14px;">Resep akan segera hadir. Daftarkan diri untuk notifikasi pertama!</p>
+                <a href="{{ route('register') }}" class="btn" style="margin-top:14px;display:inline-flex;text-decoration:none;">Daftar Sekarang</a>
             </div>
-
-            <!-- Small cards grid right -->
-            <div style="display:grid; grid-template-rows: auto 1fr; gap:20px;">
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                    <!-- Salad Salmon -->
-                    <div class="trending-big-card" style="height:auto;">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80" style="height:150px;" alt="">
-                        <div style="padding:16px;">
-                            <h4 style="font-size:14px; font-weight:800; color:#111;">Salad Salmon Alpukat</h4>
-                            <p style="font-size:11px; color:#999; margin-top:4px;">Healthy • Keto</p>
-                        </div>
-                    </div>
-                    <!-- Lava Cake -->
-                    <div class="trending-big-card" style="height:auto;">
-                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400&q=80" style="height:150px;" alt="">
-                        <div style="padding:16px;">
-                            <h4 style="font-size:14px; font-weight:800; color:#111;">Lava Cake Cokelat</h4>
-                            <p style="font-size:11px; color:#999; margin-top:4px;">Rich • Sweet</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Smoothie Bowl Tropis (Large landscape card) -->
-                <div class="trending-big-card" style="position:relative;">
-                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" style="height:100%; min-height:180px;" alt="">
-                    <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding:20px; color:#FFF;">
-                        <h4 style="font-size:18px; font-weight:800; margin:0;">Smoothie Bowl Tropis</h4>
-                        <p style="font-size:12px; opacity:0.8; margin-top:4px;">Booster Energi Pagi</p>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </section>
 
@@ -517,7 +496,7 @@
                     <span style="font-size:12px; font-weight:700; color:#333;">Recommend</span>
                 </div>
                 <!-- Tile 2 -->
-                <div class="tile-card" onclick="window.location='{{ route('vip.index') }}'">
+                <div class="tile-card" onclick="window.location='{{ route('transactions.index') }}'">
                     <div class="tile-icon" style="background:#EBF3FF; color:#1565C0;"><i class="fas fa-receipt"></i></div>
                     <span style="font-size:12px; font-weight:700; color:#333;">Transactions</span>
                 </div>
