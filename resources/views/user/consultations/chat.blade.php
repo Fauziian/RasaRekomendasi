@@ -26,7 +26,7 @@
                 @php $isMe = $msg->sender_id === Auth::id(); @endphp
                 <div style="display:flex;justify-content:{{ $isMe ? 'flex-end' : 'flex-start' }};">
                     <div style="max-width:70%;padding:10px 14px;border-radius:12px;background:{{ $isMe ? 'var(--primary)' : '#F0F0F0' }};color:{{ $isMe ? '#fff' : '#111' }};font-size:13px;line-height:1.4;">
-                        {{ $msg->message }}
+                        {{ $msg->body }}
                         <div style="font-size:9px;text-align:right;opacity:0.8;margin-top:4px;">{{ $msg->created_at->format('H:i') }}</div>
                     </div>
                 </div>

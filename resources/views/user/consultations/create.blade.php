@@ -27,8 +27,8 @@
                     <input type="radio" name="schedule_id" value="{{ $sched->id }}" style="accent-color:var(--primary);width:18px;height:18px;" required>
                     <i class="far fa-calendar-alt" style="font-size:18px;color:var(--primary);"></i>
                     <span style="font-size:13px;font-weight:600;">
-                        {{ \Carbon\Carbon::parse($sched->consultation_date)->format('l, d M Y') }} 
-                        ({{ \Carbon\Carbon::parse($sched->start_time)->format('H:i') }} - {{ \Carbon\Carbon::parse($sched->end_time)->format('H:i') }})
+                        {{ \Carbon\Carbon::parse($sched->available_date)->format('l, d M Y') }} 
+                        ({{ \Carbon\Carbon::parse($sched->available_time_start)->format('H:i') }} - {{ \Carbon\Carbon::parse($sched->available_time_end)->format('H:i') }})
                     </span>
                 </label>
                 @empty

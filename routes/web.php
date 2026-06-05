@@ -7,6 +7,7 @@ use App\Http\Controllers\User\UserRecipeController;
 use App\Http\Controllers\User\UserRecommendationController;
 use App\Http\Controllers\User\UserVipController;
 use App\Http\Controllers\User\UserConsultationController;
+use App\Http\Controllers\User\UserTransactionController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\AdminRecipeController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminModerationController;
 use App\Http\Controllers\Admin\AdminTransactionController;
+use App\Http\Controllers\Admin\AdminVipPackageController;
 use App\Http\Controllers\Chef\ChefDashboardController;
 use App\Http\Controllers\Chef\ChefRecipeController;
 use App\Http\Controllers\Chef\ChefScheduleController;
@@ -50,6 +52,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/vip/checkout/{package}', [UserVipController::class, 'checkout'])->name('vip.checkout');
     Route::post('/vip/checkout/{package}/process', [UserVipController::class, 'processCheckout'])->name('vip.checkout.process');
 
+    // Transactions (user riwayat + pending page)
+    Route::get('/transactions', [UserTransactionController::class, 'index'])->name('transactions.index');
+    Route::get('/transactions/{transaction}/pending', [UserVipController::class, 'pendingPayment'])->name('transactions.pending');
+
     // VIP Live Consultations (Only for VIP Users)
     Route::middleware(['vip'])->group(function () {
         Route::get('/consultations', [UserConsultationController::class, 'index'])->name('consultations.index');
@@ -74,7 +80,14 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/moderation/{comment}/approve', [AdminModerationController::class, 'approve'])->name('moderation.approve');
         Route::delete('/moderation/{comment}', [AdminModerationController::class, 'destroy'])->name('moderation.destroy');
         
+        // Transactions + approve/reject
         Route::get('/transactions', [AdminTransactionController::class, 'index'])->name('transactions.index');
+        Route::patch('/transactions/{transaction}/approve', [AdminTransactionController::class, 'approve'])->name('transactions.approve');
+        Route::patch('/transactions/{transaction}/reject', [AdminTransactionController::class, 'reject'])->name('transactions.reject');
+
+        // VIP Package Management
+        Route::resource('vip-packages', AdminVipPackageController::class);
+        Route::patch('/vip-packages/{vipPackage}/toggle', [AdminVipPackageController::class, 'toggle'])->name('vip-packages.toggle');
     });
 
     // ─────────────────────────────────────────────

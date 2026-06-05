@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
-use App\Models\Schedule;
+use App\Models\ChefSchedule;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,23 +17,27 @@ class UserConsultationController extends Controller
     }
 
     public function create(User $chef) {
-        $schedules = Schedule::where('chef_id', $chef->id)->where('is_available', true)->get();
+        $schedules = ChefSchedule::where('chef_id', $chef->id)->where('is_available', true)->get();
         return view('user.consultations.create', compact('chef', 'schedules'));
     }
 
     public function store(Request $request, User $chef) {
         $request->validate(['schedule_id'=>'required']);
         
-        $schedule = Schedule::findOrFail($request->schedule_id);
+        $schedule = ChefSchedule::findOrFail($request->schedule_id);
         
+        if (!$schedule->is_available) {
+            return back()->withErrors(['schedule_id' => 'Jadwal ini sudah tidak tersedia.']);
+        }
+
         $consultation = Consultation::create([
-            'user_id' => Auth::id(),
-            'chef_id' => $chef->id,
+            'user_id'     => Auth::id(),
+            'chef_id'     => $chef->id,
             'schedule_id' => $schedule->id,
-            'status' => 'active'
+            'status'      => 'active'
         ]);
 
-        // Consume quota
+        // Mark schedule as consumed
         $schedule->update(['is_available' => false]);
 
         return redirect()->route('consultations.chat', $consultation)->with('success', 'Sesi konsultasi Anda berhasil dijadwalkan!');
@@ -47,12 +51,13 @@ class UserConsultationController extends Controller
 
     public function sendMessage(Request $request, Consultation $consultation) {
         if ($consultation->user_id !== Auth::id()) abort(403);
-        $request->validate(['message'=>'required']);
+        $request->validate(['message'=>'required|string|max:2000']);
         
         Message::create([
             'consultation_id' => $consultation->id,
-            'sender_id' => Auth::id(),
-            'message' => $request->message
+            'sender_id'       => Auth::id(),
+            'sender_role'     => 'user',
+            'body'            => $request->message,
         ]);
         return back();
     }
