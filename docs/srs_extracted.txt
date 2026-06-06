@@ -1,0 +1,427 @@
+﻿Software Requirements specification (SRS)Sistem Rekomendasi resep makananSoftware Requirements specification (SRS)Sistem Rekomendasi resep makanan          
+Software Requirements specification (SRS)
+Sistem Rekomendasi resep makanan
+Software Requirements specification (SRS)
+Sistem Rekomendasi resep makanan
+Table Of Contents
+Table Of Contentsi
+Bab I Introduction1
+1.1 Purpose1
+1.2 Intended Audience and Reading Suggestions2
+1.3 Project Scope2
+1.4 References4
+Bab II Overall Description5
+2.1 Organitations5
+2.2 Product Perspective6
+2.3 User Classes and Characteristics7
+Bab III Functional Requirements8
+3.1 Detailed Functional Requirements8
+3.2 Use Case Diagram9
+3.3 Use Case Scenario10
+Bab IV Non Functional Requirements14
+4.1 Performance Requirements14
+4.2 Safety Requirements15
+4.3 Software Quality Attributes16
+Bab V Data Requirements17
+4.1 Input17
+1.1 Output18
+Bab VI Interface Requirements19
+4.1 User Interface19
+4.2 Hardware Interface20
+4.3 Software Interface21
+4.4 Communication Interface22
+Bab I Introduction
+1.1Purpose
+Tujuan utama dari pembuatan dokumen System Requirements Specification (SRS) untuk Sistem Rekomendasi Resep Makanan adalah untuk mendefinisikan secara mendalam dan terperinci mengenai spesifikasi sistem yang akan dibangun. Dokumen ini berfungsi sebagai panduan teknis bagi tim pengembang (vendor) dalam mengimplementasikan fitur-fitur aplikasi berbasis web yang responsif, guna memberikan kemudahan bagi masyarakat umum dalam menemukan inspirasi memasak. Berikut adalah rincian tujuan dari sistem ini:
+Personalisasi dan Efisiensi Pencarian Kuliner
+Sistem ini bertujuan untuk mengotomatisasi proses pencarian ide memasak dengan memberikan rekomendasi resep yang dipersonalisasi berdasarkan preferensi spesifik pengguna, seperti kategori (Western, Asia, atau Tradisional Indonesia), tingkat kesulitan, hingga estimasi waktu memasak. Hal ini dirancang untuk menghemat waktu pengguna dalam memilih menu makanan yang sesuai dengan kebutuhan dan ketersediaan waktu mereka.
+Memfasilitasi Interaksi dan Edukasi Pengguna
+Mewujudkan platform yang interaktif di mana pengguna tidak hanya mendapatkan informasi tekstual, tetapi juga dukungan visual melalui fitur video tutorial yang disematkan (embed) dari platform eksternal. Selain itu, sistem menyediakan sarana transparansi informasi melalui fitur rating dan komentar, yang memungkinkan pengguna untuk saling berbagi pengalaman dan memberikan penilaian terhadap kualitas resep yang tersedia.
+Digitalisasi Manajemen Konten Resep
+Meningkatkan akurasi dan keteraturan data kuliner melalui sistem manajemen resep yang terpusat bagi admin. Dengan adanya sistem ini, pengelolaan data resep—mulai dari penambahan, penyuntingan, hingga penghapusan—dapat dilakukan secara digital dan sistematis, menggantikan metode konvensional dan memastikan informasi yang disajikan kepada publik tetap relevan dan berkualitas.
+Menjamin Keamanan Akses dan Validasi Fitur
+Menyediakan mekanisme autentikasi yang jelas untuk membedakan hak akses antara pengunjung umum (guest), pengguna terdaftar (user), dan administrator. Hal ini bertujuan untuk menjaga integritas data pada fitur-fitur tertentu, seperti pemberian komentar dan rating, yang hanya dapat dilakukan oleh pengguna yang telah tervalidasi melalui proses login
+Optimalisasi Pengalaman Pengguna (UI/UX) pada Perangkat Mobile
+Tujuan ini menegaskan bahwa sistem dikembangkan sebagai aplikasi web yang responsif. Hal ini menjamin bahwa masyarakat umum dapat mengakses rekomendasi resep secara optimal melalui berbagai perangkat, terutama smartphone, dengan penyesuaian tata letak (seperti card resep) yang memudahkan navigasi saat sedang memasak di dapur.
+Kendali Mutu dan Moderasi Konten
+Tujuan ini berfokus pada peran Admin dalam menjaga kualitas platform. Sistem dirancang agar Admin memiliki otoritas penuh untuk mengelola data resep serta melakukan moderasi terhadap interaksi pengguna, seperti menghapus komentar yang tidak sesuai, guna menciptakan komunitas berbagi resep yang sehat dan positif.
+Skalabilitas dan Infrastruktur Berbasis Cloud
+Mengingat adanya fitur video tutorial yang disematkan (embed), sistem bertujuan untuk menyediakan performa yang stabil bagi banyak pengguna sekaligus. Dengan memanfaatkan arsitektur yang tepat, sistem memastikan proses pemuatan halaman tetap cepat dan efisien tanpa membebani penyimpanan server secara berlebihan melalui penggunaan tautan pihak ketiga.
+1.2 Intended Audience and Reading Suggestions 
+Tim Pengembang Perangkat Lunak (Developers & Engineers): Dokumen ini memberikan mereka panduan yang jelas tentang kebutuhan fungsional dan nonfungsional yang harus dipenuhi dalam pengembangan perangkat lunak. Tim pengembang menggunakan SRS sebagai dasar untuk merancang, mengimplementasikan, dan menguji perangkat lunak.
+Pihak Pengambil Keputusan/Manajemen (Stakeholders): pejabat setingkat Kasi/Kaur, berkepentingan dengan aspek strategis dan pengawasan. Mereka fokus untuk memahami Permasalahan yang Dihadapi dan Tujuan Sistem , Lingkup Sistem , serta Alur Bisnis Sistem. Mereka juga menggunakan alur persetujuan surat dan pengawasan jadwal untuk memvisualisasikan otorisasi dan kontrol hierarkis yang baru.
+Pengguna Operasional (End-Users): Kelompok ini terdiri dari Staf dan Batih yang merupakan pengguna harian sistem. Mereka perlu memahami Kebutuhan Fungsional yang relevan (pengelolaan jadwal/surat, notifikasi) , serta User Interface dan User Experience Model untuk memastikan kemudahan adopsi dan efisiensi dalam melaksanakan tugas harian mereka (misalnya, melihat dashboard, mengisi formulir jadwal baru).
+Tim QA (Quality Assurance): Tim ini menggunakan dokumen ini untuk memverifikasi kualitas dan kesesuaian sistem. Mereka membutuhkan detail untuk merancang skenario pengujian fungsional dan non-fungsional. Secara khusus, mereka akan merujuk pada Sequence Diagram dan State Diagram untuk memastikan bahwa setiap transaksi (misalnya, pengajuan surat atau permintaan perubahan jadwal) mengikuti urutan dan transisi status yang benar sesuai desain.
+Pemelihara Perangkat Lunak (Maintainers): Pihak yang bertanggung jawab untuk perubahan atau perluasan di masa depan. Mereka akan sangat bergantung pada (Desain) secara keseluruhan. Secara spesifik, mereka akan merujuk ke Class Diagram dan ERD untuk memahami struktur data dan hubungan antar entitas, serta Deployment Diagram untuk arsitektur infrastruktur, guna melaksanakan perubahan dengan benar dan meminimalkan risiko regresi.
+1.3 Project Scope
+Lingkup proyek dalam pembuatan SRS ini mendefinisikan batasan fungsional dan operasional untuk memastikan pengembangan Sistem Rekomendasi Resep Makanan berjalan sesuai dengan tujuan bisnis. Berikut adalah poin-poin utama yang mencakup cakupan pekerjaan sistem:
+Manajemen Autentikasi dan Peran Pengguna
+Sistem menyediakan pengelolaan akun dengan pembagian hak akses yang jelas untuk menjamin keamanan data dan fungsionalitas. Peran yang diidentifikasi meliputi Guest (pengunjung umum), User (pengguna terdaftar), dan Admin. Pengelolaan ini memastikan bahwa fitur interaktif seperti memberikan komentar dan rating hanya dapat diakses oleh pengguna yang telah tervalidasi melalui proses login.
+Sistem Rekomendasi Resep Berbasis Preferensi
+Fitur utama sistem adalah memberikan rekomendasi resep makanan secara otomatis berdasarkan input preferensi pengguna. Cakupan teknisnya meliputi pemrosesan variabel input seperti kategori (Western, Asia, Tradisional Indonesia), jenis rasa (pedas, manis, dll), tingkat kesulitan, dan estimasi waktu memasak. Sistem akan mencocokkan input tersebut dengan database internal untuk menampilkan daftar resep dengan tingkat kecocokan tertinggi.
+Manajemen Konten dan Multimedia (Recipe Management)
+Sistem mendukung penyajian informasi resep yang komprehensif, mencakup nama resep, bahan-bahan, langkah pembuatan, hingga elemen multimedia. Lingkup ini juga mencakup integrasi video tutorial memasak yang bersifat interaktif. Untuk efisiensi penyimpanan, video tidak diunggah langsung ke server melainkan menggunakan mekanisme penyematan (embed) melalui tautan platform eksternal seperti YouTube.
+Fitur Interaksi dan Validasi Sosial
+Untuk meningkatkan kualitas informasi, sistem menyediakan fitur rating (skala 1-5 bintang) dan kolom komentar pada setiap detail resep. Sistem secara otomatis menghitung rata-rata rating untuk ditampilkan kepada pengguna lain sebagai indikator kualitas resep. Setiap pengguna terdaftar dibatasi hanya dapat memberikan satu kali rating per resep untuk menjaga objektivitas data.
+Moderasi dan Administrasi Konten
+Sistem memberikan otoritas penuh kepada Admin untuk mengelola seluruh ekosistem data dalam aplikasi. Hal ini mencakup kemampuan untuk menambah, menyunting, atau menghapus data resep, mengelola informasi pengguna, serta melakukan moderasi konten dengan menghapus komentar yang dianggap tidak sesuai atau melanggar aturan.
+Aksesibilitas Web Responsif
+Lingkup pengembangan berfokus pada platform aplikasi berbasis web yang dirancang dengan prinsip responsive design. Hal ini memastikan bahwa seluruh fitur sistem dapat diakses secara optimal melalui berbagai perangkat, termasuk smartphone, dengan penyesuaian antarmuka yang memudahkan pengguna saat berinteraksi dengan sistem di lingkungan dapur.
+Batasan Sistem (Out of Scope)
+Untuk menjaga fokus pengembangan, sistem ini secara eksplisit tidak mencakup:
+Penggunaan algoritma AI yang kompleks di luar pencocokan preferensi dasar.
+Fitur transaksi pembelian bahan makanan atau pemesanan menu.
+Integrasi pengambilan data dari API eksternal (data bersifat internal/statis).
+Fitur sosial lanjutan seperti chat antar pengguna, sistem pengikut (follow), atau informasi nutrisi kesehatan secara mendetail
+Manajemen Basis Data Resep dan Kategori
+Sistem ini mencakup pengelolaan basis data resep yang terstruktur di mana setiap resep memiliki atribut lengkap mulai dari nama, gambar, bahan, hingga langkah memasak. Admin memiliki wewenang penuh untuk memperluas kategori resep di luar kategori standar (Western dan Asia) guna memastikan database tetap relevan dengan tren kuliner terbaru.
+ Mekanisme Verifikasi dan Keamanan Akses
+Cakupan proyek mencakup sistem keamanan pada gerbang masuk aplikasi, termasuk fitur registrasi akun dengan pengisian data profil dasar serta validasi pengguna untuk mengakses fitur interaktif. Sistem dirancang untuk memastikan bahwa fungsi manajemen konten yang bersifat sensitif hanya dapat dilakukan oleh peran yang memiliki kredensial yang sesuai.
+Visualisasi dan Navigasi Konten
+Sistem menyediakan antarmuka khusus untuk menampilkan detail resep secara mendalam, termasuk integrasi link video (embed) yang memungkinkan pengguna melihat tutorial tanpa meninggalkan aplikasi. Hal ini mencakup perancangan alur sistem dari saat pengguna membuka aplikasi hingga mendapatkan hasil rekomendasi dengan tingkat kecocokan tertinggi berdasarkan database.
+Batasan Operasional dan Teknis (Detailed Constraints)
+Untuk menjamin efisiensi pengembangan, scope ini menetapkan batasan teknis yang tegas, antara lain:
+Kapasitas Data: Data resep terbatas pada input internal dan tidak mendukung integrasi API eksternal.
+Fungsionalitas Terbatas: Tidak mendukung fitur komunikasi antar pengguna (chat), sistem pengikut (follow), maupun fitur balasan komentar (reply)
+Media: Penyimpanan video tutorial sepenuhnya bergantung pada pihak ketiga (embed link), bukan unggahan langsung ke server aplikasi guna mengoptimalkan penggunaan ruang penyimpanan.
+1.4 References
+Bab II Overall Description
+2.1 Organitations
+Visi 
+Visi dari pengembangan Sistem Rekomendasi Resep Makanan ini adalah untuk menjadi platform digital terpercaya yang menginspirasi masyarakat dalam mengeksplorasi dunia kuliner. Sistem ini bertujuan untuk memudahkan akses informasi resep yang berkualitas, meningkatkan keterampilan memasak pengguna melalui bantuan teknologi, serta membangun ekosistem berbagi pengalaman kuliner yang interaktif dan modern.
+Misi
+Misi pengembangan sistem ini berfokus pada penyediaan solusi praktis bagi kebutuhan masak sehari-hari melalui beberapa poin utama:
+Menyelenggarakan platform pencarian resep yang cerdas dan efisien berdasarkan preferensi personal pengguna.
+Menghadirkan konten edukasi kuliner yang komprehensif melalui integrasi teks, gambar, dan video tutorial yang interaktif.
+Menciptakan ruang interaksi bagi komunitas pengguna melalui sistem rating dan komentar untuk menjamin validitas serta kualitas setiap resep yang disajikan.
+Meningkatkan efisiensi pengelolaan konten resep bagi pengelola sistem melalui digitalisasi dan manajemen basis data yang terpusat.
+Struktur Organisasi (Relevansi Sistem) 
+Struktur tim pengembang (disusun dengan pembagian peran yang ketat guna memastikan setiap aspek fungsional sistem tervalidasi dengan baik sesuai kerangka kerja Scrum:
+Project Manager: Bertanggung jawab mengoordinasikan kebutuhan bisnis klien, mengelola timeline, dan memastikan hasil kerja sesuai dengan ekspektasi bisnis.
+Scrum Master: Memfasilitasi seluruh seremoni Scrum, mengelola product backlog di Jira, serta memastikan kolaborasi antara pihak klien dan vendor berjalan sesuai prinsip Agile.
+Programmer (Technical Lead): Memberikan panduan arsitektur sistem, validasi teknis fitur, serta berkontribusi dalam pengujian implementasi yang dibangun oleh tim vendor.
+UI/UX Designer: Menyusun kebutuhan desain antarmuka, termasuk pembuatan wireframe, mockup, dan panduan visual sebagai acuan tampilan aplikasi.
+Software Quality Assurance (SQA): Menyusun kriteria penerimaan (acceptance criteria) dan skenario pengujian untuk memverifikasi kualitas sistem sebelum dinyatakan selesai.
+Business Analyst: Menganalisis kebutuhan pengguna, menyusun user story, serta mendokumentasikan spesifikasi fungsional agar fitur yang dikembangkan tepat sasaran.
+Keahlian dan Pengalaman Organisasi
+ Sebagai tim pengembang dari Program Studi Informatika UNJANI, Kami memiliki kompetensi dalam:
+Pengembangan Perangkat Lunak Agile: Memiliki kemampuan dalam menerapkan metode Scrum untuk mengelola proyek pengembangan software yang adaptif.
+Analisis Sistem dan Basis Data: Ahli dalam merancang alur sistem (system flow) serta struktur database yang mampu menampung preferensi dan manajemen konten resep.
+Implementasi Teknologi Web Responsif: Berpengalaman dalam merancang aplikasi berbasis web yang optimal diakses dari berbagai perangkat (smartphone dan desktop)
+2.2 Product Perspective
+Sistem Rekomendasi Resep Makanan ini dikembangkan sebagai platform digital mandiri yang dirancang untuk memodernisasi cara masyarakat dalam mengeksplorasi ide kuliner. Proyek ini memposisikan teknologi sebagai asisten dapur pribadi yang menjembatani kebutuhan pengguna akan panduan memasak yang praktis dan terstruktur.
+Lingkup Operasional:
+ Sebagai aplikasi berbasis web yang responsif, sistem ini dapat diakses secara fleksibel melalui berbagai peramban (browser) baik pada perangkat komputer maupun smartphone. Hal ini memastikan aksesibilitas tinggi bagi pengguna yang memerlukan instruksi memasak secara langsung di area dapur.
+Arsitektur Hubungan Pengguna: 
+Platform ini mengintegrasikan tiga level interaksi yang saling berkesinambungan: Guest, User (terdaftar), dan Admin. Alur informasi dirancang agar data resep yang dikelola secara terpusat oleh Admin dapat memberikan manfaat langsung bagi Guest melalui fitur pencarian, serta memberikan pengalaman lebih mendalam bagi User melalui fitur keterlibatan sosial.
+Sinergi Konten Eksternal: 
+Untuk menjaga performa server tetap ringan namun tetap kaya akan informasi, sistem menerapkan strategi hybrid storage. Data tekstual dan gambar disimpan secara internal, sementara konten multimedia tutorial diintegrasikan melalui tautan sematan (embed link) dari platform video eksternal seperti YouTube.
+Integritas dan Keamanan:
+Produk ini berdiri di atas infrastruktur yang memisahkan hak akses fungsional secara ketat. Fitur sensitif seperti manajemen database resep hanya dibuka untuk Administrator, sedangkan validasi akun diperlukan bagi pengguna yang ingin memberikan kontribusi berupa penilaian (rating) atau ulasan pada sistem.
+Pembangunan sistem ini membawa sejumlah solusi praktis bagi tantangan administrasi kuliner digital, antara lain:
+Penyederhanaan Pengambilan Keputusan: Sistem memangkas kebingungan pengguna dalam memilih menu melalui algoritma pencocokan preferensi yang mempertimbangkan kategori, tingkat kesulitan, dan ketersediaan waktu.
+Standardisasi Edukasi Memasak: Melalui detail resep yang mencakup bahan, langkah-langkah, hingga video, sistem menciptakan standar panduan yang jelas untuk meminimalisir kegagalan dalam memasak.
+Transparansi Kualitas melalui Sosial: Masalah ketidakpastian rasa atau hasil masakan diatasi dengan menghadirkan indikator penilaian komunitas (bintang 1-5) dan kolom diskusi yang jujur.
+Sentralisasi Data Kuliner: Menggantikan penyimpanan resep yang berserakan dengan satu basis data digital yang mudah diperbarui dan dipantau oleh pengelola kapan saja.
+Efisensi Infrastruktur: Dengan metode penayangan video tanpa unggahan langsung, sistem dapat beroperasi secara optimal pada beban server yang lebih rendah namun tetap menyajikan konten berkualitas tingg
+User Classes and Characteristics
+Dalam pengembangan Sistem Rekomendasi Resep Makanan, terdapat beberapa kelompok pengguna yang akan berinteraksi dengan sistem. Masing-masing kelompok memiliki karakteristik, tingkat keahlian, serta hak akses yang berbeda sesuai dengan peran mereka dalam ekosistem aplikasi:
+Pengunjung Umum (Guest)
+Karakteristik: Masyarakat umum yang mencari inspirasi memasak tanpa melakukan pendaftaran akun. Memiliki keahlian dasar dalam menggunakan peramban web.
+Hak Akses: Mengakses halaman utama, mencari resep berdasarkan kategori (Western, Asia, dll), serta melihat detail resep termasuk bahan, langkah-langkah, dan menonton video tutorial (embed).
+Kewajiban: Mematuhi etika penggunaan platform saat mengakses informasi secara publik.
+Pengguna Terdaftar (User)
+Karakteristik: Pengguna yang telah melakukan registrasi dan login ke dalam sistem. Biasanya merupakan individu yang ingin terlibat lebih aktif dalam komunitas kuliner.
+Hak Akses: Memiliki seluruh hak akses Guest ditambah dengan kemampuan untuk memberikan penilaian (rating 1-5 bintang) dan menuliskan komentar pada resep. User juga memiliki akses ke profil pribadi untuk mengelola identitas akun mereka.
+Kewajiban: Memberikan ulasan yang jujur dan menjaga kesopanan dalam berinteraksi di kolom komentar guna menjaga kualitas komunitas.
+Administrator (Admin)
+Karakteristik: Personel internal (Kelompok 1) yang bertanggung jawab atas pengelolaan operasional dan kualitas konten sistem. Memiliki pemahaman teknis yang lebih baik mengenai manajemen data.
+Hak Akses: Memiliki otoritas penuh atas sistem, termasuk menambah, menyunting, dan menghapus data resep. Admin juga berhak melakukan moderasi terhadap komentar pengguna yang tidak sesuai serta mengelola basis data kategori makanan dan pengguna.
+Kewajiban: Menjamin validitas informasi resep yang dipublikasikan dan menjaga integritas seluruh database sistem.
+Tim Pengembang (Development Team/Scrum Roles)
+Kategori: Scrum Master, Product Owner, dan Developer (Programmer & UI/UX).
+Karakteristik: Mahasiswa Informatika UNJANI yang merancang dan membangun infrastruktur sistem.
+Hak Akses: Mengelola teknis back-end, struktur database, dan integrasi embed video. Bertanggung jawab atas pemeliharaan server dan memastikan sistem berjalan secara responsif di berbagai perangkat.
+Kewajiban: Memastikan sistem bebas dari bug kritikal dan memenuhi seluruh spesifikasi kebutuhan yang telah didefinisikan dalam dokumen SRS ini.
+Bab III Functional Requirements
+3.1 Detailed Functional Requirements
+Kebutuhan Fungsional berisi proses-proses atau layanan spesifik yang harus disediakan oleh perangkat lunak untuk menanggapi input tertentu dan menentukan perilaku sistem dalam situasi tertentu. Berikut adalah kebutuhan fungsional sistem:
+Manajemen Autentikasi dan Profil
+Sistem harus menyediakan fitur registrasi akun bagi pengguna baru dengan mengisi data nama, email, dan kata sandi.
+Sistem harus memungkinkan pengguna untuk melakukan proses login menggunakan email dan kata sandi yang telah terdaftar.
+Sistem harus memiliki fitur validasi akun untuk membedakan hak akses antara pengunjung umum (guest) dan pengguna terdaftar (user) dalam mengakses fitur komentar dan rating.
+Sistem harus memungkinkan Admin untuk mengelola data pengguna, termasuk melihat daftar akun dan melakukan tindakan moderasi jika diperlukan.
+Manajemen dan Rekomendasi Resep 5
+Sistem harus memungkinkan pengunjung (guest) dan pengguna (user) untuk melihat daftar resep dan detail resep secara lengkap. 
+Sistem harus menyediakan fitur rekomendasi resep otomatis berdasarkan input preferensi pengguna, meliputi kategori (Western, Asia, Tradisional Indonesia), jenis rasa, tingkat kesulitan, dan waktu memasak . 
+Sistem harus mampu mencocokkan input preferensi pengguna dengan data resep yang tersedia di dalam database internal. 
+Sistem harus menampilkan hasil rekomendasi dalam daftar resep yang memiliki tingkat kecocokan tertinggi berdasarkan parameter yang dimasukkan. 
+Sistem harus mendukung pengelolaan data resep secara penuh oleh Admin, mencakup fungsi menambah, menyunting, dan menghapus resep .
+Penyajian Konten dan Multimedia 
+Sistem harus menampilkan detail resep secara komprehensif yang mencakup nama resep, gambar, daftar bahan, langkah-langkah memasak, waktu, dan kategori 
+Sistem harus menyediakan fitur penayangan video tutorial memasak pada setiap halaman detail resep. 
+Sistem harus mendukung penyematan (embed) video melalui link dari platform pihak ketiga (seperti YouTube) sebagai media instruksi visual.
+Interaksi Komunitas dan Validasi Sosial 
+Sistem harus memungkinkan pengguna yang sudah login untuk memberikan ulasan atau komentar pada setiap resep. 
+Sistem harus menyediakan fitur penilaian (rating) berupa skala 1-5 bintang untuk setiap resep yang hanya dapat diakses oleh pengguna terdaftar. 
+Sistem harus membatasi setiap pengguna agar hanya dapat memberikan satu kali rating pada setiap resep tertentu untuk menjaga objektivitas penilaian. 
+Sistem harus secara otomatis menghitung dan menampilkan rata-rata rating pada halaman detail resep. 
+Sistem harus memberikan wewenang kepada Admin untuk menghapus komentar pengguna yang dianggap tidak sesuai atau melanggar aturan.
+Utilitas dan Batasan Sistem 
+Sistem harus menyediakan fitur pencarian cepat bagi pengguna untuk menemukan resep tertentu di dalam database. 
+Sistem harus menyajikan antarmuka yang responsif agar seluruh fitur fungsional dapat beroperasi dengan baik di perangkat desktop maupun smartphone. 
+Sistem harus beroperasi secara mandiri menggunakan database internal tanpa bergantung pada pengambilan data dari API eksternal untuk konten resepnya
+3.2 Use Case Diagram
+3.3 Use Case Scenario
+Use Case
+Aktor Utama
+Pemicu (Trigger)
+Alur Aksi (Flow of Events)
+Kondisi Akhir
+Mendapatkan Rekomendasi Resep
+Guest, User
+Pengguna ingin mencari inspirasi menu masakan yang spesifik.
+Pengguna membuka aplikasi.
+ Pengguna memasukkan preferensi (Kategori, Rasa, Waktu, Kesulitan) 
+Sistem mencocokkan input dengan database.
+Sistem menampilkan daftar resep dengan kecocokan tertinggi.
+Pengguna mendapatkan daftar rekomendasi resep yang sesuai dengan preferensi.
+Memberikan Komentar & Rating
+User (Terdaftar)
+User ingin memberikan ulasan atau penilaian berdasarkan pengalaman memasak.
+User melakukan login akun.User membuka detail resep tertentu.
+User mengisi kolom komentar dan memilih jumlah bintang (1-5).
+Sistem memvalidasi data (satu rating per user).
+Sistem memperbarui rata-rata rating secara otomatis .
+Ulasan dan rating tersimpan dan dapat dilihat oleh pengguna lain pada halaman detail resep.
+Mengelola Data Resep (CRUD)
+Admin
+Admin perlu memperbarui, menambah, atau menghapus informasi resep di sistem.
+Admin login ke Dashboard Admin.
+Admin memilih menu "Manajemen Resep".
+Admin memilih aksi (Tambah/Edit/Hapus) dan mengisi formulir (Nama, Bahan, Langkah, Embed Video) .
+Sistem memvalidasi dan menyimpan perubahan ke database.
+Data resep dalam sistem diperbarui dan siap ditampilkan kepada pengguna.
+Moderasi Konten & Pengguna
+Admin
+Terdapat komentar yang tidak pantas atau kebutuhan untuk mengelola hak akses akun.
+Admin masuk ke menu "Moderasi Komentar" atau "Data Pengguna".
+Admin meninjau daftar ulasan atau profil user.
+Admin memilih aksi untuk menghapus komentar atau memblokir akun.
+Sistem memperbarui status konten/akun di database.
+Konten yang tidak sesuai dihapus dan integritas komunitas tetap terjaga.
+Registrasi & Login Akun
+Guest
+Pengguna baru ingin mendapatkan akses untuk fitur interaktif (rating/komentar).
+Guest memilih menu "Daftar" atau "Login".
+Guest mengisi data (Nama, Email, Password) 
+Sistem melakukan validasi kredensial.
+Sistem memberikan sesi login kepada pengguna.
+Status pengguna berubah menjadi User (Terdaftar) dan hak akses fitur interaktif terbuka.
+Mendapatkan Rekomendasi Resep
+Guest, User
+Pengguna ingin mencari inspirasi menu masakan yang spesifik.
+Pengguna membuka aplikasi.
+Pengguna memasukkan preferensi (Kategori, Rasa, Waktu, Kesulitan) 
+Sistem mencocokkan input dengan database.
+Sistem menampilkan daftar resep dengan kecocokan tertinggi.
+Pengguna mendapatkan daftar rekomendasi resep yang sesuai dengan preferensi.
+Menampilkan Video Tutorial
+Guest, User
+Pengguna membuka detail resep dan ingin melihat panduan visual.
+Pengguna memilih menu "Lihat Video" pada detail resep.
+Sistem mengambil link embed (YouTube/TikTok) dari database.
+Sistem menampilkan pemutar video di halaman detail.
+Pengguna memutar video secara interaktif.
+Pengguna dapat menonton panduan memasak secara visual tanpa meninggalkan aplikasi.
+Mencari Resep via Filter Kategori
+Guest, User
+Pengguna ingin memfilter resep berdasarkan wilayah atau kerumitan.
+Pengguna membuka fitur pencarian/filter.
+Pengguna memilih kategori (Western, Asia, Indonesia) atau tingkat kesulitan.
+Sistem memproses filter terhadap database.
+Sistem menampilkan hasil yang relevan.
+Daftar resep yang ditampilkan terbatas pada kategori yang dipilih pengguna.
+Manajemen Kategori Resep
+Admin
+Admin ingin menambahkan kategori kuliner baru (misal: "Halal" atau "Cepat Saji").
+Admin masuk ke menu "Pengaturan Kategori".
+Admin menambahkan nama kategori baru.
+Sistem memvalidasi dan menyimpan kategori ke database.
+Kategori baru muncul di opsi filter resep.
+Pilihan kategori resep dalam sistem bertambah dan dapat digunakan oleh pengguna.
+Evaluasi Statistik Dashboard
+Admin
+Admin perlu melihat performa aplikasi dan tren resep.
+Admin membuka halaman "Dashboard Statistik".
+Sistem menarik data jumlah user, resep terpopuler, dan rating terbaru.
+Sistem menampilkan grafik atau ringkasan data statistik.
+Admin mendapatkan informasi untuk mendukung pengambilan keputusan pengembangan sistem.
+Bab IV Non Functional Requirements
+4.1 Performance Requirements 
+Kebutuhan kinerja dari Sistem Rekomendasi Resep Makanan berfokus pada kecepatan akses, keandalan konten multimedia, dan responsivitas antarmuka untuk memastikan pengalaman pengguna yang lebih baik dibandingkan pencarian resep manual.
+Waktu Tanggap (Response Time)
+Sistem harus memberikan interaksi yang cepat agar pengguna dapat menemukan inspirasi memasak tanpa hambatan teknis:
+Kecepatan Pemuatan Halaman: Waktu pemuatan halaman utama dan detail resep diusahakan tidak melebihi 3 detik untuk memastikan kenyamanan pengguna Gen Z yang terbiasa dengan akses cepat.
+Kecepatan Pencarian dan Rekomendasi: Proses pencocokan preferensi pengguna (seperti kategori Western/Asia dan tingkat kesulitan) dengan database harus menghasilkan output dalam waktu kurang dari 2 detik.
+Responsivitas Input: Waktu tanggap sistem saat pengguna mengisi formulir komentar atau memberikan rating harus berlangsung secara instan (real-time) setelah tombol dikirim ditekan.
+Ketersediaan dan Keandalan (Availability and Reliability)
+Sistem harus dapat diandalkan sebagai media informasi kuliner yang dapat diakses kapan saja:
+Ketersediaan Sistem (Uptime): Aplikasi berbasis web ini harus tersedia 24/7 agar pengguna dapat mencari resep kapan pun mereka membutuhkannya, baik untuk sarapan, makan siang, maupun makan malam.
+Keandalan Konten Video: Karena sistem menggunakan fitur embed video dari YouTube/TikTok, sistem harus menjamin bahwa pemutar video dapat dimuat dengan stabil selama tautan sumber eksternal tersedia.
+Pencadangan Data (Backup): Sistem harus memiliki mekanisme pencadangan data otomatis secara berkala untuk melindungi data resep, data pengguna, serta riwayat komentar dan rating dari risiko kehilangan data.
+Efisiensi dan Skalabilitas
+Optimasi Perangkat Mobile: Sistem harus efisien saat diakses melalui smartphone (web responsif), memastikan navigasi tetap ringan meskipun memuat banyak gambar resep (card) dan video tutorial.
+Efisiensi Pencarian: Fitur pencarian harus didesain untuk menemukan resep secara akurat berdasarkan kata kunci atau filter kategori (Western, Asia, Indonesia) guna meminimalkan waktu pelacakan informasi oleh pengguna.
+Skalabilitas Pengguna: Infrastruktur sistem (seperti VPS/Cloud) harus mampu menangani lonjakan jumlah pengguna yang mengakses website secara bersamaan tanpa menurunkan performa pemuatan video.
+Safety Requirements 
+Kebutuhan standar keamanan untuk Sistem Rekomendasi Resep Makanan berfokus pada perlindungan integritas data kuliner, privasi pengguna, serta moderasi konten untuk memastikan platform tetap aman dan terpercaya bagi masyarakat umum.
+Kontrol Akses Berbasis Peran (Role-Based Access Control)
+Pembatasan Hak Akses: Akses terhadap fungsi manajerial sistem dibatasi secara ketat berdasarkan peran pengguna (Guest, User, Admin).
+Autentikasi Pengguna: Sistem harus mewajibkan login dengan username (email) dan kata sandi bagi pengguna yang ingin mengakses fitur interaktif seperti memberikan ulasan dan penilaian.
+Keamanan Kredensial: Basis data sistem harus dilengkapi dengan perlindungan kata sandi untuk mencegah akses tidak sah ke informasi profil pengguna.
+Perlindungan dan Integritas Data
+Enkripsi Kredensial: Data sensitif pengguna, terutama kata sandi akun, harus disimpan dalam bentuk terenkripsi di dalam database.
+Validasi Konten Multimedia: Sistem harus memastikan bahwa link video tutorial yang disematkan (embed) berasal dari platform terpercaya (YouTube/TikTok) untuk mencegah pemuatan konten berbahaya dari sumber luar.
+Keandalan Data Cadangan: Sistem harus menyediakan mekanisme pencadangan (backup) data otomatis secara berkala untuk melindungi koleksi resep dan riwayat interaksi pengguna dari risiko kerusakan data.
+Pelacakan dan Moderasi
+Log Aktivitas Admin: Harus tersedia fitur catatan aktivitas (audit trail) untuk melacak tindakan pengelolaan resep yang dilakukan oleh Admin guna menjaga akuntabilitas.
+Moderasi Interaksi: Sistem harus memberikan otoritas kepada Admin untuk melacak dan menghapus komentar yang dianggap tidak pantas atau melanggar aturan keamanan komunitas.
+Pencadangan Data Otomatis: Sistem harus menyimpan cadangan data secara rutin yang mencakup seluruh informasi resep, kategori, serta data autentikasi pengguna untuk menjamin keberlangsungan operasional platform.
+4.3 Software Quality Attributes 
+Kebutuhan kualitas perangkat lunak untuk Sistem Rekomendasi Resep Makanan berfokus pada aspek kemudahan penggunaan (Usability) bagi masyarakat umum dan kemudahan pemeliharaan (Maintainability) guna menjamin keberlanjutan aplikasi di masa depan.
+Kemudahan Penggunaan (Usability)
+Kualitas ini sangat penting untuk memastikan target pengguna, termasuk mahasiswa dan developer Gen Z, dapat mengoperasikan sistem dengan lancar:
+Antarmuka Pengguna (UI/UX): Antarmuka aplikasi web harus dirancang secara responsif, estetik, dan sederhana agar mudah dipahami oleh pengguna saat mencari resep.
+Navigasi: Navigasi antar halaman (seperti dari daftar resep ke detail resep) harus konsisten, cepat, dan mudah diakses melalui perangkat smartphone maupun desktop.
+Visualisasi Instruksi: Informasi resep harus disajikan dengan tata letak yang jelas, mencakup penggunaan gambar dan pemutar video tutorial yang mudah dioperasikan.
+Validasi Input: Sistem harus memberikan notifikasi atau pesan yang jelas jika terjadi kesalahan saat pengguna mengisi formulir pendaftaran, login, atau saat memberikan komentar dan rating.
+Aksesibilitas Informasi: Fitur filter dan pencarian harus memberikan hasil yang akurat dalam waktu singkat guna memudahkan pengguna menemukan menu sesuai kategori yang diinginkan.
+Kemudahan Pemeliharaan (Maintainability)
+Kualitas ini menjamin sistem dapat terus dikembangkan dan diperbarui seiring bertambahnya koleksi resep serta perubahan tren kuliner:
+Adaptasi dan Pengembangan: Struktur kode sistem harus dirancang secara modular agar memudahkan tim pengembang dalam menambahkan fitur baru, seperti kategori resep tambahan atau integrasi platform video baru di masa depan.
+Dokumentasi Teknis: Seluruh proses pengembangan, mulai dari pendefinisian user story hingga skenario pengujian, didokumentasikan secara sistematis di dalam dokumen SRS ini sebagai panduan pemeliharaan sistem.
+Pengelolaan Basis Data: Sistem manajemen basis data harus terstruktur sehingga Admin dapat memperbarui informasi resep (CRUD) tanpa mengganggu stabilitas performa sistem secara keseluruhan.
+Ketersediaan Kode: Kode program harus mengikuti standar penulisan yang bersih dan terstruktur agar memudahkan proses debugging dan validasi oleh tim Software Quality Assurance.
+Bab V Data Requirements
+Input
+Untuk memberikan deskripsi yang rinci tentang setiap data yang dibutuhkan oleh sistem, bagian ini merinci komponen data dan atribut yang akan dikelola dalam Sistem Rekomendasi Resep Makanan guna mendukung fitur personalisasi dan interaksi komunitas.
+Informasi Pengguna dan Autentikasi
+Akun Pengguna (User): Data dasar untuk identifikasi pengguna yang melakukan pendaftaran.
+Atribut: ID_User, Username (Email), Password (Enkripsi), Nama_Lengkap, Tanggal_Daftar, Foto_Profil.
+Peran (Role): Data yang menentukan tingkat otoritas akses pengguna dalam sistem.
+Atribut: ID_Role, Nama_Role (Admin/User), Deskripsi_Akses.
+Basis Data Resep dan Multimedia
+Resep: Data utama yang menjadi inti dari informasi kuliner yang disajikan.
+Atribut: ID_Resep, Nama_Resep, Deskripsi_Singkat, Bahan_Bahan, Langkah_Langkah, Waktu_Memasak, Tingkat_Kesulitan .
+Kategori Resep: Data klasifikasi untuk mempermudah fitur filter dan rekomendasi.
+Atribut: ID_Kategori, Nama_Kategori (Western/Asia/Indonesia), Deskripsi_Kategori.
+Multimedia (Video & Gambar): Data pendukung instruksi visual pada setiap resep.
+Atribut: ID_Media, ID_Resep, Tipe_Media (Gambar/Video), URL_Embed (YouTube/TikTok), Thumbnail_URL.
+Interaksi dan Validasi Sosial
+Komentar: Data ulasan tekstual yang diberikan oleh pengguna terdaftar.
+Atribut: ID_Komentar, ID_Resep, ID_User, Isi_Komentar, Tanggal_Komentar .
+Rating: Data penilaian kuantitatif untuk mengukur kualitas resep.
+Atribut: ID_Rating, ID_Resep, ID_User, Skala_Bintang (1-5), Waktu_Input.
+Preferensi dan Rekomendasi
+Preferensi Pengguna: Data input sementara dari pengguna untuk memicu mesin rekomendasi.
+Atribut: ID_Preferensi, ID_User (Opsional), Kategori_Dipilih, Rasa_Dipilih, Waktu_Maksimal, Kesulitan_Dipilih .
+Moderasi dan Riwayat
+Log Aktivitas Admin: Catatan audit terhadap perubahan yang dilakukan pada database resep.
+Atribut: ID_Log, ID_Admin, Aksi_Dilakukan (Tambah/Edit/Hapus), Waktu_Aksi, ID_Target_Data.
+Laporan Statistik: Data hasil rekapitulasi performa aplikasi untuk kebutuhan manajerial Admin.
+Atribut: ID_Statistik, Total_User, Resep_Terpopuler, Rata_Rata_Rating_Global, Periode_Laporan.
+Output
+Kebutuhan standar keamanan dan penyajian data untuk Sistem Rekomendasi Resep Makanan dirancang untuk memastikan informasi kuliner tersampaikan dengan akurat, sementara integritas data pengguna tetap terlindungi dari akses yang tidak sah.
+Kontrol Akses dan Autentikasi Output
+Akses Berbasis Peran (RBAC): Penampilan output data dibatasi berdasarkan peran pengguna; Guest hanya dapat melihat konten publik, sedangkan Admin dapat melihat data manajerial dan statistik pengguna.
+Autentikasi Wajib untuk Interaksi: Fitur output seperti pengiriman komentar dan rating hanya akan aktif dan terlihat fungsionalitasnya bagi pengguna yang telah melakukan login dengan username dan password yang valid .
+Perlindungan Database: Akses terhadap output mentah dari database aplikasi harus dilindungi dengan kata sandi tingkat tinggi untuk mencegah kebocoran data resep dan profil pengguna.
+Perlindungan dan Integritas Data Output
+Visualisasi Data Resep: Sistem harus menampilkan output informasi resep secara lengkap, mencakup nama, bahan, langkah-langkah, dan video tutorial yang bersumber dari tautan embed eksternal yang aman .
+Akses Data Administratif: Data laporan statistik penggunaan dan daftar user hanya dapat diakses oleh Admin melalui dasbor yang terenkripsi.
+Keandalan dan Validitas Data: Sistem menyediakan dokumentasi digital terhadap setiap resep yang dipublikasikan dan didukung oleh sistem backup otomatis untuk menjaga ketersediaan informasi bagi masyarakat umum.
+Pelacakan dan Audit Output
+Log Aktivitas Output: Sistem harus menyediakan fitur log untuk melacak tindakan krusial, seperti kapan seorang Admin menambahkan atau menghapus data resep dari database.
+Pencadangan Data Otomatis: Semua informasi terkait resep, komentar, dan rating pengguna harus dicadangkan secara berkala untuk menjamin keamanan dan keandalan data jika terjadi kegagalan sistem.
+Output Laporan Statistik: Sistem mampu menghasilkan rekapitulasi data secara periodik mengenai jumlah pengguna dan resep yang paling banyak dicari sebagai bahan evaluasi pengembang.
+Bab VI Interface Requirements
+4.1 User Interface
+Antarmuka pengguna (User Interface/UI) Sistem Rekomendasi Resep Makanan dirancang dengan mengutamakan prinsip aksesibilitas, estetika modern, dan fungsionalitas responsif. Desain ini bertujuan untuk memudahkan masyarakat umum dalam mengeksplorasi resep serta memberikan pengalaman navigasi yang lancar di berbagai perangkat, terutama smartphone.
+Beranda dan Dashboard (Eksplorasi dan Monitoring)
+Halaman utama berfungsi sebagai pintu gerbang inspirasi kuliner bagi semua pengguna.
+Karakteristik: Menyajikan daftar resep dalam bentuk kartu (card) yang berisi gambar, nama resep, dan rating.
+Fokus Data: Untuk Admin, dashboard menampilkan angka kunci seperti jumlah total resep, jumlah pengguna terdaftar, dan statistik rating terbaru.
+Fitur Utama: Terdapat ringkasan aktivitas berupa "Resep Terbaru" dan "Resep Populer".
+Visualisasi Status: Menggunakan label warna atau ikon yang jelas untuk tingkat kesulitan (misalnya: Hijau untuk "Mudah", Kuning untuk "Sedang", Merah untuk "Sulit").
+Manajemen Resep dan Rekomendasi (Inti Sistem)
+Antarmuka ini didedikasikan untuk pencarian berbasis preferensi dan pengelolaan konten resep.
+Karakteristik: Terdapat filter navigasi di bagian atas atau samping untuk memilih kategori makanan seperti "Western", "Asia", dan "Tradisional Indonesia".
+Data Rinci: Halaman detail resep menampilkan informasi komprehensif termasuk daftar bahan, langkah-langkah pembuatan, dan estimasi waktu memasak .
+Tindakan Cepat: Admin memiliki tombol akses cepat untuk menambah, mengedit, atau menghapus data resep langsung dari daftar .
+Formulir Input Preferensi: Didesain minimalis bagi pengguna untuk memasukkan kriteria pencarian seperti rasa (pedas/manis), waktu, dan tingkat kesulitan guna mendapatkan rekomendasi otomatis 
+Interaksi dan Multimedia (Komentar, Rating, dan Video)
+Antarmuka ini mengelola keterlibatan sosial pengguna dan penyajian instruksi visual.
+Karakteristik: Bagian bawah halaman detail resep dikhususkan untuk kolom komentar dan sistem penilaian bintang (1-5).
+Data Rinci: Setiap komentar mencantumkan nama pengguna, isi ulasan, dan tanggal pemberian komentar 
+Tindakan Cepat: Menyediakan tombol interaktif bagi pengguna terdaftar untuk memberikan rating atau memutar video tutorial.
+Penyajian Video: Menggunakan jendela pemutar video terintegrasi (embedded player) untuk menampilkan tutorial dari YouTube atau TikTok tanpa meninggalkan aplikasi.
+Administrasi dan Utilitas (Pengaturan Sistem)
+Antarmuka ini melayani kebutuhan moderasi konten dan konfigurasi teknis oleh Admin.
+Moderasi: Menampilkan daftar komentar terbaru dengan opsi penghapusan untuk ulasan yang tidak sesuai atau melanggar aturan.
+Laporan: Menyajikan data hasil rekapitulasi statistik penggunaan aplikasi yang dapat diunduh (misalnya dalam format PDF atau Excel).
+Pengaturan: Memungkinkan Admin mengelola konfigurasi sistem seperti manajemen kategori resep baru, pengelolaan akun pengguna, dan pengaturan hak akses peran.
+4.2 Hardware Interface
+Antarmuka perangkat keras mendefinisikan cara Sistem Rekomendasi Resep Makanan berinteraksi dengan komponen fisik dan infrastruktur jaringan guna memastikan ketersediaan data kuliner dan fungsionalitas multimedia yang optimal bagi pengguna.
+Antarmuka Jaringan (Network Interface)
+Sistem mengandalkan konektivitas jaringan yang stabil untuk menghubungkan pengguna dengan basis data resep dan konten video eksternal:
+Konektivitas Internet: Aplikasi memerlukan koneksi internet (WiFi atau Data Seluler) yang stabil untuk memproses rekomendasi secara real-time dan memutar video tutorial.
+Protokol Komunikasi: Interaksi antara perangkat klien (browser) dan server dilakukan menggunakan protokol HTTP/HTTPS guna menjamin keamanan transmisi data preferensi, komentar, dan rating.
+Penyematan Konten (Embed Interface): Sistem berinteraksi dengan server platform pihak ketiga seperti YouTube atau TikTok untuk menayangkan video tutorial tanpa harus menyimpan file video secara fisik di server lokal.
+Antarmuka Perangkat Klien (Client Device Interface)
+Aplikasi berinteraksi dengan perangkat keras pengguna untuk memfasilitasi input preferensi dan output visual resep:
+Perangkat Mobile dan Desktop: Sistem dirancang untuk berjalan pada berbagai perangkat keras klien melalui web browser yang mendukung teknologi web responsif.
+Input Hardware: Menggunakan komponen keyboard (fisik/virtual) dan pointing device (tetikus/layar sentuh) untuk menginput data registrasi, pencarian resep, dan pengisian ulasan.
+Output Visual dan Audio: Memanfaatkan layar monitor atau panel layar sentuh untuk menampilkan resep, serta perangkat audio klien untuk mendengarkan instruksi dari video tutorial.
+Antarmuka Server dan Penyimpanan Data
+Infrastruktur hardware server menyediakan fondasi bagi basis data resep dan keamanan sistem:
+Database Server: Sistem berinteraksi dengan server basis data (seperti MySQL) untuk operasi CRUD resep dan manajemen data pengguna.
+Penyimpanan File (File Storage): Aplikasi berinteraksi dengan media penyimpanan fisik (SSD/Cloud Storage) untuk menyimpan aset gambar resep dan data autentikasi pengguna secara aman.
+Infrastruktur Cloud/VPS: Bergantung pada kebutuhan beban pengguna, sistem dapat di-deploy pada layanan Cloud (seperti AWS atau Google Cloud) untuk menjamin skalabilitas saat pemutaran video diakses secara bersamaan.
+Antarmuka Perangkat Keras Eksternal (Opsional)
+Printer: Meskipun sistem berbasis digital, pengguna dapat berinteraksi dengan perangkat keras printer melalui sistem operasi untuk mencetak daftar bahan atau langkah-langkah memasak dalam format teks.
+4.3 Software Interface
+Antarmuka perangkat lunak (Software Interface) mendefinisikan bagaimana Sistem Rekomendasi Resep Makanan berinteraksi dengan komponen perangkat lunak internal dan eksternal guna mendukung fungsionalitas rekomendasi, manajemen konten, dan interaksi pengguna.
+Antarmuka Internal Sistem (Application Server Interfacing)
+Interaksi utama terjadi di dalam lingkungan server aplikasi untuk memproses logika bisnis dan pengelolaan data kuliner:
+Antarmuka Business Logic: Modul logika bisnis berinteraksi dengan Auth Module untuk memproses pendaftaran dan login pengguna , serta dengan Recipe Service Module untuk memproses pencocokan preferensi input pengguna dengan data di database.
+Antarmuka Layanan Data (API Resep & Interaksi):
+Recipe Service Module menyediakan API untuk operasi CRUD data resep (tambah, edit, hapus) yang dikelola oleh Admin.
+Interaction Module menyediakan API untuk memproses pengiriman rating dan komentar dari pengguna terdaftar ke dalam sistem .
+Antarmuka Database: Seluruh modul layanan berinteraksi dengan Database Server (seperti MySQL) menggunakan query SQL untuk menyimpan dan mengambil data resep, kategori, ulasan, serta informasi akun pengguna.
+Antarmuka Eksternal (Third-Party Interface)
+Antarmuka ini menghubungkan sistem dengan layanan di luar lingkungan inti aplikasi untuk memperkaya konten dan infrastruktur:
+Antarmuka Media Eksternal (Embed API): Sistem berinteraksi dengan API platform video pihak ketiga seperti YouTube atau TikTok melalui protokol sematan (embed) untuk menampilkan video tutorial memasak secara langsung pada halaman detail resep.
+Antarmuka Web Server: Application Server berinteraksi dengan Web Server (seperti Apache atau Nginx) untuk melayani permintaan dari perangkat pengguna melalui protokol HTTP/HTTPS.
+Antarmuka Cloud Storage: Sistem berinteraksi dengan media penyimpanan awan (Cloud Storage) untuk mengelola penyimpanan file gambar resep dan aset visual lainnya guna memastikan ketersediaan data yang tinggi.
+Antarmuka Klien (User Interface Software)
+Aplikasi bergantung pada perangkat lunak standar yang terinstal pada perangkat pengguna agar dapat diakses secara optimal:
+Web Browser: Pengguna mengakses antarmuka aplikasi melalui peramban web modern yang mendukung HTML5, CSS3, dan JavaScript, seperti Google Chrome, Mozilla Firefox, atau Safari.
+Sistem Operasi: Aplikasi dirancang agar kompatibel dengan berbagai sistem operasi (Windows, Android, iOS) yang menyediakan lingkungan stabil untuk menjalankan web browser secara responsif.
+4.4 Communication Interface
+Kebutuhan antarmuka komunikasi mendefinisikan protokol dan media yang diperlukan agar Sistem Rekomendasi Resep Makanan dapat berfungsi secara terintegrasi, baik dalam mengolah logika rekomendasi internal maupun dalam menyajikan konten multimedia eksternal kepada pengguna.
+Komunikasi Antar-Komponen Internal Sistem
+Komunikasi dalam infrastruktur sistem memastikan data resep dan preferensi pengguna diproses dengan cepat:
+Protokol Server Internal: Interaksi antara Application Server (yang memproses logika pencocokan resep) dengan Web Server dilakukan melalui protokol internal guna menjaga efisiensi pertukaran data.
+API Layanan Data: Recipe Service Module berkomunikasi dengan basis data (seperti MySQL) melalui query standar untuk melakukan operasi CRUD pada data resep, kategori, dan ulasan pengguna.
+Komunikasi Antara Klien dan Server
+Interaksi antara masyarakat umum dan aplikasi harus berjalan secara responsif dan aman:
+Protokol Akses Web: Komunikasi antara perangkat pengguna (Web Browser di HP atau Laptop) dan Web Server menggunakan protokol HTTP/HTTPS. Penggunaan HTTPS sangat krusial untuk melindungi data kredensial saat proses login dan registrasi .
+Media Jaringan: Komunikasi mengandalkan media transmisi internet (WiFi atau Data Seluler) yang stabil untuk memuat gambar resep beresolusi tinggi dan memproses filter pencarian secara real-time.
+Komunikasi Eksternal dan Integrasi
+Sistem memerlukan jalur komunikasi dengan layanan pihak ketiga untuk menyajikan konten interaktif:
+Penyematan Multimedia (Embed Communication): Sistem berkomunikasi dengan platform eksternal seperti YouTube atau TikTok untuk memanggil konten video tutorial melalui tautan embed .
+Integrasi Penyimpanan Awan: Modul manajemen resep berkomunikasi dengan media penyimpanan digital (Cloud Storage) untuk mengelola unggahan foto masakan dan aset visual sistem lainnya.
+Komunikasi Notifikasi dan Validasi
+Notifikasi Sistem: Sistem mengirimkan notifikasi internal kepada pengguna terdaftar terkait pembaruan status ulasan atau konfirmasi berhasilnya pemberian rating.
+Validasi Input Real-Time: Sistem memberikan komunikasi balik secara otomatis jika pengguna memasukkan data yang tidak lengkap pada form preferensi atau formulir resep, guna meminimalkan kesalahan input .

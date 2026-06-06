@@ -18,7 +18,12 @@ class AdminUserController extends Controller
         return back()->with('success','Pengguna dihapus.');
     }
     public function update(Request $request, User $user) {
-        $user->update($request->only('role','is_active','is_vip'));
+        $validated = $request->validate([
+            'role'      => 'sometimes|in:admin,chef,user',
+            'is_active' => 'sometimes|boolean',
+            'is_vip'    => 'sometimes|boolean',
+        ]);
+        $user->update($validated);
         return back()->with('success','Pengguna diperbarui!');
     }
 }

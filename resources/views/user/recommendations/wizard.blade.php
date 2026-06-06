@@ -224,9 +224,20 @@
         </div>
 
         <!-- Submit -->
-        <button type="submit" class="btn-tampilkan-rekomendasi">
-            <i class="fas fa-magic"></i> Tampilkan Rekomendasi
-        </button>
+        @auth
+            <button type="submit" class="btn-tampilkan-rekomendasi">
+                <i class="fas fa-magic"></i> Tampilkan Rekomendasi
+            </button>
+        @else
+            {{-- Guest: tidak bisa submit, arahkan ke login --}}
+            <a href="{{ route('login') }}" class="btn-tampilkan-rekomendasi" style="text-decoration:none; margin-top:40px;">
+                <i class="fas fa-lock"></i> Login untuk Tampilkan Rekomendasi
+            </a>
+            <p style="text-align:center; font-size:12px; color:#999; margin-top:12px;">
+                Sudah punya akun? <a href="{{ route('login') }}" style="color:var(--primary); font-weight:700;">Masuk di sini</a> &nbsp;·&nbsp;
+                Belum punya akun? <a href="{{ route('register') }}" style="color:var(--primary); font-weight:700;">Daftar gratis</a>
+            </p>
+        @endauth
     </form>
 </div>
 @endsection

@@ -381,9 +381,8 @@
             <div class="rc">
                 <div class="rc-img">
                     <img
-                        src="{{ $recipe->image ? asset('storage/'.$recipe->image) : 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80' }}"
+                        src="{{ $recipe->image_url }}"
                         alt="{{ $recipe->title }}"
-                        onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80'"
                     >
                     <span class="pct-badge">Cocok {{ $recipe->match_percent }}%</span>
 

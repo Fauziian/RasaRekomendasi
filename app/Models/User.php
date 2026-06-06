@@ -155,6 +155,30 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'sender_id');
     }
 
+    /** Notifications received by this user */
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class)->latest();
+    }
+
+    /** Notifications visible to this user based on their role */
+    public function visibleNotifications()
+    {
+        $query = $this->notifications();
+        if ($this->isUser()) {
+            $query->where('title', 'Resep Baru Dirilis!');
+        }
+        return $query;
+    }
+
+    public function getFormattedNameAttribute(): string
+    {
+        if ($this->role === 'chef') {
+            return str_starts_with($this->name, 'Chef') ? $this->name : 'Chef ' . $this->name;
+        }
+        return $this->name;
+    }
+
     // ─── Avatar URL Accessor ───────────────────────────────────────────────────
 
     public function getAvatarUrlAttribute(): string

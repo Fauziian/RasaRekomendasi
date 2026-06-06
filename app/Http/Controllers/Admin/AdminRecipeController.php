@@ -24,12 +24,19 @@ class AdminRecipeController extends Controller
             'title'=>'required','description'=>'required','category_id'=>'required',
             'chef_id'=>'required','difficulty'=>'required','prep_time'=>'required|integer',
             'cook_time'=>'required|integer','calories'=>'nullable|integer','servings'=>'nullable|integer',
-            'status'=>'required','is_vip_content'=>'boolean',
+            'status'=>'required',
+            'video_url'=>'nullable|string|max:500',
+            'image'=>'nullable|image|max:5120',
         ]);
         $data['ingredients'] = $request->ingredients ?? [];
         $data['cooking_steps'] = $request->cooking_steps ?? [];
         $data['allergens'] = $request->allergens ?? [];
         $data['is_vip_content'] = $request->boolean('is_vip_content');
+        
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('recipes', 'public');
+        }
+
         Recipe::create($data);
         return redirect()->route('admin.recipes.index')->with('success','Resep berhasil ditambahkan!');
     }
@@ -41,10 +48,28 @@ class AdminRecipeController extends Controller
     public function update(Request $request, Recipe $recipe) {
         $data = $request->validate([
             'title'=>'required','description'=>'required','category_id'=>'required',
-            'difficulty'=>'required','prep_time'=>'required|integer','cook_time'=>'required|integer',
+            'chef_id'=>'required','difficulty'=>'required','prep_time'=>'required|integer',
+            'cook_time'=>'required|integer','calories'=>'nullable|integer','servings'=>'nullable|integer',
             'status'=>'required',
+            'video_url'=>'nullable|string|max:500',
+            'image'=>'nullable|image|max:5120',
         ]);
+        $data['ingredients'] = $request->ingredients ?? [];
+        $data['cooking_steps'] = $request->cooking_steps ?? [];
+        $data['allergens'] = $request->allergens ?? [];
         $data['is_vip_content'] = $request->boolean('is_vip_content');
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($recipe->image) {
+                \Storage::disk('public')->delete($recipe->image);
+            }
+            $data['image'] = $request->file('image')->store('recipes', 'public');
+        } else {
+            // Do NOT overwrite existing image if no new file was uploaded
+            unset($data['image']);
+        }
+
         $recipe->update($data);
         return redirect()->route('admin.recipes.index')->with('success','Resep berhasil diperbarui!');
     }

@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
                 return redirect()->route('chef.dashboard');
             }
 
-            return redirect()->route('welcome');
+            return redirect()->intended(route('dashboard'));
         }
 
         return back()->withErrors([

@@ -11,6 +11,27 @@
     <a href="{{ route('admin.recipes.create') }}" class="btn btn-primary" style="background:#A03010;border:none;font-size:13px;padding:10px 20px;"><i class="fas fa-plus"></i> Add New Recipe</a>
 </div>
 
+{{-- Hidden delete form --}}
+<form id="delete-recipe-form" method="POST" style="display:none;">
+    @csrf
+    @method('DELETE')
+</form>
+
+{{-- Confirmation Modal --}}
+<div id="delete-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:16px;padding:32px;max-width:380px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
+        <div style="width:56px;height:56px;background:#FFEBEE;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px;color:#C62828;">
+            <i class="fas fa-trash"></i>
+        </div>
+        <h3 style="font-size:18px;font-weight:800;color:#111;margin-bottom:8px;">Delete Recipe?</h3>
+        <p style="font-size:13px;color:#777;margin-bottom:24px;" id="delete-modal-name">Are you sure you want to delete this recipe? This action cannot be undone.</p>
+        <div style="display:flex;gap:12px;justify-content:center;">
+            <button onclick="closeDeleteModal()" style="padding:10px 24px;border-radius:10px;border:1px solid #EEE;background:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:#555;">Cancel</button>
+            <button onclick="confirmDelete()" style="padding:10px 24px;border-radius:10px;border:none;background:#C62828;color:#fff;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">Yes, Delete</button>
+        </div>
+    </div>
+</div>
+
 <!-- Three Metric Cards -->
 <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:20px;margin-bottom:28px">
     <!-- Total Recipes -->
@@ -82,7 +103,7 @@
         <tr>
             <td style="padding:14px 0;vertical-align:middle;">
                 <div class="td-img" style="display:flex;align-items:center;gap:12px;">
-                    <img src="https://placehold.co/100x100/FFF0EC/FF5A36?text={{ urlencode(Str::limit($recipe->title, 10)) }}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;" alt="">
+                    <img src="{{ $recipe->image_url }}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;" alt="{{ $recipe->title }}">
                     <div>
                         <h4 style="font-size:14px;font-weight:700;color:#111;margin:0;">{{ $recipe->title }}</h4>
                         <p style="font-size:12px;color:var(--text-m);margin:2px 0 0 0;">{{ ucfirst($recipe->difficulty) }} • {{ $recipe->prep_time }} mins</p>
@@ -121,12 +142,12 @@
                     <a href="{{ route('admin.recipes.edit',$recipe) }}" style="color:#A0A0A0;font-size:15px;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#FF5A36'" onmouseout="this.style.color='#A0A0A0'" title="Edit Recipe">
                         <i class="far fa-edit"></i>
                     </a>
-                    <form method="POST" action="{{ route('admin.recipes.destroy',$recipe) }}" onsubmit="return confirm('Hapus resep ini?')" style="display:inline;">
-                        @csrf @method('DELETE')
-                        <button style="border:none;background:transparent;color:#A0A0A0;font-size:15px;cursor:pointer;padding:0;transition:color 0.2s;" onmouseover="this.style.color='#C62828'" onmouseout="this.style.color='#A0A0A0'" title="Delete Recipe">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </form>
+                    <button type="button" style="border:none;background:transparent;color:#A0A0A0;font-size:15px;cursor:pointer;padding:0;transition:color 0.2s;"
+                        onmouseover="this.style.color='#C62828'" onmouseout="this.style.color='#A0A0A0'"
+                        title="Delete Recipe"
+                        onclick="openDeleteModal('{{ route('admin.recipes.destroy',$recipe) }}', '{{ addslashes($recipe->title) }}')">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
                 </div>
             </td>
         </tr>
@@ -151,3 +172,22 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+function openDeleteModal(action, name) {
+    document.getElementById('delete-recipe-form').action = action;
+    document.getElementById('delete-modal-name').textContent = 'Delete "' + name + '"? This action cannot be undone.';
+    document.getElementById('delete-modal').style.display = 'flex';
+}
+function closeDeleteModal() {
+    document.getElementById('delete-modal').style.display = 'none';
+}
+function confirmDelete() {
+    document.getElementById('delete-recipe-form').submit();
+}
+document.getElementById('delete-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeDeleteModal();
+});
+</script>
+@endpush

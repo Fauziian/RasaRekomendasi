@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<form id="recipeForm" method="POST" action="{{ isset($recipe) ? route('chef.recipes.update',$recipe) : route('chef.recipes.store') }}">
+<form id="recipeForm" method="POST" action="{{ isset($recipe) ? route('chef.recipes.update',$recipe) : route('chef.recipes.store') }}" enctype="multipart/form-data">
     @csrf
     @if(isset($recipe)) @method('PUT') @endif
 
@@ -124,6 +124,15 @@
                     <label class="form-label">LINK VIDEO YOUTUBE</label>
                     <input type="url" name="video_url" class="form-control" placeholder="e.g. https://www.youtube.com/watch?v=..." value="{{ old('video_url',$recipe->video_url ?? '') }}">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">FOTO RESEP</label>
+                    <input type="file" name="image" class="form-control" accept="image/*" style="padding: 6px 12px;" onchange="previewChefImage(this)">
+                    @if(isset($recipe) && $recipe->image)
+                        <div id="imgPreviewWrapper" style="margin-top: 10px;">
+                            <img id="chefImgPreview" src="{{ $recipe->image_url }}" style="max-width: 100%; max-height: 120px; border-radius: 8px; object-fit: cover;" alt="Pratinjau Foto">
+                        </div>
+                    @endif
+                </div>
                 <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--border)">
                     <input type="checkbox" name="is_vip_content" id="vipCheck" value="1" style="accent-color:var(--primary);width:18px;height:18px" {{ old('is_vip_content',($recipe->is_vip_content ?? false)) ? 'checked':'' }}>
                     <label for="vipCheck" style="font-size:14px;font-weight:600;cursor:pointer"><i class="fas fa-crown" style="color:#FFD700"></i> Konten VIP</label>
@@ -154,6 +163,31 @@ function addStep() {
             <input type="text" name="cooking_steps[${stepCount}][instruction]" class="form-control" placeholder="Instruksi Langkah">
         </div>`);
     stepCount++;
+}
+
+function previewChefImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            let wrapper = document.getElementById('imgPreviewWrapper');
+            let img = document.getElementById('chefImgPreview');
+            if (!wrapper) {
+                wrapper = document.createElement('div');
+                wrapper.id = 'imgPreviewWrapper';
+                wrapper.style.marginTop = '10px';
+                input.parentNode.insertBefore(wrapper, input.nextSibling);
+            }
+            if (!img) {
+                img = document.createElement('img');
+                img.id = 'chefImgPreview';
+                img.style.cssText = 'max-width:100%;max-height:120px;border-radius:8px;object-fit:cover;';
+                img.alt = 'Pratinjau Foto';
+                wrapper.appendChild(img);
+            }
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 </script>
 @endpush

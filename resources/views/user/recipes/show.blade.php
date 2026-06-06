@@ -142,7 +142,7 @@
 @section('content')
 
 <!-- Header Banner cover with Figma overlay details -->
-<div class="recipe-detail-hero" style="background-image: url('{{ $recipe->image ? asset('storage/' . $recipe->image) : 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&q=80' }}');">
+<div class="recipe-detail-hero" style="background-image: url('{{ $recipe->image_url }}');">
     <div class="recipe-hero-overlay-card">
         <div class="stars-row">
             <i class="fas fa-star"></i>
@@ -232,7 +232,7 @@
                         <input type="checkbox" style="width:18px; height:18px; accent-color:#FF5A36; cursor:pointer;">
                         <div>
                             <strong style="font-size:13px; color:#111;">{{ $ing['name'] }}</strong><br>
-                            <span style="font-size:11px; color:#777;">{{ $ing['amount'] }} {{ $ing['unit'] }}</span>
+                            <span style="font-size:11px; color:#777;">{{ $ing['amount'] ?? '' }} {{ $ing['unit'] ?? '' }}</span>
                         </div>
                     </div>
                     @endforeach
@@ -332,9 +332,9 @@
             <div style="display:flex; flex-direction:column; gap:20px;">
                 @forelse($recipe->ratings()->where('is_approved', true)->latest()->get() as $review)
                 <div style="display:flex; gap:16px; border-bottom:1px solid #FAF9F6; padding-bottom:16px;">
-                    <img src="{{ $review->user->avatar_url }}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" alt="">
+                    <img src="{{ $review->user ? $review->user->avatar_url : 'https://ui-avatars.com/api/?name=User&size=40' }}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" alt="">
                     <div>
-                        <div style="font-size:13px; font-weight:800; color:#111;">{{ $review->user->name }} <span style="font-size:11px; color:#999; font-weight:500; margin-left:8px;">{{ $review->created_at->diffForHumans() }}</span></div>
+                        <div style="font-size:13px; font-weight:800; color:#111;">{{ $review->user ? $review->user->name : 'Pengguna RasaRekomendasi' }} <span style="font-size:11px; color:#999; font-weight:500; margin-left:8px;">{{ $review->created_at->diffForHumans() }}</span></div>
                         <div style="color:#FFA500; font-size:11px; margin:4px 0;">
                             @for($i=1; $i<=5; $i++)
                                 <i class="{{ $i <= $review->rating ? 'fas' : 'far' }} fa-star"></i>
@@ -375,20 +375,26 @@
             
             <button class="btn-action-outline"><i class="fas fa-share-alt"></i> Share with Friends</button>
             
-            <form method="POST" action="{{ route('recipes.save', $recipe) }}">
-                @csrf
-                @php $isSaved = Auth::check() && Auth::user()->savedRecipes()->where('recipe_id', $recipe->id)->exists(); @endphp
-                <button type="submit" class="btn-action-outline">
-                    <i class="{{ $isSaved ? 'fas fa-bookmark' : 'far fa-bookmark' }}"></i> 
-                    {{ $isSaved ? 'Saved to Collection' : 'Save to Collection' }}
-                </button>
-            </form>
+            @auth
+                <form method="POST" action="{{ route('recipes.save', $recipe) }}">
+                    @csrf
+                    @php $isSaved = Auth::user()->savedRecipes()->where('recipe_id', $recipe->id)->exists(); @endphp
+                    <button type="submit" class="btn-action-outline">
+                        <i class="{{ $isSaved ? 'fas fa-bookmark' : 'far fa-bookmark' }}"></i>
+                        {{ $isSaved ? 'Saved to Collection' : 'Save to Collection' }}
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="btn-action-outline" style="text-decoration:none;">
+                    <i class="far fa-bookmark"></i> Login untuk Menyimpan
+                </a>
+            @endauth
 
             <div style="display:flex; align-items:center; gap:12px; margin-top:20px; border-top:1px solid #FAF9F6; padding-top:16px;">
                 <img src="{{ $recipe->chef->avatar_url ?? 'https://ui-avatars.com/api/?name=Chef&size=40' }}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" alt="">
                 <div>
                     <span style="font-size:10px; color:#999; display:block;">RECIPE BY</span>
-                    <strong style="font-size:13px; color:#111;">Chef {{ $recipe->chef->name ?? 'Rinnia' }}</strong>
+                    <strong style="font-size:13px; color:#111;">{{ isset($recipe->chef) ? $recipe->chef->formatted_name : 'Chef Rinnia' }}</strong>
                 </div>
             </div>
         </div>

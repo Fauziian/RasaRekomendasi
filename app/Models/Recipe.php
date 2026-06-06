@@ -65,6 +65,33 @@ class Recipe extends Model
                 $recipe->slug = static::generateUniqueSlug($recipe->title);
             }
         });
+
+        static::saved(function (Recipe $recipe) {
+            $isNewPublished = $recipe->wasRecentlyCreated && $recipe->status === 'published';
+            $isStatusChangedToPublished = $recipe->wasChanged('status') && $recipe->status === 'published';
+
+            if ($isNewPublished || $isStatusChangedToPublished) {
+                $users = \App\Models\User::where('role', 'user')->get();
+                $chefName = $recipe->chef ? $recipe->chef->name : 'Chef';
+                
+                $notificationData = [];
+                foreach ($users as $user) {
+                    $notificationData[] = [
+                        'user_id' => $user->id,
+                        'title' => 'Resep Baru Dirilis!',
+                        'message' => "Chef {$chefName} memposting resep baru: \"{$recipe->title}\".",
+                        'link' => route('recipes.show', $recipe->slug),
+                        'is_read' => false,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+                
+                if (count($notificationData) > 0) {
+                    \App\Models\Notification::insert($notificationData);
+                }
+            }
+        });
     }
 
     public static function generateUniqueSlug(string $title): string
@@ -81,7 +108,32 @@ class Recipe extends Model
         if ($this->image) {
             return asset('storage/' . $this->image);
         }
-        return asset('images/recipe-placeholder.jpg');
+
+        $title = strtolower($this->title);
+
+        if (str_contains($title, 'rendang') && str_contains($title, 'panggang')) {
+            return 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80'; // Grilled roasted beef ribs
+        }
+        if (str_contains($title, 'rendang')) {
+            return 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&q=80'; // Indonesian beef rendang/curry
+        }
+        if (str_contains($title, 'nasi goreng')) {
+            return 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=600&q=80'; // Asian fried rice
+        }
+        if (str_contains($title, 'ramen')) {
+            return 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600&q=80'; // Japanese ramen bowl
+        }
+        if (str_contains($title, 'udang')) {
+            return 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80'; // Red curry shrimp style
+        }
+        if (str_contains($title, 'lapis legit')) {
+            return 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=600&q=80'; // Premium gourmet layered cake
+        }
+        if (str_contains($title, 'smoothie')) {
+            return 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=600&q=80'; // Fruit smoothie bowl
+        }
+
+        return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80'; // Salad bowl default
     }
 
     public function getTotalTimeAttribute(): int
@@ -177,6 +229,7 @@ class Recipe extends Model
     public function recalculateRating(): void
     {
         $aggregate = $this->commentsRatings()
+            ->where('is_approved', true)
             ->selectRaw('AVG(rating) as avg_rating, COUNT(*) as total')
             ->first();
 

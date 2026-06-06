@@ -335,8 +335,13 @@
     <h1 class="checkout-title">Checkout VIP</h1>
     <p class="checkout-subtitle">Complete your payment to unlock exclusive kitchen secrets.</p>
 
+    @php
+        $generatedInvoice = 'RR-VIP-' . date('Y') . '-' . str_pad(rand(1000, 9999), 4, '0', STR_PAD_LEFT);
+    @endphp
+
     <form method="POST" action="{{ route('vip.checkout.process', $package) }}" id="checkoutForm">
     @csrf
+    <input type="hidden" name="invoice_number" value="{{ $generatedInvoice }}">
     <div class="checkout-grid">
 
         {{-- ── LEFT column ───────────────────────────── --}}
@@ -373,7 +378,7 @@
                     </div>
                     <div>
                         <div class="invoice-label">Invoice Code</div>
-                        <div class="invoice-code">RR-VIP-{{ date('Y') }}-{{ str_pad(rand(1000,9999), 4, '0', STR_PAD_LEFT) }}</div>
+                        <div class="invoice-code">{{ $generatedInvoice }}</div>
                     </div>
                 </div>
             </div>

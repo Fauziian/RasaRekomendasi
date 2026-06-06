@@ -98,6 +98,7 @@ class Consultation extends Model
             'ongoing'   => 'Berlangsung',
             'completed' => 'Selesai',
             'cancelled' => 'Dibatalkan',
+            'active'    => 'Aktif',
             default     => 'Unknown',
         };
     }

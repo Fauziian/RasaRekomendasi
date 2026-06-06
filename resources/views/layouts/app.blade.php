@@ -40,7 +40,7 @@
         /* ── Navbar ── */
         .top-navbar {
             background: var(--white);
-            padding: 0 50px;
+            padding: 0 20px;
             height: 68px;
             display: flex; align-items: center;
             position: sticky; top: 0; z-index: 100;
@@ -197,6 +197,8 @@
         /* ── Container ── */
         .container { max-width: 1280px; margin: 0 auto; padding: 0 5%; }
         .page-padding { padding: 40px 5%; }
+        /* ── Section (landing page blocks) ── */
+        .section { padding-left: 5%; padding-right: 5%; }
 
         /* ── Recipe Cards ── */
         .recipe-card {
@@ -394,69 +396,83 @@
 <body>
 
 <nav class="top-navbar">
-    <a href="{{ route('welcome') }}" class="nav-brand">RasaRekomendasi</a>
+    <div style="max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; height: 100%;">
+        <a href="{{ route('welcome') }}" class="nav-brand">RasaRekomendasi</a>
 
-    <div class="nav-center">
-        <a href="{{ route('welcome') }}" class="{{ request()->routeIs('welcome') ? 'active' : '' }}">Beranda</a>
-        @auth
-            <a href="{{ route('recipes.index') }}" class="{{ request()->routeIs('recipes.*') ? 'active' : '' }}">Daftar Resep</a>
-            <a href="{{ route('recommendations.index') }}" class="{{ request()->routeIs('recommendations.*') ? 'active' : '' }}">Rekomendasi</a>
-            <a href="{{ route('vip.index') }}" class="{{ request()->routeIs('vip.*') ? 'active' : '' }}">Paket VIP</a>
-        @else
-            <a href="{{ route('recipes.index') }}">Daftar Resep</a>
-            <a href="{{ route('recommendations.index') }}">Rekomendasi</a>
-            <a href="{{ route('vip.index') }}">Paket VIP</a>
-        @endauth
-    </div>
-
-    <div class="nav-right">
-        <div class="nav-search">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Cari resep..." id="globalSearch">
+        <div class="nav-center">
+            <a href="{{ route('welcome') }}" class="{{ request()->routeIs('welcome') ? 'active' : '' }}">Beranda</a>
+            @auth
+                <a href="{{ route('recipes.index') }}" class="{{ request()->routeIs('recipes.*') ? 'active' : '' }}">Daftar Resep</a>
+                <a href="{{ route('recommendations.index') }}" class="{{ request()->routeIs('recommendations.*') ? 'active' : '' }}">Rekomendasi</a>
+                <a href="{{ route('vip.index') }}" class="{{ request()->routeIs('vip.*') ? 'active' : '' }}">Paket VIP</a>
+            @else
+                <a href="{{ route('recipes.index') }}">Daftar Resep</a>
+                <a href="{{ route('recommendations.index') }}">Rekomendasi</a>
+                <a href="{{ route('vip.index') }}">Paket VIP</a>
+            @endauth
         </div>
 
-        @guest
-            <a href="{{ route('login') }}" class="btn-nav-login">Login</a>
-            <a href="{{ route('register') }}" class="btn-nav-register">Daftar</a>
-        @else
-            <i class="far fa-bell nav-icon"></i>
-            <i class="far fa-heart nav-icon"></i>
-            <div class="nav-avatar-wrap">
-                <img src="{{ Auth::user()->avatar_url }}"
-                     alt="{{ Auth::user()->name }}"
-                     class="nav-avatar"
-                     onclick="toggleAvatarMenu()"
-                     id="navAvatar">
-                <div class="avatar-dropdown" id="avatarMenu">
-                    <div class="avatar-dropdown-header">
-                        <strong>{{ Auth::user()->name }}</strong>
-                        <span>
-                            @if(Auth::user()->isAdmin()) Admin
-                            @elseif(Auth::user()->isChef()) Chef
-                            @elseif(Auth::user()->hasActiveVip()) <span class="nav-vip-badge">VIP</span>
-                            @else User
-                            @endif
-                        </span>
-                    </div>
-                    @if(Auth::user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Admin Panel</a>
-                    @elseif(Auth::user()->isChef())
-                        <a href="{{ route('chef.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Chef Panel</a>
-                    @else
-                        <a href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                    @endif
-                    <a href="{{ route('profile.edit') }}"><i class="fas fa-user-circle"></i> Profil Saya</a>
-                    @if(!Auth::user()->hasActiveVip() && Auth::user()->isUser())
-                        <a href="{{ route('vip.index') }}"><i class="fas fa-crown" style="color:#FFD700"></i> Upgrade VIP</a>
-                    @endif
-                    <div class="divider"></div>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit"><i class="fas fa-sign-out-alt"></i> Keluar</button>
-                    </form>
-                </div>
+        <div class="nav-right">
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari resep..." id="globalSearch">
             </div>
-        @endguest
+
+            @guest
+                <a href="{{ route('login') }}" class="btn-nav-login">Login</a>
+                <a href="{{ route('register') }}" class="btn-nav-register">Daftar</a>
+            @else
+                <a href="{{ route('notifications.index') }}" class="nav-icon-link" style="position:relative; color: var(--text-m); font-size: 18px; transition: color .2s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">
+                    <i class="far fa-bell"></i>
+                    @php
+                        $unreadCount = Auth::user()->visibleNotifications()->where('is_read', false)->count();
+                    @endphp
+                    @if($unreadCount > 0)
+                        <span style="position:absolute; top:-6px; right:-6px; background:#FF5A36; color:#FFF; font-size:10px; font-weight:800; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; border:2px solid #FFF;">
+                            {{ $unreadCount }}
+                        </span>
+                    @endif
+                </a>
+                <a href="{{ route('recipes.saved') }}" class="nav-icon-link" style="color: var(--text-m); font-size: 18px; transition: color .2s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">
+                    <i class="far fa-heart"></i>
+                </a>
+                <div class="nav-avatar-wrap">
+                    <img src="{{ Auth::user()->avatar_url }}"
+                         alt="{{ Auth::user()->name }}"
+                         class="nav-avatar"
+                         onclick="toggleAvatarMenu()"
+                         id="navAvatar">
+                    <div class="avatar-dropdown" id="avatarMenu">
+                        <div class="avatar-dropdown-header">
+                            <strong>{{ Auth::user()->name }}</strong>
+                            <span>
+                                @if(Auth::user()->isAdmin()) Admin
+                                @elseif(Auth::user()->isChef()) Chef
+                                @elseif(Auth::user()->hasActiveVip()) <span class="nav-vip-badge">VIP</span>
+                                @else User
+                                @endif
+                            </span>
+                        </div>
+                        @if(Auth::user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Admin Panel</a>
+                        @elseif(Auth::user()->isChef())
+                            <a href="{{ route('chef.dashboard') }}"><i class="fas fa-tachometer-alt"></i> Chef Panel</a>
+                        @else
+                            <a href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        @endif
+                        <a href="{{ route('profile.edit') }}"><i class="fas fa-user-circle"></i> Profil Saya</a>
+                        @if(!Auth::user()->hasActiveVip() && Auth::user()->isUser())
+                            <a href="{{ route('vip.index') }}"><i class="fas fa-crown" style="color:#FFD700"></i> Upgrade VIP</a>
+                        @endif
+                        <div class="divider"></div>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"><i class="fas fa-sign-out-alt"></i> Keluar</button>
+                        </form>
+                    </div>
+                </div>
+            @endguest
+        </div>
     </div>
 </nav>
 
@@ -521,7 +537,7 @@
     </div>
 
     <div class="footer-bottom">
-        &copy; 2024 RasaRekomendasi. Built for Gen Z Home Chefs.
+        &copy; 2026 RasaRekomendasi. Built for Gen Z Home Chefs.
     </div>
 </footer>
 

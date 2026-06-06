@@ -55,6 +55,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('welcome')->with('success', 'Pendaftaran berhasil! Selamat datang di RasaRekomendasi.');
+        return redirect()->route('dashboard')->with('success', 'Pendaftaran berhasil! Selamat datang di RasaRekomendasi.');
     }
 }

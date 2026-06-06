@@ -33,6 +33,15 @@ class ChefConsultationController extends Controller
             'sender_role' => 'chef',
             'body' => $request->message,
         ]);
+
+        // Notify User
+        \App\Models\Notification::create([
+            'user_id' => $consultation->user_id,
+            'title' => 'Pesan Baru dari Chef ' . Auth::user()->name,
+            'message' => \Illuminate\Support\Str::limit($request->message, 50),
+            'link' => route('consultations.chat', $consultation->id)
+        ]);
+
         return back();
     }
     public function complete(Consultation $consultation) {
@@ -41,6 +50,15 @@ class ChefConsultationController extends Controller
             'status' => 'completed',
             'ended_at' => now(),
         ]);
+
+        // Notify User
+        \App\Models\Notification::create([
+            'user_id' => $consultation->user_id,
+            'title' => 'Konsultasi Selesai',
+            'message' => 'Chef ' . Auth::user()->name . ' telah menyelesaikan sesi konsultasi.',
+            'link' => route('consultations.index')
+        ]);
+
         return redirect()->route('chef.consultations.index', ['history' => 1])->with('success', 'Sesi konsultasi telah diselesaikan!');
     }
 }
