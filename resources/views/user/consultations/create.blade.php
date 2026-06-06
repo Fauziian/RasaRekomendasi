@@ -5,7 +5,7 @@
     <div style="margin-bottom:24px;">
         <a href="{{ route('consultations.index') }}" class="btn btn-white btn-sm" style="margin-bottom:15px;"><i class="fas fa-arrow-left"></i> Kembali</a>
         <h1 style="font-size:28px;font-weight:800;color:#111;">Booking Konsultasi Privat</h1>
-        <p style="color:var(--text-m);font-size:14px;margin-top:4px;">Pilih jadwal ketersediaan untuk berkonsultasi privat bersama <strong>Chef {{ $chef->name }}</strong>.</p>
+        <p style="color:var(--text-m);font-size:14px;margin-top:4px;">Pilih jadwal ketersediaan untuk berkonsultasi privat bersama <strong>{{ $chef->formatted_name }}</strong>.</p>
     </div>
 
     <form method="POST" action="{{ route('consultations.store', $chef) }}" class="card" style="padding:30px;border:none;box-shadow:var(--shadow-lg);">
@@ -14,7 +14,7 @@
         <div style="display:flex;align-items:center;gap:15px;background:#FDFCF8;padding:15px;border-radius:12px;margin-bottom:24px;border:1px solid var(--border);">
             <img src="{{ $chef->avatar_url }}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;" alt="">
             <div>
-                <h4 style="font-size:15px;font-weight:700;margin:0;">Chef {{ $chef->name }}</h4>
+                <h4 style="font-size:15px;font-weight:700;margin:0;">{{ $chef->formatted_name }}</h4>
                 <p style="font-size:11px;color:var(--text-m);margin:0;">Certified Professional Instructor</p>
             </div>
         </div>

@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleMiddleware::class,
             'vip'  => \App\Http\Middleware\VipMiddleware::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            '/payment/webhook',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

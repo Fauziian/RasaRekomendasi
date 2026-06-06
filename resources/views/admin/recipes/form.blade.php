@@ -46,15 +46,16 @@
             <!-- Right Side: Hero Image Upload -->
             <div>
                 <label class="form-label" style="font-size:11px;font-weight:700;color:#333;margin-bottom:8px;display:block;">Hero Image</label>
-                <div onclick="document.getElementById('imgInput').click()" style="border:2px dashed #DDD;border-radius:16px;padding:32px 20px;text-align:center;background:#F8F9FA;cursor:pointer;position:relative;height:165px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--primary)';this.style.background='#FFF';" onmouseout="this.style.borderColor='#DDD';this.style.background='#F8F9FA';">
-                    @if(isset($recipe) && $recipe->image_url)
-                        <img src="{{ $recipe->image_url }}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" alt="Hero Image">
+                <div id="imgContainer" onclick="document.getElementById('imgInput').click()" style="border:2px dashed #DDD;border-radius:16px;padding:32px 20px;text-align:center;background:#F8F9FA;cursor:pointer;position:relative;height:165px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--primary)';this.style.background='#FFF';" onmouseout="this.style.borderColor='#DDD';this.style.background='#F8F9FA';">
+                    @if(isset($recipe) && $recipe->image)
+                        <img id="imgPreview" src="{{ $recipe->image_url }}" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;" alt="Hero Image">
                         <div style="position:absolute;background:rgba(0,0,0,0.5);color:#fff;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700;bottom:10px;">Change Photo</div>
                     @else
-                        <!-- Delicious high-fidelity vector mockup inside dotted box -->
-                        <div style="font-size:32px;color:var(--primary);margin-bottom:8px;"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <div style="color:#111;font-size:13px;font-weight:700;">Click to upload photo</div>
-                        <div style="color:#bbb;font-size:10px;margin-top:4px">Max size 5MB (PNG, JPG)</div>
+                        <div id="imgPlaceholder">
+                            <div style="font-size:32px;color:var(--primary);margin-bottom:8px;"><i class="fas fa-cloud-upload-alt"></i></div>
+                            <div style="color:#111;font-size:13px;font-weight:700;">Click to upload photo</div>
+                            <div style="color:#bbb;font-size:10px;margin-top:4px">Max size 5MB (PNG, JPG)</div>
+                        </div>
                     @endif
                     <input type="file" name="image" accept="image/*" style="display:none" id="imgInput" onchange="previewImage(this)">
                 </div>
@@ -115,7 +116,7 @@
             </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:20px;margin-top:20px;padding-top:20px;border-top:1px solid #F8F9FA;">
+        <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:16px;margin-top:20px;padding-top:20px;border-top:1px solid #F8F9FA;">
             <!-- Cook Time (Min) -->
             <div class="form-group">
                 <label class="form-label" style="font-size:11px;font-weight:700;color:#333;margin-bottom:8px;">Cook Time (Min)</label>
@@ -137,14 +138,50 @@
                 <input type="number" name="servings" class="form-control" value="{{ old('servings',$recipe->servings ?? 2) }}" min="1" style="padding:11px 14px;">
             </div>
 
-            <!-- Status / Settings -->
+            <!-- Status -->
+            <div class="form-group">
+                <label class="form-label" style="font-size:11px;font-weight:700;color:#333;margin-bottom:8px;">Status Resep</label>
+                <select name="status" class="form-control" style="padding:11px 14px;cursor:pointer;" required>
+                    <option value="published" {{ old('status', $recipe->status ?? 'published') == 'published' ? 'selected' : '' }}>✅ Published</option>
+                    <option value="draft"     {{ old('status', $recipe->status ?? '') == 'draft'     ? 'selected' : '' }}>📝 Draft</option>
+                </select>
+            </div>
+
+            <!-- VIP Content Access -->
             <div class="form-group">
                 <label class="form-label" style="font-size:11px;font-weight:700;color:#333;margin-bottom:8px;">VIP Content Access</label>
                 <div style="display:flex;align-items:center;height:42px;gap:10px;background:#FFF9EF;padding:0 14px;border:1px solid #FFE0B2;border-radius:10px;">
-                    <input type="checkbox" name="is_vip_content" id="vipCheck" style="accent-color:#FF9800;width:18px;height:18px;cursor:pointer;" {{ old('is_vip_content',($recipe->is_vip_content ?? false)) ? 'checked':'' }}>
+                    <input type="checkbox" name="is_vip_content" id="vipCheck" value="1" style="accent-color:#FF9800;width:18px;height:18px;cursor:pointer;" {{ old('is_vip_content',($recipe->is_vip_content ?? false)) ? 'checked':'' }}>
                     <label for="vipCheck" style="font-size:13px;font-weight:700;cursor:pointer;color:#E65100;display:flex;align-items:center;gap:6px;"><i class="fas fa-crown"></i> VIP Exclusive</label>
                 </div>
             </div>
+        </div>
+
+        {{-- YouTube Video URL --}}
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid #F8F9FA;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <div style="width:28px;height:28px;background:#FFEBEE;border-radius:50%;color:#FF0000;display:flex;align-items:center;justify-content:center;font-size:12px;">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <label style="font-size:11px;font-weight:700;color:#333;text-transform:uppercase;letter-spacing:0.5px;margin:0;">Link Video YouTube <span style="font-weight:400;color:#aaa;">(Opsional)</span></label>
+            </div>
+            <div style="position:relative;">
+                <i class="fab fa-youtube" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#FF0000;font-size:16px;pointer-events:none;"></i>
+                <input type="url" name="video_url" class="form-control"
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    value="{{ old('video_url', $recipe->video_url ?? '') }}"
+                    style="padding:11px 14px 11px 42px;"
+                    oninput="previewVideoUrl(this.value)">
+            </div>
+            <p style="font-size:11px;color:#aaa;margin-top:6px;margin-bottom:0;">Video ini akan ditampilkan sebagai tutorial memasak di halaman detail resep.</p>
+            <div id="videoPreviewWrapper" style="display:none;margin-top:14px;border-radius:12px;overflow:hidden;background:#000;position:relative;padding-bottom:56.25%;height:0;">
+                <iframe id="videoPreviewFrame" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allowfullscreen loading="lazy"></iframe>
+            </div>
+            @if(isset($recipe) && $recipe->video_url)
+            <div style="margin-top:8px;font-size:11px;color:#2E7D32;font-weight:600;">
+                <i class="fas fa-check-circle"></i> Video tersimpan. Edit link di atas untuk mengubahnya.
+            </div>
+            @endif
         </div>
     </div>
 
@@ -277,7 +314,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function previewImage(input) {
     if (input.files && input.files[0]) {
-        // Quick visual reload or preview if needed
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const container = document.getElementById('imgContainer');
+            // Reset container padding
+            container.style.padding = '0';
+            container.style.background = 'transparent';
+            // Hide placeholder if exists
+            const placeholder = document.getElementById('imgPlaceholder');
+            if (placeholder) placeholder.style.display = 'none';
+            // Show or create preview img
+            let img = document.getElementById('imgPreview');
+            if (!img) {
+                img = document.createElement('img');
+                img.id = 'imgPreview';
+                img.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;';
+                img.alt = 'Hero Image';
+                container.insertBefore(img, input);
+                // Add change badge if not exists
+                if (!container.querySelector('.preview-badge')) {
+                    const badge = document.createElement('div');
+                    badge.className = 'preview-badge';
+                    badge.style.cssText = 'position:absolute;background:rgba(0,0,0,0.5);color:#fff;padding:4px 8px;border-radius:4px;font-size:10px;font-weight:700;bottom:10px;z-index:1;';
+                    badge.textContent = 'Change Photo';
+                    container.appendChild(badge);
+                }
+            }
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
     }
 }
 
@@ -320,6 +385,28 @@ function reorderSteps() {
         badge.innerText = idx + 1;
     });
 }
+
+function previewVideoUrl(url) {
+    const wrapper = document.getElementById('videoPreviewWrapper');
+    const frame = document.getElementById('videoPreviewFrame');
+    if (!url) { wrapper.style.display = 'none'; frame.src = ''; return; }
+    const match = url.match(/(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|[^\/]+\?v=)|youtu\.be\/)([^"&?\/ ]{11})/i);
+    if (match) {
+        const timeMatch = url.match(/[?&]t=(\d+)s?/);
+        const startParam = timeMatch ? '?start=' + timeMatch[1] : '';
+        frame.src = 'https://www.youtube.com/embed/' + match[1] + startParam;
+        wrapper.style.display = 'block';
+    } else {
+        wrapper.style.display = 'none';
+        frame.src = '';
+    }
+}
+
+// Auto-preview on load if editing and video_url exists
+document.addEventListener('DOMContentLoaded', function() {
+    const urlInput = document.querySelector('input[name="video_url"]');
+    if (urlInput && urlInput.value) previewVideoUrl(urlInput.value);
+});
 </script>
 @endpush
 @endsection

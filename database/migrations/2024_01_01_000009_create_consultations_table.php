@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('chef_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('schedule_id')->constrained('chef_schedules')->cascadeOnDelete();
-            $table->enum('status', ['pending', 'confirmed', 'ongoing', 'completed', 'cancelled'])
+            $table->enum('status', ['pending', 'confirmed', 'ongoing', 'completed', 'cancelled', 'active'])
                 ->default('pending')
                 ->index();
             $table->text('topic')->nullable();                // User's consultation topic/question

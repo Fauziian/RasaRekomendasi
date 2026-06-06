@@ -258,7 +258,7 @@
                 <div class="quick-bar">
                     <div class="quick-chip" onclick="quickLogin('admin@rasarekomendasi.id','password')"><i class="fas fa-shield-alt" style="color:#A03010"></i> Admin</div>
                     <div class="quick-chip" onclick="quickLogin('chef.rina@rasarekomendasi.id','password')"><i class="fas fa-utensils" style="color:#2E7D32"></i> Chef</div>
-                    <div class="quick-chip" onclick="quickLogin('budi.santoso@gmail.com','password')"><i class="fas fa-user" style="color:#1565C0"></i> User</div>
+                    <div class="quick-chip" onclick="quickLogin('rifqifauzi@gmail.com','password')"><i class="fas fa-user" style="color:#1565C0"></i> User</div>
                 </div>
             </div>
 

@@ -21,13 +21,20 @@
     /* ────────────────────────────────────────────────────────
        🚀 1. GUEST LANDING PAGE (RasaRekomendasi v2)
        ──────────────────────────────────────────────────────── */
+    .landing-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
     .landing-hero {
-        padding: 60px 5%;
+        padding: 60px 0;
         display: grid;
         grid-template-columns: 1.1fr 0.9fr;
         gap: 60px;
         align-items: center;
-        background: radial-gradient(circle at 80% 20%, #FFF5F2 0%, transparent 50%);
     }
     .hero-h1 {
         font-size: 52px;
@@ -77,7 +84,148 @@
         box-shadow: 0 10px 20px rgba(0,0,0,0.05);
     }
 
-    /* Resep Populer Minggu Ini */
+    /* ── Resep Populer Minggu Ini — Magazine Editorial Grid ── */
+    .popular-magazine-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 16px;
+    }
+    /* Hero card — left column, stretches full height via flex on wrapper */
+    .mag-hero {
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+        min-height: 420px;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .mag-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    .mag-hero:hover img { transform: scale(1.04); }
+    /* Small top cards */
+    .mag-small {
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        height: 190px;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .mag-small img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .mag-small:hover img { transform: scale(1.05); }
+    /* Wide bottom card */
+    .mag-wide {
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        height: 214px;
+        display: block;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .mag-wide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .mag-wide:hover img { transform: scale(1.04); }
+    /* Shared dark gradient overlay */
+    .mag-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.08) 55%, transparent 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 20px;
+        color: #FFF;
+    }
+    .mag-badge-trending {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #FF9800;
+        color: #FFF;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        width: fit-content;
+    }
+    .mag-time-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: rgba(255,255,255,0.18);
+        backdrop-filter: blur(4px);
+        color: #FFF;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 6px;
+    }
+    .mag-title-hero {
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.25;
+        font-family: 'Outfit', sans-serif;
+        margin-bottom: 8px;
+    }
+    .mag-title-small {
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.3;
+        font-family: 'Outfit', sans-serif;
+        margin-bottom: 2px;
+    }
+    .mag-subtitle {
+        font-size: 11px;
+        color: rgba(255,255,255,0.78);
+        font-weight: 500;
+    }
+    .mag-stats {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 11px;
+        color: rgba(255,255,255,0.85);
+        margin-top: 8px;
+    }
+    .mag-play-btn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(6px);
+        border: 1.5px solid rgba(255,255,255,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFF;
+        font-size: 13px;
+    }
+    /* Fallback card (no recipes in DB) */
     .trending-big-card {
         background: #FFF;
         border-radius: 24px;
@@ -89,13 +237,12 @@
         display: flex;
         flex-direction: column;
     }
-    .trending-big-card:hover {
-        transform: translateY(-6px);
-    }
-    .trending-big-card img {
-        width: 100%;
-        height: 380px;
-        object-fit: cover;
+    .trending-big-card:hover { transform: translateY(-6px); }
+    @media (max-width: 768px) {
+        .popular-magazine-grid { grid-template-columns: 1fr; }
+        .mag-hero { grid-row: auto; min-height: 300px; }
+        .mag-small { height: 160px; }
+        .mag-wide  { height: 170px; }
     }
 
     /* ── CTA Banner ── */
@@ -311,109 +458,224 @@
          ✨ GUEST LANDING PAGE (Landing Page - RasaRekomendasi v2)
          ──────────────────────────────────────────────────────── -->
     <!-- Hero Block -->
-    <section class="landing-hero">
-        <div style="padding-right: 20px;">
-            <div style="font-size: 11px; font-weight: 800; color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;">🏆 AI-POWERED RECOMMENDATIONS</div>
-            <h1 class="hero-h1">Temukan Resep Sesuai Selera dan Jadilah <span>Member VIP</span> untuk Akses Fitur Premium</h1>
-            <p class="hero-desc">Nikmati perjalanan kuliner yang dipersonalisasi khusus untuk kamu. Dari resep viral hingga teknik chef profesional, semua ada dalam satu genggaman.</p>
-            <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
-                <a href="{{ route('recipes.index') }}" class="btn" style="padding: 14px 28px; border-radius: 30px; background: var(--primary); color:#FFF; font-weight:700;">Cari Resep <i class="fas fa-arrow-right"></i></a>
-                <a href="{{ route('vip.index') }}" class="btn" style="padding: 14px 28px; border-radius: 30px; background: #FFF; border: 1.5px solid #EEE; color:#111; font-weight:700;">Lihat Paket VIP</a>
-            </div>
-            <!-- Trust Pilot Counts -->
-            <div style="display:flex; align-items:center; gap:12px; margin-top:32px;">
-                <div style="display:flex; -webkit-margin-start: -8px;">
-                    <img src="https://i.pravatar.cc/80?img=33" style="width:32px; height:32px; border-radius:50%; border:2px solid #FFF;" alt="">
-                    <img src="https://i.pravatar.cc/80?img=12" style="width:32px; height:32px; border-radius:50%; border:2px solid #FFF; margin-left:-8px;" alt="">
-                    <img src="https://i.pravatar.cc/80?img=47" style="width:32px; height:32px; border-radius:50%; border:2px solid #FFF; margin-left:-8px;" alt="">
+    <section style="background: radial-gradient(circle at 80% 20%, #FFF5F2 0%, transparent 50%); border-bottom: 1px solid var(--border);">
+        <div class="landing-container landing-hero">
+            <div style="padding-right: 20px;">
+                <div style="font-size: 11px; font-weight: 800; color: var(--primary); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;">🏆 AI-POWERED RECOMMENDATIONS</div>
+                <h1 class="hero-h1">Temukan Resep Sesuai Selera dan Jadilah <span>Member VIP</span> untuk Akses Fitur Premium</h1>
+                <p class="hero-desc">Nikmati perjalanan kuliner yang dipersonalisasi khusus untuk kamu. Dari resep viral hingga teknik chef profesional, semua ada dalam satu genggaman.</p>
+                <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+                    <a href="{{ route('recipes.index') }}" class="btn" style="padding: 14px 28px; border-radius: 30px; background: var(--primary); color:#FFF; font-weight:700;">Cari Resep <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('vip.index') }}" class="btn" style="padding: 14px 28px; border-radius: 30px; background: #FFF; border: 1.5px solid #EEE; color:#111; font-weight:700;">Lihat Paket VIP</a>
                 </div>
-                <span style="font-size:12px; font-weight:700; color:#555;">Bergabung dengan <strong style="color:var(--primary)">50.000+</strong> Home Chef Indonesia</span>
+                <!-- Trust Pilot Counts -->
+                <div style="display:flex; align-items:center; gap:12px; margin-top:32px;">
+                    <div style="display:flex; -webkit-margin-start: -8px;">
+                        <img src="https://i.pravatar.cc/80?img=33" style="width:32px; height:32px; border-radius:50%; border:2px solid #FFF;" alt="">
+                        <img src="https://i.pravatar.cc/80?img=12" style="width:32px; height:32px; border-radius:50%; border:2px solid #FFF; margin-left:-8px;" alt="">
+                        <img src="https://i.pravatar.cc/80?img=47" style="width:32px; height:32px; border-radius:50%; border:2px solid #FFF; margin-left:-8px;" alt="">
+                    </div>
+                    <span style="font-size:12px; font-weight:700; color:#555;">Bergabung dengan <strong style="color:var(--primary)">50.000+</strong> Home Chef Indonesia</span>
+                </div>
             </div>
-        </div>
 
-        <div class="hero-visual-card">
-            <!-- Dynamic delicious beef bowl display -->
-            <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800&q=80" alt="Special Gyudon Beef Bowl">
-            <div class="hero-floating-badge">
-                <i class="fas fa-crown" style="color:#FFA500;"></i>
-                <span><strong>VERIFIED MEMBER</strong><br>VIP Access Active</span>
+            <div class="hero-visual-card">
+                <!-- Dynamic delicious beef bowl display -->
+                <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=800&q=80" alt="Special Gyudon Beef Bowl">
+                <div class="hero-floating-badge">
+                    <i class="fas fa-crown" style="color:#FFA500;"></i>
+                    <span><strong>VERIFIED MEMBER</strong><br>VIP Access Active</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Resep Populer Minggu Ini Section -->
-    <section class="section" style="margin-top:40px;">
-        <div class="section-header" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px;">
+    <!-- ── Resep Populer Minggu Ini — Magazine Grid (Figma) ── -->
+    <section class="landing-container" style="margin-top:50px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px;">
             <div>
-                <h2 style="font-size:26px; font-weight:800; color:#111;">Resep Populer Minggu Ini</h2>
-                <p style="color:var(--text-m); font-size:13px; margin-top:4px;">Pilihan terbaik dari komunitas RasaRekomendasi.</p>
+                <h2 style="font-size:22px; font-weight:800; color:#111; margin-bottom:4px;">Resep Populer Minggu Ini</h2>
+                <p style="color:var(--text-m); font-size:13px;">Pilihan terbaik dari komunitas RasaRekomendasi.</p>
             </div>
-            <a href="{{ route('recipes.index') }}" style="color:var(--primary); font-weight:800; font-size:13px;">Lihat Semua ></a>
+            <a href="{{ route('recipes.index') }}" style="color:var(--primary); font-weight:800; font-size:13px; white-space:nowrap;">Lihat Semua &rsaquo;</a>
         </div>
 
-        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px;">
-            @forelse($trending as $recipe)
-            <a href="{{ route('recipes.show', $recipe->slug) }}" style="text-decoration:none;color:inherit;" class="trending-big-card">
-                <div style="position:relative;">
-                    @if($recipe->image)
-                    <img src="{{ asset('storage/'.$recipe->image) }}" alt="{{ $recipe->title }}">
-                    @else
-                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80" alt="{{ $recipe->title }}">
-                    @endif
-                    <span style="position:absolute; bottom:16px; left:16px; background:#FF9800; color:#FFF; font-size:10px; font-weight:800; padding:4px 10px; border-radius:4px;">TRENDING</span>
-                </div>
-                <div style="padding:20px; flex:1; display:flex; flex-direction:column; justify-content:space-between;">
-                    <div>
-                        @if($recipe->category)
-                        <div style="font-size:11px;font-weight:700;color:#999;margin-bottom:6px;">{{ strtoupper($recipe->category->name) }}</div>
-                        @endif
-                        <h3 style="font-size:17px; font-weight:800; color:#111; line-height:1.3;">{{ $recipe->title }}</h3>
-                        <p style="color:var(--text-m); font-size:12px; margin-top:6px; line-height:1.5;">{{ Str::limit(strip_tags($recipe->description ?? ''), 80) }}</p>
+        @php
+            $rec = $trending->values();
+            $r0  = $rec->get(0);
+            $r1  = $rec->get(1);
+            $r2  = $rec->get(2);
+            $r3  = $rec->get(3);
+            /* Figma fallback images */
+            $imgs = [
+                'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&q=80', /* nasi goreng */
+                'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80', /* salad */
+                'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&q=80', /* lava cake */
+                'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&q=80', /* smoothie bowl */
+            ];
+        @endphp
+
+        @if($trending->isEmpty())
+            {{-- Fallback jika DB kosong — tampilkan versi Figma mock --}}
+            <div class="popular-magazine-grid">
+                <!-- Hero kiri -->
+                <a href="{{ route('recipes.index') }}" class="mag-hero">
+                    <img src="{{ $imgs[0] }}" alt="Nasi Goreng Gila Jakarta">
+                    <div class="mag-overlay">
+                        <div>
+                            <span class="mag-badge-trending">🔥 Trending</span>
+                            <span class="mag-time-pill"><i class="far fa-clock"></i> 15 Mins</span>
+                        </div>
+                        <div class="mag-title-hero">Nasi Goreng Gila Jakarta</div>
+                        <div class="mag-stats">
+                            <span><i class="fas fa-heart"></i> 1.2k</span>
+                            <span><i class="fas fa-utensils"></i> 243</span>
+                        </div>
                     </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; padding-top:14px; border-top:1px solid #F0F0F0;">
-                        <span style="font-size:11px; color:#777;">{{ $recipe->chef->name ?? 'RasaRekomendasi' }}</span>
-                        <span style="color:#FFA500; font-weight:800; font-size:12px;"><i class="fas fa-star"></i> {{ number_format($recipe->rating_avg ?? 0, 1) }}</span>
+                </a>
+                <!-- Kolom kanan: 2 kartu kecil atas + 1 lebar bawah -->
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        <a href="{{ route('recipes.index') }}" class="mag-small">
+                            <img src="{{ $imgs[1] }}" alt="Salad Salmon Alpukat">
+                            <div class="mag-overlay">
+                                <div class="mag-title-small">Salad Salmon Alpukat</div>
+                                <div class="mag-subtitle">Healthy choice</div>
+                            </div>
+                        </a>
+                        <a href="{{ route('recipes.index') }}" class="mag-small">
+                            <img src="{{ $imgs[2] }}" alt="Lava Cake Cokelat">
+                            <div class="mag-overlay">
+                                <div class="mag-title-small">Lava Cake Cokelat</div>
+                                <div class="mag-subtitle">Gen-Z Fav</div>
+                            </div>
+                        </a>
                     </div>
+                    <a href="{{ route('recipes.index') }}" class="mag-wide">
+                        <img src="{{ $imgs[3] }}" alt="Smoothie Bowl Tropis">
+                        <div class="mag-overlay">
+                            <div class="mag-title-small">Smoothie Bowl Tropis</div>
+                            <div class="mag-subtitle">Booster Energi Pagi</div>
+                        </div>
+                        <div class="mag-play-btn"><i class="fas fa-play"></i></div>
+                    </a>
                 </div>
-            </a>
-            @empty
-            {{-- Fallback jika DB kosong --}}
-            <div class="trending-big-card" style="padding:40px;text-align:center;color:var(--text-m);">
-                <i class="fas fa-utensils" style="font-size:32px;margin-bottom:12px;display:block;opacity:.3;"></i>
-                <p style="font-size:14px;">Resep akan segera hadir. Daftarkan diri untuk notifikasi pertama!</p>
-                <a href="{{ route('register') }}" class="btn" style="margin-top:14px;display:inline-flex;text-decoration:none;">Daftar Sekarang</a>
             </div>
-            @endforelse
-        </div>
+        @else
+             <div class="popular-magazine-grid">
+                {{-- HERO card (recipe pertama) --}}
+                @if($r0)
+                <a href="{{ route('recipes.show', $r0->slug) }}" class="mag-hero">
+                    <img src="{{ $r0->image_url }}" alt="{{ $r0->title }}">
+                    <div class="mag-overlay">
+                        <div>
+                            <span class="mag-badge-trending">🔥 Trending</span>
+                            <span class="mag-time-pill"><i class="far fa-clock"></i> {{ $r0->total_time ?? 20 }} Mins</span>
+                        </div>
+                        <div class="mag-title-hero">{{ $r0->title }}</div>
+                        <div class="mag-stats">
+                            <span><i class="fas fa-heart"></i> {{ number_format(($r0->ratings_count ?? 0) * 12 + 300) }}</span>
+                            <span><i class="fas fa-utensils"></i> {{ number_format(($r0->ratings_count ?? 0) * 3 + 40) }}</span>
+                        </div>
+                    </div>
+                </a>
+                @endif
+
+                {{-- Kanan: 2 kartu kecil atas + 1 lebar bawah --}}
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    {{-- Dua kartu kecil --}}
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                        @if($r1)
+                        <a href="{{ route('recipes.show', $r1->slug) }}" class="mag-small">
+                            <img src="{{ $r1->image_url }}" alt="{{ $r1->title }}">
+                            <div class="mag-overlay">
+                                <div class="mag-title-small">{{ Str::limit($r1->title, 28) }}</div>
+                                <div class="mag-subtitle">{{ $r1->category->name ?? 'Populer' }}</div>
+                            </div>
+                        </a>
+                        @else
+                        <a href="{{ route('recipes.index') }}" class="mag-small">
+                            <img src="{{ $imgs[1] }}" alt="">
+                            <div class="mag-overlay">
+                                <div class="mag-title-small">Salad Salmon Alpukat</div>
+                                <div class="mag-subtitle">Healthy choice</div>
+                            </div>
+                        </a>
+                        @endif
+
+                        @if($r2)
+                        <a href="{{ route('recipes.show', $r2->slug) }}" class="mag-small">
+                            <img src="{{ $r2->image_url }}" alt="{{ $r2->title }}">
+                            <div class="mag-overlay">
+                                <div class="mag-title-small">{{ Str::limit($r2->title, 28) }}</div>
+                                <div class="mag-subtitle">{{ $r2->category->name ?? 'Trending' }}</div>
+                            </div>
+                        </a>
+                        @else
+                        <a href="{{ route('recipes.index') }}" class="mag-small">
+                            <img src="{{ $imgs[2] }}" alt="">
+                            <div class="mag-overlay">
+                                <div class="mag-title-small">Lava Cake Cokelat</div>
+                                <div class="mag-subtitle">Gen-Z Fav</div>
+                            </div>
+                        </a>
+                        @endif
+                    </div>
+
+                    {{-- Kartu panorama bawah --}}
+                    @if($r3)
+                    <a href="{{ route('recipes.show', $r3->slug) }}" class="mag-wide">
+                        <img src="{{ $r3->image_url }}" alt="{{ $r3->title }}">
+                        <div class="mag-overlay">
+                            <div class="mag-title-small">{{ Str::limit($r3->title, 36) }}</div>
+                            <div class="mag-subtitle">{{ $r3->category->name ?? 'Rekomendasi' }}</div>
+                        </div>
+                        <div class="mag-play-btn"><i class="fas fa-play"></i></div>
+                    </a>
+                    @else
+                    <a href="{{ route('recipes.index') }}" class="mag-wide">
+                        <img src="{{ $imgs[3] }}" alt="">
+                        <div class="mag-overlay">
+                            <div class="mag-title-small">Smoothie Bowl Tropis</div>
+                            <div class="mag-subtitle">Booster Energi Pagi</div>
+                        </div>
+                        <div class="mag-play-btn"><i class="fas fa-play"></i></div>
+                    </a>
+                    @endif
+                </div>
+            </div>
+        @endif
     </section>
 
     <!-- Core Benefits Section -->
-    <section class="section" style="background:#FFF9F6; padding:80px 5%; margin:60px 0;">
-        <div style="text-align:center; margin-bottom:44px;">
-            <h2 style="font-size:28px; font-weight:800; color:#111;">Mengapa Memasak Bersama Kami?</h2>
-            <p style="color:var(--text-m); margin-top:8px; font-size:14px;">Platform kami dirancang untuk memudahkanmu jadi chef di rumah sendiri dengan teknologi tercanggih.</p>
-        </div>
-        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:20px;">
-            @foreach([
-                ['fas fa-brain', 'AI Recommendation', 'Dapatkan saran resep yang dipelajari dari seleramu setiap hari.', '#FF5A36'],
-                ['fas fa-comments', 'Komunitas Aktif', 'Saling berbagi rating, foto masakan, dan tips rahasia dengan sesama member.', '#2E7D32'],
-                ['fas fa-video', 'Video VIP Eksklusif', 'Akses tutorial video 4K dengan teknik masak tingkat lanjut.', '#7B1FA2'],
-                ['fas fa-user-tie', 'Chef Konsultasi', 'Chat langsung dengan Chef profesional untuk tanya jawab masakanmu.', '#1565C0']
-            ] as [$icon, $title, $desc, $color])
-            <div class="trending-big-card" style="padding:28px; text-align:center; background:#FFF;">
-                <div style="width:50px; height:50px; border-radius:12px; background:{{ $color }}10; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; color:{{ $color }}; font-size:20px;">
-                    <i class="{{ $icon }}"></i>
-                </div>
-                <h4 style="font-size:15px; font-weight:800; color:#111; margin-bottom:8px;">{{ $title }}</h4>
-                <p style="font-size:12px; color:var(--text-m); line-height:1.6;">{{ $desc }}</p>
+    <section style="background:#FFF9F6; padding:80px 0; margin:60px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="landing-container">
+            <div style="text-align:center; margin-bottom:44px;">
+                <h2 style="font-size:28px; font-weight:800; color:#111;">Mengapa Memasak Bersama Kami?</h2>
+                <p style="color:var(--text-m); margin-top:8px; font-size:14px;">Platform kami dirancang untuk memudahkanmu jadi chef di rumah sendiri dengan teknologi tercanggih.</p>
             </div>
-            @endforeach
+            <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:20px;">
+                @foreach([
+                    ['fas fa-brain', 'AI Recommendation', 'Dapatkan saran resep yang dipelajari dari seleramu setiap hari.', '#FF5A36'],
+                    ['fas fa-comments', 'Komunitas Aktif', 'Saling berbagi rating, foto masakan, dan tips rahasia dengan sesama member.', '#2E7D32'],
+                    ['fas fa-video', 'Video VIP Eksklusif', 'Akses tutorial video 4K dengan teknik masak tingkat lanjut.', '#7B1FA2'],
+                    ['fas fa-user-tie', 'Chef Konsultasi', 'Chat langsung dengan Chef profesional untuk tanya jawab masakanmu.', '#1565C0']
+                ] as [$icon, $title, $desc, $color])
+                <div class="trending-big-card" style="padding:28px; text-align:center; background:#FFF;">
+                    <div style="width:50px; height:50px; border-radius:12px; background:{{ $color }}10; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; color:{{ $color }}; font-size:20px;">
+                        <i class="{{ $icon }}"></i>
+                    </div>
+                    <h4 style="font-size:15px; font-weight:800; color:#111; margin-bottom:8px;">{{ $title }}</h4>
+                    <p style="font-size:12px; color:var(--text-m); line-height:1.6;">{{ $desc }}</p>
+                </div>
+                @endforeach
+            </div>
         </div>
     </section>
 
     <!-- Upgrade to VIP Banner -->
-    <section class="section">
-        <div class="upgrade-banner">
+    <section class="landing-container" style="margin-bottom:60px;">
+        <div class="upgrade-banner" style="margin:0;">
             <div>
                 <span style="font-size:10px; font-weight:800; background:rgba(255,255,255,0.2); padding:4px 12px; border-radius:20px; letter-spacing:0.5px;">LIMITED OFFER</span>
                 <h2 style="font-size:36px; font-weight:800; margin:16px 0 10px 0; line-height:1.2;">Upgrade ke Paket VIP<br>& Masak Lebih Pro</h2>

@@ -52,14 +52,34 @@
 
         {{-- Recipes Grid --}}
         <div>
+            @guest
+            <div style="background:linear-gradient(135deg,#FFF5F2,#FFF); border:1.5px solid #FFD6C8; border-radius:14px; padding:14px 20px; margin-bottom:20px; display:flex; align-items:center; gap:12px;">
+                <i class="fas fa-lock" style="color:#FF5A36; font-size:18px;"></i>
+                <div>
+                    <strong style="font-size:13px; color:#111;">Login untuk membuka resep lengkap</strong>
+                    <span style="font-size:12px; color:#777; margin-left:8px;">Kamu bisa menjelajah daftar resep, tapi perlu login untuk melihat detail & langkah memasak.</span>
+                    <a href="{{ route('login') }}" style="color:var(--primary); font-weight:700; font-size:12px; margin-left:8px;">Masuk sekarang &rsaquo;</a>
+                </div>
+            </div>
+            @endguest
+
             <div class="grid-3" style="margin-bottom:30px;">
                 @forelse($recipes as $recipe)
+                @auth
                 <a href="{{ route('recipes.show', $recipe->slug) }}" style="text-decoration:none;color:inherit;display:block;">
-                    <div class="recipe-card">
-                        <div class="recipe-card-img" style="background-image: url('{{ $recipe->image ? asset('storage/' . $recipe->image) : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80' }}');">
+                @else
+                <a href="{{ route('login') }}" style="text-decoration:none;color:inherit;display:block;" title="Login untuk melihat resep ini">
+                @endauth
+                    <div class="recipe-card" style="position:relative;">
+                        <div class="recipe-card-img" style="background-image: url('{{ $recipe->image_url }}');">
                             @if($recipe->is_vip_content)
                                 <div class="vip-lock"><i class="fas fa-crown"></i> VIP</div>
                             @endif
+                            @guest
+                            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.08); display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.2s;" class="recipe-login-overlay">
+                                <span style="background:rgba(0,0,0,0.65); color:#FFF; font-size:11px; font-weight:700; padding:6px 14px; border-radius:20px;"><i class="fas fa-lock"></i> Login untuk Lihat</span>
+                            </div>
+                            @endguest
                         </div>
                         <div class="recipe-card-content">
                             <div class="recipe-card-meta">

@@ -6,7 +6,7 @@
         <a href="{{ route('consultations.index') }}" class="btn btn-white btn-sm"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div>
             <h1 style="font-size:24px;font-weight:800;color:#111;margin:0;">VIP Consultation Chat</h1>
-            <p style="color:var(--text-m);font-size:12px;margin:0;">Konsultasi Privat Kuliner Bersama <strong>Chef {{ $consultation->chef->name }}</strong></p>
+            <p style="color:var(--text-m);font-size:12px;margin:0;">Konsultasi Privat Kuliner Bersama <strong>{{ $consultation->chef->formatted_name }}</strong></p>
         </div>
     </div>
 
@@ -15,7 +15,7 @@
         <div style="padding:15px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:#fff;">
             <img src="{{ $consultation->chef->avatar_url }}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;" alt="">
             <div>
-                <div style="font-size:13px;font-weight:700;">Chef {{ $consultation->chef->name }}</div>
+                <div style="font-size:13px;font-weight:700;">{{ $consultation->chef->formatted_name }}</div>
                 <div style="font-size:11px;color:#2E7D32;"><i class="fas fa-circle" style="font-size:8px;"></i> Certified Professional Chef</div>
             </div>
         </div>

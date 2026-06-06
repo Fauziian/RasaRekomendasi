@@ -66,9 +66,7 @@
         .alert{padding:11px 16px;border-radius:var(--radius-sm);margin-bottom:14px;font-size:13px;display:flex;align-items:center;gap:10px;}
         .alert-success{background:#E8F5E9;border:1px solid #A5D6A7;color:#2E7D32;}
         .alert-danger{background:#FFEBEE;border:1px solid #EF9A9A;color:#C62828;}
-        .chef-footer{display:flex;justify-content:space-between;align-items:center;padding:22px 0 0;border-top:1px solid var(--border);margin-top:28px;color:var(--text-m);font-size:12px;}
-        .chef-footer a{color:var(--text-m);margin-left:14px;}
-        .chef-footer a:hover{color:var(--primary);}
+
     </style>
     @stack('styles')
 </head>
@@ -120,7 +118,17 @@
                 <input type="text" placeholder="Search my console...">
             </div>
             <div style="display:flex;align-items:center;gap:18px;">
-                <i class="far fa-bell" style="font-size:18px;color:#aaa;cursor:pointer"></i>
+                <a href="{{ route('notifications.index') }}" style="position:relative; color:#aaa; font-size:18px; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; transition: color .2s;">
+                    <i class="far fa-bell"></i>
+                    @php
+                        $unreadCount = Auth::user()->visibleNotifications()->where('is_read', false)->count();
+                    @endphp
+                    @if($unreadCount > 0)
+                        <span style="position:absolute; top:-6px; right:-6px; background:#FF5A36; color:#FFF; font-size:9px; font-weight:800; border-radius:50%; width:15px; height:15px; display:flex; align-items:center; justify-content:center; border:1.5px solid #FFF;">
+                            {{ $unreadCount }}
+                        </span>
+                    @endif
+                </a>
                 <!-- VIP Badge Icon -->
                 <div style="width:34px;height:34px;border-radius:50%;background:#FFF4E0;display:flex;align-items:center;justify-content:center;color:#FF9800;font-size:14px;border:1px solid #FFE0B2;cursor:pointer;">
                     <i class="fas fa-crown"></i>
@@ -132,11 +140,6 @@
         @if(session('error'))<div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> {{ session('error') }}</div>@endif
 
         @yield('content')
-
-        <div class="chef-footer">
-            <div><a href="#">Chef Support</a><a href="#">Knowledge Base</a></div>
-            <div>&copy; 2026 <strong style="color:var(--primary)">RasaRekomendasi</strong>. Chef Console v1.2.0</div>
-        </div>
     </main>
 </div>
 @stack('scripts')

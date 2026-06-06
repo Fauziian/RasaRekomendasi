@@ -1,0 +1,499 @@
+﻿Table Of Contents
+Table Of Contentsi
+DAFTAR GAMBARiv
+DAFTAR TABELvi
+BAB I INTRODUCTION1
+1.1. Purpose1
+1.2. Project Scope2
+1.3. Overview4
+1.4. Reference6
+1.5. Definitions and Acronyms6
+BAB II SYSTEM OVERVIEW8
+BAB III APPLICATION DESIGN10
+3.1. Use Case Diagram10
+3.2. Use Case Scenario11
+3.3. Class Diagram19
+3.4. Sequence Diagram20
+3.4.1. Sequence Diagram Registrasi Akun20
+3.4.2. Sequence Diagram Login Akun20
+3.4.3. Sequence Diagram Melihat Daftar Resep21
+3.4.4. Sequence Diagram Melihat Detail Resep21
+3.4.5. Sequence Diagram Input Preferensi Makanan21
+3.4.6. Sequence Diagram Mendapat Rekomendasi Resep21
+3.4.7. Sequence Diagram Memberi Komentar dan Rating22
+3.4.8. Sequence Diagram Memilih Paket VIP22
+3.4.9. Sequence Diagram Melakukan Pembayaran & Verifikasi22
+3.4.10. Sequence Diagram Mengakses Video Tutorial23
+3.4.11. Sequence Diagram Mengatur Jadwal23
+3.4.12. Sequence Diagram Booking Jadwal Konsultasi24
+3.4.13. Sequence Diagram Chat dengan Chef24
+3.4.14. Sequence Diagram Membalas Chat Konsultasi25
+3.4.15. Sequence Diagram Kelola Paket VIP25
+3.4.16. Sequence Diagram Kelola Transaksi26
+3.4.17. Sequence Diagram Kelola Resep26
+3.4.18. Sequence Diagram Kelola User dan Chef26
+3.5.Activity Diagram26
+3.5.1.Activity Diagram Autentikasi27
+3.5.2.Activity Diagram Melihat Katalog & Detail Resep28
+3.5.3.Activity Diagram Input Preferensi & Rekomendasi28
+3.5.4.Activity Diagram Memberi Komentar & Rating28
+3.5.5.Activity Diagram Pembelian & Aktivasi Paket VIP29
+3.5.6.Activity Diagram Mengakses Video Tutorial29
+3.5.7.Activity Diagram Mengatur Jadwal Konsultasi29
+3.5.8.Activity Diagram Booking Jadwal oleh VIP30
+3.5.9.Activity Diagram Pelaksanaan Chat Konsultasi30
+3.5.10.Activity Diagram Kelola Resep Masakan31
+3.5.11.Activity Diagram Kelola Akun User & Chef31
+3.5.12.Activity Diagram Kelola Paket VIP & Laporan Transaksi32
+3.6.State Diagram32
+3.7.Deployment Diagram32
+BAB IV DATA DESIGN33
+4.1.Logical Design33
+4.2.Physical Design33
+BAB V USER INTERFACE DESIGN33
+BAB VI INTERFACE REQUIREMENTS33
+6.1.User Interface33
+6.2.Hardware Interface33
+6.3.Software Interface33
+6.4.Communication Interface33
+DAFTAR GAMBAR
+Gambar 3.1 Use Case Diagram10
+Gambar 3. 2 Class Diagram19
+Gambar 3. 3 Sequence Diagram Registrasi Akun20
+Gambar 3. 4 Sequence Diagram Login Akun20
+Gambar 3. 5 Sequence Diagram Melihat Daftar Resep21
+Gambar 3. 6 Sequence Diagram Melihat Detail Resep21
+Gambar 3. 7 Sequence Diagram Input Preferensi Makanan21
+Gambar 3. 8 Sequence Diagram Mendapat Rekomendasi Resep22
+Gambar 3. 9 Sequence Diagram Memberi Komentar dan Rating22
+Gambar 3. 10  Sequence Diagram Memilih Paket VIP22
+Gambar 3. 11 Sequence Diagram Melakukan Pembayaran & Verifikasi23
+Gambar 3. 12  Sequence Diagram Mengakses Video Tutorial23
+Gambar 3. 13 Sequence Diagram Mengatur Jadwal24
+Gambar 3. 14 Sequence Diagram Booking Jadwal Konsultasi24
+Gambar 3. 15 Sequence Diagram Chat dengan Chef25
+Gambar 3. 16  Sequence Diagram Membalas Chat Konsultasi25
+Gambar 3. 17 Sequence Diagram Kelola Paket VIP25
+Gambar 3. 18 Sequence Diagram Kelola Transaksi26
+Gambar 3. 19  Sequence Diagram Kelola Resep26
+Gambar 3. 20 Sequence Diagram Kelola User dan Chef26
+Gambar 3. 21 Activity Diagram Autentikasi27
+Gambar 3. 22 Activity Diagram Melihat Katalog & Detail Resep28
+Gambar 3. 23 Activity Diagram  Input Preferensi & Rekomendasi28
+Gambar 3. 24 Activity Diagram Memberi Komentar & Rating29
+Gambar 3. 25 Activity Diagram Pembelian & Aktivasi Paket VIP29
+Gambar 3. 26 Activity Diagram Mengakses Video Tutorial29
+Gambar 3. 27 Activity Diagram Mengatur Jadwal Konsultasi30
+Gambar 3. 28 Activity Diagram Booking Jadwal oleh VIP30
+Gambar 3. 29 Activity Diagram Pelaksanaan Chat Konsultasi31
+Gambar 3. 30 Activity Diagram Kelola Resep Masakan31
+Gambar 3. 31 Activity Diagram Kelola Akun User & Chef32
+Gambar 3. 32 Activity Diagram Kelola Paket VIP & Laporan Transaksi32
+DAFTAR TABEL
+Tabel 3.1 Melihat Daftar Resep11
+Tabel 3.2 Melihat Detail Resep11
+Tabel 3.3 Register dan Login11
+Tabel 3.4 Input Preferensi dan Mendapatkan Rekomendasi Resep12
+Tabel 3.5 Memberi Komentar dan Rating13
+Tabel 3.6 Memilih Paket VIP, Melakukan Pembayaran dan Verifikasi13
+Tabel 3.7 Usecase Scenario Mengakses Video Tutorial14
+Tabel 3.8 Use Case Scenario Mengatur Jadwal Konsultasi14
+Tabel 3.9 Use Case Scenario Booking Jadwal Konsultasi15
+Tabel 3.10 Use Case Chat dengan Chef dan Membalas Chat15
+Tabel 3.11 Use Case Scenario Kelola Paket VIP16
+Tabel 3.12 Use Case Kelola Transaksi16
+Tabel 3.13 Use Case Scenario Kelola Resep17
+Tabel 3.14 Use Case Scenario Kelola User dan Chef17
+INTRODUCTION
+Purpose
+Dokumen SDD (Software Design Document) untuk Sistem Rekomendasi Resep Makanan ini merupakan dokumentasi teknis yang disusun sebagai jembatan antara kebutuhan fungsional dalam dokumen SRS dengan tahap implementasi pengodean. Dokumen ini berfungsi sebagai cetak biru (blueprint) yang memberikan panduan mendalam bagi pengembang mengenai struktur isiko yang akan dibangun, mencakup arsitektur perangkat lunak, komponen logika, serta mekanisme integrasi antarmuka. Sebagai isikouna utama dalam siklus pengembangan, SDD memastikan bahwa setiap detail teknis dirancang secara terukur untuk meminimalisir ambiguitas dan kesalahan fatal saat proses isikounan aplikasi berlangsung.
+Tujuan utama dari dokumen ini isiko untuk mendefinisikan secara rinci bagaimana perangkat lunak akan diorganisasikan, termasuk perancangan struktur basis data (ERD) dan alur komunikasi antar-komponen seperti Recommendation Engine dan integrasi API multimedia eksternal. SDD bertindak sebagai media komunikasi formal yang menyelaraskan pemahaman antara desainer UI/UX, pengembang full-stack, dan pemangku kepentingan lainnya mengenai bagaimana isiko merespons input preferensi pengguna. Dengan deskripsi yang terperinci mengenai struktur modul dan antarmuka teknis, tim pengembang dapat memastikan bahwa setiap fitur yang dirancang memiliki landasan logika yang kuat dan efisien.
+Selain sebagai panduan teknis, dokumen SDD ini berperan krusial dalam menjamin konsistensi dan skalabilitas perangkat lunak di masa depan. Melalui dokumentasi yang sistematis, setiap perubahan atau pengembangan fitur baru dapat dilakukan dengan isiko minimal karena seluruh ketergantungan antar-komponen telah terpetakan dengan jelas. Pada akhirnya, dokumen ini memfasilitasi komunikasi yang efektif dalam tim pengembang, memberikan pedoman yang konsisten selama proses produksi, dan memastikan bahwa produk akhir yang dihasilkan sesuai dengan standar desain serta ekspektasi pengguna yang telah ditetapkan sebelumnya.
+Project Scope
+Sistem Rekomendasi Resep Makanan ini adalah aplikasi berbasis web yang dirancang untuk membantu pengguna menemukan ide masakan yang sesuai dengan preferensi, ketersediaan bahan, dan waktu luang mereka. Ruang lingkup utamanya mencakup fitur pencarian resep melalui filter kategori, sistem rekomendasi otomatis, serta fitur interaksi sosial berupa ulasan dan pemberian nilai (rating) oleh pengguna terdaftar. Selain itu, cakupan sistem ini kini diperluas dengan menambahkan layanan keanggotaan berbayar (VIP) yang terhubung langsung dengan sistem pembayaran otomatis (payment gateway).
+Melalui pembaruan ini, hak akses pengguna dibagi secara lebih jelas. Pengguna reguler dapat menikmati fitur pencarian dan rekomendasi resep, sementara pengguna VIP mendapatkan fasilitas tambahan berupa akses ke video panduan memasak dan layanan konsultasi langsung melalui obrolan (chat) dengan koki (chef). Sistem ini juga menyediakan ruang kerja khusus bagi koki untuk mengatur jadwal konsultasi mereka, serta dasbor bagi pengelola (admin) untuk mengawasi seluruh aktivitas aplikasi, termasuk pengelolaan resep, akun pengguna, dan laporan transaksi.
+Manfaat
+Pengembangan sistem ini memberikan manfaat bagi berbagai pihak, di antaranya:
+Membantu pengguna menghemat waktu dan mengurangi kebingungan dalam menentukan menu masakan harian secara efisien.
+Memberikan pengalaman belajar memasak yang lebih mendalam bagi pengguna VIP melalui panduan video eksklusif dan sesi tanya-jawab langsung dengan koki profesional.
+Menyediakan ekosistem kuliner digital yang terstruktur, di mana data operasional seperti jadwal konsultasi, transaksi keuangan, dan konten resep dapat dikelola secara terpusat oleh pengelola sistem.
+Tujuan
+Tujuan utama dari pengembangan perangkat lunak ini adalah untuk:
+Membangun aplikasi web yang mampu memberikan saran resep masakan secara relevan berdasarkan pilihan spesifik pengguna.
+Menerapkan sistem keanggotaan VIP yang didukung oleh gerbang pembayaran (payment gateway) secara daring.
+Menyediakan sarana komunikasi interaktif antara pengguna VIP dan koki melalui fitur penjadwalan dan obrolan (chat) langsung.
+Menciptakan ruang berbagi referensi kuliner melalui sistem ulasan yang bisa diandalkan dari para pengguna.
+Menyediakan dasbor administrasi yang lengkap untuk memudahkan pengelolaan data resep, jadwal koki, pemantauan pengguna, dan perekaman riwayat transaksi.
+Overview
+Dokumen Software Design Document (SDD) ini berfungsi sebagai panduan utama dalam proses perancangan dan pembuatan Sistem Rekomendasi Resep Makanan Berbasis Web. Dokumen ini memberikan gambaran menyeluruh mengenai struktur sistem, komponen perangkat lunak, dan rancangan antarmuka, termasuk interaksi antar-modul untuk fitur rekomendasi, sistem keanggotaan berbayar (VIP), transaksi pembayaran , hingga fasilitas obrolan dengan koki. Secara garis besar, dokumen ini disusun agar seluruh aspek teknis dirancang secara konsisten, terstruktur, dan sesuai dengan kebutuhan akhir sistem. Dokumen ini juga akan menjadi acuan teknis bagi tim pengembang saat menulis kode, menguji aplikasi, dan memelihara atau memperbarui sistem di masa mendatang.
+Struktur Organisasi Dokumen:
+Pendahuluan – Menjelaskan tujuan pembuatan dokumen, ruang lingkup aplikasi, dan konteks dari sistem yang sedang dibangun.
+Deskripsi Umum Sistem – Menyajikan gambaran besar aplikasi, batasan sistem, serta karakteristik dari enam aktor utama yang terlibat: Guest, User Reguler, User VIP, Chef, Admin, dan Payment Gateway.
+Desain Arsitektur – Menggambarkan susunan teknologi aplikasi secara keseluruhan, termasuk hubungan antara sisi klien, peladen (server), serta integrasi dengan layanan luar seperti payment gateway dan API video.
+Desain Rinci (Detailed Design) – Menjelaskan rancangan basis data yang kini telah diperluas untuk mencatat data transaksi, jadwal koki, dan pesan obrolan. Bagian ini juga memuat diagram alur sistem (UML) dan logika rekomendasi.
+Desain Antarmuka Pengguna (UI/UX) – Menampilkan rancangan tampilan layar visual, alur perpindahan halaman, dan elemen-elemen tombol yang akan digunakan oleh pengguna.
+Desain Keamanan dan Integrasi – Menguraikan pembagian hak akses (role) pengguna secara tegas , mekanisme keamanan data, serta tata cara komunikasi sistem dengan penyedia layanan pihak ketiga (seperti platform video eksklusif untuk VIP dan gerbang pembayaran).
+Lampiran – Berisi daftar istilah teknis, referensi tambahan, serta diagram pelengkap yang mendukung pemahaman terhadap sistem.
+Dengan susunan tersebut, dokumen SDD ini diharapkan dapat memberikan arahan yang sistematis bagi tim pengembang. Hal ini bertujuan untuk menghasilkan aplikasi yang andal, efisien dalam merekomendasikan resep, serta mampu menyajikan pengalaman kuliner yang lengkap—mulai dari pencarian masakan hingga interaksi langsung dengan koki.
+Reference
+Dalam pembuatan dokumen SDD ini kita membutuhkan referensi dari berbagai sumber untuk menjadikan dokumen SDD ini menjadi sempurna, berikut dokumen digunakan: 
+https://repository.bakrie.ac.id/262/33/05.%20Lampiran.pdf
+Definitions and Acronyms
+Dokumen ini menggunakan beberapa istilah teknis dan singkatan untuk mempermudah penyampaian konsep desain di halaman-halaman berikutnya. Berikut adalah daftar istilah dan akronim yang digunakan:
+SDD (Software Design Document): Dokumen panduan teknis yang berisi rancangan arsitektur perangkat lunak.
+SRS (Software Requirements Specification): Dokumen yang berisi daftar lengkap mengenai spesifikasi dan kebutuhan sistem sebelum aplikasi mulai dirancang.
+ERD (Entity Relationship Diagram): Bagan yang menggambarkan bagaimana tabel-tabel data di dalam sistem (basis data) saling berhubungan satu sama lain.
+UI/UX (User Interface / User Experience): Rancangan visual tampilan layar aplikasi dan bagaimana pengalaman pengguna saat berinteraksi dengan tombol atau menu yang ada.
+API (Application Programming Interface): Jalur komunikasi yang memungkinkan aplikasi ini terhubung dan bertukar data dengan layanan luar, seperti pemutar video atau sistem pembayaran.
+CRUD (Create, Read, Update, Delete): Empat operasi dasar dalam pengelolaan data, yaitu menambah, melihat, mengubah, dan menghapus data (misalnya data resep atau akun pengguna).
+RBAC (Role-Based Access Control): Pengaturan pembagian hak dan batas akses pengguna berdasarkan peran mereka (misalnya perbedaan batas akses antara pengguna biasa dan admin).
+HTTP/HTTPS (Hypertext Transfer Protocol Secure): Aturan standar komunikasi di internet yang memastikan pertukaran data antara pengguna dan sistem berjalan secara aman.
+UML (Unified Modeling Language): Bahasa standar berupa gambar atau diagram (seperti Use Case atau Sequence Diagram) yang digunakan untuk memetakan alur kerja sistem secara visual.
+MVC (Model-View-Controller): Pola pengaturan kode program yang memisahkan bagian penyimpanan data (Model), tampilan layar (View), dan pengontrol logika aplikasi (Controller) agar lebih rapi.
+VIP (Very Important Person): Status keanggotaan berbayar yang memberikan fasilitas eksklusif bagi pengguna, seperti akses video panduan dan obrolan dengan koki.
+Payment Gateway: Gerbang pembayaran daring pihak ketiga yang bertugas memproses transaksi pembelian paket VIP secara otomatis dan aman.
+Scrum: Metode kerja yang digunakan oleh tim pengembang untuk merampungkan proyek aplikasi secara bertahap dan terstruktur.
+SYSTEM OVERVIEW
+Sistem Rekomendasi Resep Makanan adalah aplikasi berbasis web yang dirancang untuk membantu pengguna menemukan ide masakan yang sesuai dengan preferensi, ketersediaan bahan, dan waktu luang mereka. Sistem ini mencocokkan kriteria masukan dari pengguna dengan basis data resep untuk menampilkan saran yang paling tepat. Pada versi terbarunya, aplikasi ini telah berkembang menjadi platform yang lebih menyeluruh dengan membagi pengguna ke dalam peran akses yang jelas, yang melibatkan Guest, User Reguler, User VIP, Chef, Admin, dan Payment Gateway.
+Fungsi Utama Perangkat Lunak:
+Pencarian dan Rekomendasi
+Menyajikan katalog resep dan memproses kriteria dari pengguna untuk memberikan saran masakan yang spesifik.
+Manajemen Konten dan Interaksi
+Mengelola seluruh informasi resep serta menampung ulasan dan penilaian (rating) dari pengguna.
+Layanan Keanggotaan Berbayar
+Memfasilitasi transaksi pembelian paket keanggotaan premium (VIP) secara daring melalui gerbang pembayaran otomatis (payment gateway).
+Fasilitas Konsultasi Ahli
+Menyediakan sarana penjadwalan dan komunikasi langsung antara pengguna VIP dan koki profesional.
+Panel Administrasi Terpusat
+Memberikan ruang bagi pengelola (admin) untuk mengawasi seluruh data, mulai dari pengguna, resep, hingga rekapitulasi transaksi.
+Fitur Utama Perangkat Lunak:
+Mesin Rekomendasi Cerdas
+Antarmuka yang memungkinkan pengguna memasukkan kriteria (seperti jenis makanan dan waktu memasak) untuk memicu saran resep otomatis.
+Video Panduan Eksklusif
+Pemutar video yang menyajikan langkah memasak secara visual, yang secara khusus hanya dapat diakses oleh pengguna dengan status VIP.
+Integrasi Pembayaran Daring
+Fitur yang terhubung dengan pihak ketiga (payment gateway) untuk memproses transaksi pembelian paket VIP dengan cepat dan aman.
+Penjadwalan dan Obrolan Koki
+Fitur khusus yang memungkinkan pengguna VIP memesan jadwal (booking) dan melakukan sesi obrolan (chat) interaktif dengan koki.
+Dasbor Multi-Peran
+Halaman kontrol yang disesuaikan untuk masing-masing peran, seperti dasbor Admin untuk laporan transaksi dan dasbor Chef untuk mengatur jadwal konsultasi.
+Proses Bisnis Perangkat Lunak:
+Penggunaan Dasar & Interaksi
+Pengguna membuat akun biasa (User Reguler) untuk mulai meminta rekomendasi resep, membaca detail langkah memasak, serta meninggalkan jejak berupa nilai (rating) dan ulasan.
+Peningkatan Akun (VIP)
+Pengguna memilih paket langganan yang tersedia dan melakukan pembayaran. Setelah payment gateway mengonfirmasi pembayaran berhasil, sistem akan langsung meningkatkan status pengguna menjadi VIP.
+Sesi Konsultasi Kuliner
+Koki menentukan jadwal luangnya melalui sistem, pengguna VIP kemudian memesan jadwal yang masih kosong, dan obrolan konsultasi dilakukan sesuai waktu yang telah disepakati.
+Manajemen Data & Pemantauan
+Admin menambahkan atau memperbarui data resep, memeriksa kelancaran arus transaksi, serta memantau keamanan sistem dari ulasan yang tidak pantas.
+APPLICATION DESIGN
+Use Case Diagram
+Use Case Diagram adalah bagan yang menggambarkan interaksi antara pengguna (aktor) dengan fitur-fitur di dalam sistem. Sistem ini melibatkan enam aktor utama dengan hak akses yang berbeda-beda, yaitu: Guest, User Reguler, User VIP, Chef, Admin, dan Payment Gateway. Berikut adalah gambaran visual diagramnya:
+Gambar 3.1 Use Case Diagram
+Use Case Scenario
+Use Case Scenario: Melihat Daftar Resep
+Tabel 3.1 Melihat Daftar Resep
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Guest, User Reguler, User VIP 
+Tujuan
+Menampilkan katalog resep masakan yang tersedia di sistem.
+Kondisi Awal
+Pengguna membuka halaman beranda atau halaman pencarian aplikasi.
+Kondisi Akhir
+Sistem menampilkan daftar resep.
+Skenario Utama
+1. Pengguna masuk ke halaman utama aplikasi.
+2. Sistem mengambil data resep dari basis data.
+3. Sistem menampilkan daftar resep beserta gambar, judul, dan ringkasan singkat. Pengguna dapat melakukan penyaringan berdasarkan kategori masakan.
+Use Case Scenario: Melihat Detail Resep
+Tabel 3. 2 Melihat Detail Resep
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Guest, User Reguler, User VIP 
+Tujuan
+Menampilkan rincian bahan, takaran, dan langkah-langkah memasak dari suatu resep.
+Kondisi Awal
+Pengguna berada di halaman daftar resep dan memilih salah satu resep.
+Kondisi Akhir
+Halaman detail resep terbuka sepenuhnya.
+Skenario Utama
+1. Pengguna mengklik salah satu resep dari daftar.
+2. Sistem memuat informasi lengkap mengenai resep tersebut (waktu memasak, tingkat kesulitan, bahan, dan instruksi teks).
+Use Case Scenario: Register dan Login
+Tabel 3. 3 Register dan Login
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Guest (berubah menjadi User Reguler) 
+Tujuan
+Membuat akun baru agar pengguna dapat mengakses fitur interaksi seperti menyimpan preferensi dan memberikan penilaian.
+Kondisi Awal
+Pengguna belum memiliki akses (Guest).
+Kondisi Akhir
+Pengguna berhasil masuk dan diakui oleh sistem sebagai User Reguler.
+Skenario Utama
+1. Guest memilih menu "Register" dan memasukkan data diri (nama, email, kata sandi).
+2. Sistem menyimpan data ke basis data.
+3. Pengguna menuju halaman "Login" dan memasukkan email serta kata sandi.
+4. Sistem melakukan validasi dan memberikan hak akses beranda interaktif.
+Use Case Scenario: Input Preferensi & Mendapatkan Rekomendasi Resep
+Tabel 3. 4 Input Preferensi dan Mendapatkan Rekomendasi Resep
+Elemen Skenario
+Deskripsi
+Aktor Utama
+User Reguler, User VIP 
+Tujuan
+Memberikan saran masakan otomatis berdasarkan kriteria pengguna.
+Kondisi Awal
+Pengguna sudah masuk (login).
+Kondisi Akhir
+Sistem menampilkan daftar resep yang relevan.
+Skenario Utama
+1. Pengguna membuka fitur rekomendasi dan mengisi formulir preferensi (tingkat kesulitan, waktu memasak, jenis rasa).
+2. Sistem mengeksekusi algoritma pencocokan data preferensi dengan data resep.
+3. Sistem menampilkan hasil (output) resep dengan tingkat kecocokan tertinggi.
+Use Case Scenario: Memberi Komentar dan Rating
+ Tabel 3. 5 Memberi Komentar dan Rating
+Elemen Skenario
+Deskripsi
+Aktor Utama
+User Reguler, User VIP 
+Tujuan
+Memberikan penilaian dan ulasan pengalaman memasak.
+Kondisi Awal
+Pengguna sedang membuka halaman detail resep.
+Kondisi Akhir
+Skor ulasan (rating) dan komentar tersimpan di sistem dan dapat dilihat pengguna lain.
+Skenario Utama
+1. Pengguna membaca detail resep dan menuju bagian bawah halaman.
+2. Pengguna menekan jumlah bintang (skala rating) dan menuliskan teks ulasan.                    
+3. Sistem memvalidasi ulasan, menyimpan data ke basis data, dan menghitung ulang nilai rata-rata resep tersebut.
+Use Case Scenario: Memilih Paket VIP, Melakukan Pembayaran, dan Verifikasi
+Tabel 3. 6 Memilih Paket VIP, Melakukan Pembayaran dan Verifikasi
+Elemen Skenario
+Deskripsi
+Aktor Utama
+User Reguler, Payment Gateway 
+Tujuan
+Melakukan transaksi daring untuk meningkatkan status akun ke tingkat premium.
+Kondisi Awal
+Pengguna berstatus User Reguler.
+Kondisi Akhir
+Status akun diperbarui menjadi User VIP.
+Skenario Utama
+1. Pengguna membuka halaman "Langganan VIP" dan memilih paket (Memilih Paket VIP).
+2. Sistem membuat pesanan dan mengarahkan pengguna ke halaman pembayaran (Melakukan Pembayaran).
+3. Pengguna memilih metode bayar dan menyelesaikan transaksi lewat antarmuka Payment Gateway.
+4. Payment Gateway memproses dana dan mengirimkan konfirmasi ke sistem (<> Verifikasi Status Pembayaran).
+5. Sistem memperbarui hak akses pengguna.
+Use Case Scenario: Mengakses Video Tutorial 
+Tabel 3. 7 Usecase Scenario Mengakses Video Tutorial
+Elemen Skenario
+Deskripsi
+Aktor Utama
+User VIP 
+Tujuan
+Menonton panduan memasak berupa video tersemat (embed link).
+Kondisi Awal
+Pengguna berstatus User VIP dan sedang melihat detail resep.
+Kondisi Akhir
+Pemutar video berhasil dimuat dan dijalankan.
+Skenario Utama
+1. Sistem mengecek status VIP pengguna di halaman detail resep.
+2. Karena pengguna adalah VIP, sistem menampilkan pemutar video dari tautan eksternal (YouTube/TikTok).
+3. Pengguna memutar video panduan.
+Use Case Scenario: Mengatur Jadwal Konsultasi
+Tabel 3. 8 Use Case Scenario Mengatur Jadwal Konsultasi
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Chef 
+Tujuan
+Menambahkan ketersediaan waktu untuk melayani konsultasi.
+Kondisi Awal
+Koki (Chef) masuk ke dasbor manajemen jadwal miliknya.
+Kondisi Akhir
+Jadwal baru tersimpan di basis data dan siap dipilih pengguna.
+Skenario Utama
+1. Koki menekan tombol tambah jadwal.
+2. Koki menentukan tanggal dan rentang jam luang.
+3. Sistem merekam jadwal koki.
+Use Case Scenario: Booking Jadwal Konsultasi
+Tabel 3. 9 Use Case Scenario Booking Jadwal Konsultasi
+Elemen Skenario
+Deskripsi
+Aktor Utama
+User VIP 
+Tujuan
+Memesan slot waktu koki untuk sesi tanya-jawab khusus.
+Kondisi Awal
+Pengguna berstatus User VIP.
+Kondisi Akhir
+Sesi konsultasi dipesan dan jadwal koki terkait diperbarui.
+Skenario Utama
+1. User VIP membuka menu Jadwal Konsultasi.
+2. Pengguna melihat ketersediaan jadwal dari para koki.
+3. Pengguna memilih salah satu slot yang masih kosong dan melakukan pemesanan (booking).
+4. Sistem mengubah status jadwal menjadi "Dipesan" dan memberi notifikasi ke koki.
+Use Case: Chat dengan Chef dan Membalas Chat
+Tabel 3. 10 Use Case Chat dengan Chef dan Membalas Chat
+Elemen Skenario
+Deskripsi
+Aktor Utama
+User VIP, Chef 
+Tujuan
+Melakukan komunikasi teks interaktif sesuai jadwal yang sudah dipesan.
+Kondisi Awal
+Tiba pada waktu jadwal yang telah disepakati.
+Kondisi Akhir
+Percakapan berhasil dilakukan dan riwayatnya tersimpan.
+Skenario Utama
+1. User VIP dan Chef masuk ke menu ruang obrolan (chat).
+2. Keduanya saling bertukar pesan seputar teknik atau solusi memasak.
+3. Sistem menyimpan rekam jejak obrolan di basis data secara real-time.
+4. Sesi ditutup ketika waktu jadwal berakhir.
+Use Case Scenario: Kelola Paket VIP
+Tabel 3. 11 Use Case Scenario Kelola Paket VIP
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Admin 
+Tujuan
+Mengatur daftar harga, durasi, dan nama paket VIP.
+Kondisi Awal
+Admin telah login ke dasbor manajemen.
+Kondisi Akhir
+Data paket VIP di aplikasi diperbarui.
+Skenario Utama
+1. Admin membuka menu "Kelola Paket VIP".
+2. Admin melakukan aksi tambah, ubah harga, atau hapus paket yang sudah kedaluwarsa.
+3. Sistem menyimpan perubahan yang langsung terlihat oleh pengguna publik.
+Use Case: Kelola Transaksi
+Tabel 3. 12 Use Case Scenario Kelola Transaksi
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Admin 
+Tujuan
+Memantau masuknya dana dan status verifikasi dari seluruh pengguna.
+Kondisi Awal
+Admin berada di dasbor sistem.
+Kondisi Akhir
+Admin mendapatkan laporan transaksi terbaru.
+Skenario Utama
+1. Admin menavigasi ke menu "Laporan Transaksi".
+2. Sistem mengambil log data dari gerbang pembayaran dan menampilkannya dalam bentuk tabel.
+3. Admin dapat menyaring data transaksi berdasarkan status (Berhasil, Tertunda, Gagal).
+Use Case Scenario: Kelola Resep
+Tabel 3. 13 Use Case Scenario Kelola Resep
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Admin 
+Tujuan
+Menjaga kebaruan konten dengan melakukan operasi CRUD (tambah, edit, hapus) pada resep masakan.
+Kondisi Awal
+Admin memiliki data resep baru untuk diunggah.
+Kondisi Akhir
+Basis data resep bertambah dan langsung tayang di sisi klien.
+Skenario Utama
+1. Admin mengisi formulir resep baru (judul, deskripsi, takaran bahan, langkah-langkah, kategori).
+2. Admin menyematkan tautan video YouTube/TikTok.
+3. Sistem memvalidasi dan menyimpan resep tersebut ke daftar publik.
+Use Case Scenario: Kelola User dan Chef
+Tabel 3. 14 Use Case Scenario Kelola User dan Chef
+Elemen Skenario
+Deskripsi
+Aktor Utama
+Admin 
+Tujuan
+Melakukan manajemen akun, seperti memoderasi pengguna, melihat status langganan, dan mendaftarkan koki baru.
+Kondisi Awal
+Admin menerima permintaan penambahan koki atau laporan akun bermasalah.
+Kondisi Akhir
+Basis data pengguna diperbarui.
+Skenario Utama
+1. Admin membuka menu "Manajemen Pengguna".
+2. Admin memblokir User Reguler yang melakukan pelanggaran (komentar spam), atau menambahkan akun baru yang secara spesifik diberikan hak akses (role) sebagai Chef.
+3. Sistem mengunci atau membuka akses akun terkait secara seketika.
+Class Diagram
+Gambar 3. 2 Class Diagram
+Sequence Diagram
+Sequence Diagram (Diagram Urutan) adalah bagan yang menggambarkan bagaimana komponen-komponen di dalam sistem saling berkomunikasi dan bertukar pesan secara berurutan seiring berjalannya waktu.
+Pada Sistem Rekomendasi Resep Makanan ini, proses yang membutuhkan alur komunikasi lintas sistem adalah transaksi pembelian paket VIP. Oleh karena itu, diagram ini secara khusus menjelaskan interaksi antara empat pihak, yaitu: User, Sistem Web, Payment Gateway, dan Admin.
+Sequence Diagram Registrasi Akun
+Gambar 3. 3 Sequence Diagram Registrasi Akun
+Sequence Diagram Login Akun
+Gambar 3. 4 Sequence Diagram Login Akun
+Sequence Diagram Melihat Daftar Resep
+Gambar 3. 5 Sequence Diagram Melihat Daftar Resep
+Sequence Diagram Melihat Detail Resep
+Gambar 3. 6 Sequence Diagram Melihat Detail Resep
+Sequence Diagram Input Preferensi Makanan
+Gambar 3. 7 Sequence Diagram Input Preferensi Makanan
+Sequence Diagram Mendapat Rekomendasi Resep
+Gambar 3. 8 Sequence Diagram Mendapat Rekomendasi Resep
+Sequence Diagram Memberi Komentar dan Rating
+Gambar 3. 9 Sequence Diagram Memberi Komentar dan Rating
+Sequence Diagram Memilih Paket VIP
+Gambar 3. 10  Sequence Diagram Memilih Paket VIP
+Sequence Diagram Melakukan Pembayaran & Verifikasi
+Gambar 3. 11 Sequence Diagram Melakukan Pembayaran & Verifikasi
+Sequence Diagram Mengakses Video Tutorial
+Gambar 3. 12  Sequence Diagram Mengakses Video Tutorial
+Sequence Diagram Mengatur Jadwal
+Gambar 3. 13 Sequence Diagram Mengatur Jadwal
+Sequence Diagram Booking Jadwal Konsultasi
+Gambar 3. 14 Sequence Diagram Booking Jadwal Konsultasi
+Sequence Diagram Chat dengan Chef
+Gambar 3. 15 Sequence Diagram Chat dengan Chef
+Sequence Diagram Membalas Chat Konsultasi
+Gambar 3. 16  Sequence Diagram Membalas Chat Konsultasi
+Sequence Diagram Kelola Paket VIP
+Gambar 3. 17 Sequence Diagram Kelola Paket VIP
+Sequence Diagram Kelola Transaksi
+Gambar 3. 18 Sequence Diagram Kelola Transaksi
+Sequence Diagram Kelola Resep
+Gambar 3. 19  Sequence Diagram Kelola Resep
+Sequence Diagram Kelola User dan Chef
+Gambar 3. 20 Sequence Diagram Kelola User dan Chef
+Activity Diagram
+Activity Diagram Autentikasi
+Gambar 3. 21 Activity Diagram Autentikasi
+Activity Diagram Melihat Katalog & Detail Resep
+Gambar 3. 22 Activity Diagram Melihat Katalog & Detail Resep
+Activity Diagram Input Preferensi & Rekomendasi
+Gambar 3. 23 Activity Diagram Input Preferensi & Rekomendasi
+Activity Diagram Memberi Komentar & Rating
+Gambar 3. 24 Activity Diagram Memberi Komentar & Rating
+Activity Diagram Pembelian & Aktivasi Paket VIP
+Gambar 3. 25 Activity Diagram Pembelian & Aktivasi Paket VIP
+Activity Diagram Mengakses Video Tutorial
+Gambar 3. 26 Activity Diagram Mengakses Video Tutorial
+Activity Diagram Mengatur Jadwal Konsultasi
+Gambar 3. 27 Activity Diagram Mengatur Jadwal Konsultasi
+Activity Diagram Booking Jadwal oleh VIP
+Gambar 3. 28 Activity Diagram Booking Jadwal oleh VIP
+Activity Diagram Pelaksanaan Chat Konsultasi
+Gambar 3. 29 Activity Diagram Pelaksanaan Chat Konsultasi
+Activity Diagram Kelola Resep Masakan
+Gambar 3. 30 Activity Diagram Kelola Resep Masakan
+Activity Diagram Kelola Akun User & Chef
+Gambar 3. 31 Activity Diagram Kelola Akun User & Chef
+Activity Diagram Kelola Paket VIP & Laporan Transaksi
+Gambar 3. 32 Activity Diagram Kelola Paket VIP & Laporan Transaksi
+State Diagram
+Dxda
+Deployment Diagram
+DATA DESIGN
+Logical Design
+Physical Design
+USER INTERFACE DESIGN
+INTERFACE REQUIREMENTS
+User Interface
+Hardware Interface
+Software Interface
+Communication Interface

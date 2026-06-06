@@ -38,7 +38,11 @@ class CommentRating extends Model
         parent::boot();
 
         // After create/update/delete, recalculate recipe rating
-        $recalculate = fn (CommentRating $model) => $model->recipe->recalculateRating();
+        $recalculate = function (CommentRating $model) {
+            if ($model->recipe) {
+                $model->recipe->recalculateRating();
+            }
+        };
 
         static::created($recalculate);
         static::updated($recalculate);

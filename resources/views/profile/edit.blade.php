@@ -242,9 +242,21 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('profile.update') }}">
+        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
+
+            {{-- Avatar Upload --}}
+            <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #F0EDE8;">
+                <div style="position:relative;width:80px;height:80px;flex-shrink:0;">
+                    <img id="adminAvatarPreview" src="{{ $user->avatar_url }}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #A03010;" alt="Avatar">
+                </div>
+                <div>
+                    <label class="field-label">Foto Profil</label>
+                    <input type="file" name="avatar" accept="image/*" style="display:block;font-size:13px;" onchange="previewAvatar(this,'adminAvatarPreview')">
+                    <p style="font-size:11px;color:#aaa;margin-top:4px;">Maks. 5MB (JPG, PNG)</p>
+                </div>
+            </div>
 
             <div class="field-grid">
                 <div>
@@ -254,6 +266,14 @@
                 <div>
                     <label class="field-label">Alamat Email</label>
                     <input type="email" name="email" value="{{ old('email', $user->email) }}" class="field-input" required>
+                </div>
+                <div>
+                    <label class="field-label">No. Telepon <span style="font-weight:400;color:#aaa">(Opsional)</span></label>
+                    <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" class="field-input" placeholder="+62...">
+                </div>
+                <div>
+                    <label class="field-label">Bio <span style="font-weight:400;color:#aaa">(Opsional)</span></label>
+                    <input type="text" name="bio" value="{{ old('bio', $user->bio) }}" class="field-input" placeholder="Ceritakan tentang diri Anda...">
                 </div>
             </div>
 
@@ -356,9 +376,8 @@
         <div class="fav-card">
             <div class="fav-card-img">
                 <img
-                    src="{{ $recipe->image ? asset('storage/'.$recipe->image) : 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80' }}"
+                    src="{{ $recipe->image_url }}"
                     alt="{{ $recipe->title }}"
-                    onerror="this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80'"
                 >
                 {{-- Remove from favorites --}}
                 <form method="POST" action="{{ route('recipes.save', $recipe) }}" style="display:inline;">
@@ -455,9 +474,21 @@
         </div>
         @endif
 
-        <form method="POST" action="{{ route('profile.update') }}">
+        <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
+
+            {{-- Avatar Upload --}}
+            <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #F0EDE8;">
+                <div style="position:relative;width:80px;height:80px;flex-shrink:0;">
+                    <img id="userAvatarPreview" src="{{ $user->avatar_url }}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #A03010;" alt="Avatar">
+                </div>
+                <div>
+                    <label class="field-label">Foto Profil</label>
+                    <input type="file" name="avatar" accept="image/*" style="display:block;font-size:13px;" onchange="previewAvatar(this,'userAvatarPreview')">
+                    <p style="font-size:11px;color:#aaa;margin-top:4px;">Maks. 5MB (JPG, PNG)</p>
+                </div>
+            </div>
 
             <div class="field-grid">
                 <div>
@@ -467,6 +498,14 @@
                 <div>
                     <label class="field-label">Alamat Email</label>
                     <input type="email" name="email" value="{{ old('email', $user->email) }}" class="field-input" required>
+                </div>
+                <div>
+                    <label class="field-label">No. Telepon <span style="font-weight:400;color:#aaa">(Opsional)</span></label>
+                    <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" class="field-input" placeholder="+62...">
+                </div>
+                <div>
+                    <label class="field-label">Bio <span style="font-weight:400;color:#aaa">(Opsional)</span></label>
+                    <textarea name="bio" class="field-input" rows="2" placeholder="Ceritakan tentang diri Anda...">{{ old('bio', $user->bio) }}</textarea>
                 </div>
             </div>
 
@@ -503,7 +542,18 @@ function switchTab(tab) {
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
     document.getElementById('tab-' + tab).classList.add('active');
-    document.getElementById('tab-' + tab + '-btn').classList.add('active');
+    const btn = document.getElementById('tab-' + tab + '-btn');
+    if (btn) btn.classList.add('active');
+}
+
+function previewAvatar(input, previewId) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById(previewId).src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
 }
 
 // Auto-open settings tab if there are validation errors

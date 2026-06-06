@@ -20,12 +20,18 @@ class ChefRecipeController extends Controller
             'title'=>'required','description'=>'required','category_id'=>'required',
             'difficulty'=>'required','prep_time'=>'required|integer','cook_time'=>'required|integer',
             'calories'=>'nullable|integer','servings'=>'nullable|integer','status'=>'required',
-            'video_url'=>'nullable|url',
+            'video_url'=>'nullable|string|max:500',
+            'image'=>'nullable|image|max:5120',
         ]);
         $data['chef_id'] = Auth::id();
         $data['ingredients'] = $request->ingredients ?? [];
         $data['cooking_steps'] = $request->cooking_steps ?? [];
         $data['is_vip_content'] = $request->boolean('is_vip_content');
+        
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('recipes', 'public');
+        }
+
         Recipe::create($data);
         return redirect()->route('chef.recipes.index')->with('success','Resep berhasil ditambahkan!');
     }
@@ -40,11 +46,23 @@ class ChefRecipeController extends Controller
             'title'=>'required','description'=>'required','category_id'=>'required',
             'difficulty'=>'required','prep_time'=>'required|integer','cook_time'=>'required|integer',
             'calories'=>'nullable|integer','servings'=>'nullable|integer','status'=>'required',
-            'video_url'=>'nullable|url',
+            'video_url'=>'nullable|string|max:500',
+            'image'=>'nullable|image|max:5120',
         ]);
         $data['ingredients'] = $request->ingredients ?? [];
         $data['cooking_steps'] = $request->cooking_steps ?? [];
         $data['is_vip_content'] = $request->boolean('is_vip_content');
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($recipe->image) {
+                \Storage::disk('public')->delete($recipe->image);
+            }
+            $data['image'] = $request->file('image')->store('recipes', 'public');
+        } else {
+            unset($data['image']);
+        }
+
         $recipe->update($data);
         return redirect()->route('chef.recipes.index')->with('success','Resep berhasil diperbarui!');
     }

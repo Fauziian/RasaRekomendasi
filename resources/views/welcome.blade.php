@@ -318,9 +318,8 @@
                     <span class="vip-badge"><i class="fas fa-crown"></i> VIP</span>
                 @endif
                 <img class="rcard-img"
-                     src="https://source.unsplash.com/400x250/?{{ urlencode($recipe->title) }},food"
-                     alt="{{ $recipe->title }}"
-                     onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80'">
+                     src="{{ $recipe->image_url }}"
+                     alt="{{ $recipe->title }}">
                 <div class="rcard-body">
                     <div class="rcard-category">{{ $recipe->category->name ?? 'Resep' }}</div>
                     <div class="rcard-title">{{ $recipe->title }}</div>

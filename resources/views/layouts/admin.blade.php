@@ -87,9 +87,7 @@
         .alert{padding:11px 16px;border-radius:var(--radius-sm);margin-bottom:14px;font-size:13px;display:flex;align-items:center;gap:10px;}
         .alert-success{background:#E8F5E9;border:1px solid #A5D6A7;color:#2E7D32;}
         .alert-danger{background:#FFEBEE;border:1px solid #EF9A9A;color:#C62828;}
-        .admin-footer{display:flex;justify-content:space-between;align-items:center;padding:22px 0 0;border-top:1px solid var(--border);margin-top:28px;color:var(--text-m);font-size:12px;}
-        .admin-footer a{color:var(--text-m);margin-left:14px;}
-        .admin-footer a:hover{color:var(--primary);}
+
         .pagination{display:flex;gap:6px;align-items:center;}
         .page-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-m);transition:all .2s;}
         .page-btn.active,.page-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
@@ -115,8 +113,17 @@
     </div>
 
     <div style="display:flex;align-items:center;gap:20px;color:var(--text-m);font-size:18px;">
-        <i class="far fa-bell" style="cursor:pointer;transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-m)'"></i>
-        <i class="far fa-heart" style="cursor:pointer;transition:color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-m)'"></i>
+        <a href="{{ route('notifications.index') }}" style="position:relative; color:var(--text-m); font-size:18px; display:inline-flex; align-items:center; justify-content:center; text-decoration:none; transition: color .2s;">
+            <i class="far fa-bell"></i>
+            @php
+                $unreadCount = Auth::user()->visibleNotifications()->where('is_read', false)->count();
+            @endphp
+            @if($unreadCount > 0)
+                <span style="position:absolute; top:-6px; right:-6px; background:#FF5A36; color:#FFF; font-size:9px; font-weight:800; border-radius:50%; width:15px; height:15px; display:flex; align-items:center; justify-content:center; border:1.5px solid #FFF;">
+                    {{ $unreadCount }}
+                </span>
+            @endif
+        </a>
         <img src="{{ Auth::user()->avatar_url }}" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #FFE0D8;" alt="">
     </div>
 </header>
@@ -163,11 +170,6 @@
         @if(session('error'))<div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> {{ session('error') }}</div>@endif
 
         @yield('content')
-
-        <div class="admin-footer">
-            <div><a href="#">Privacy Policy</a><a href="#">Help Center</a><a href="#">System Status</a></div>
-            <div>&copy; 2026 <strong style="color:var(--primary)">RasaRekomendasi</strong>. Admin Dashboard v2.4.0</div>
-        </div>
     </main>
 </div>
 @stack('scripts')

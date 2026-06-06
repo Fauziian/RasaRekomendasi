@@ -319,6 +319,13 @@
 .vip-already i { font-size: 46px; color: #F57F17; display: block; margin-bottom: 14px; }
 .vip-already h3 { font-size: 20px; font-weight: 800; color: #5D4037; margin: 0 0 8px; }
 .vip-already p  { font-size: 13px; color: #6D4C41; margin: 0 0 20px; line-height: 1.6; }
+.vip-btn-pulse:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 90, 54, 0.45) !important;
+}
+.vip-btn-pulse:active {
+    transform: translateY(1px);
+}
 
 /* ─── Responsive ─────────────────────────────────────────── */
 @media (max-width: 900px) {
@@ -379,13 +386,15 @@
     <div class="pricing-wrap">
 
         @if(Auth::check() && Auth::user()->is_vip)
-        <div class="vip-already">
+        <div class="vip-already" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
             <i class="fas fa-crown"></i>
             <h3>Status Keanggotaan Anda: VIP Member 👑</h3>
-            <p>Terima kasih atas langganan VIP Anda! Nikmati seluruh resep premium, video tutorial, serta konsultasi chat privat bersama Chef profesional.</p>
-            <a href="{{ route('recipes.index') }}" style="display:inline-flex;align-items:center;gap:8px;background:#F57F17;color:#FFF;font-weight:700;padding:12px 28px;border-radius:20px;text-decoration:none;">
-                <i class="fas fa-utensils"></i> Jelajah Resep VIP
-            </a>
+            <p style="max-width: 600px; margin: 0 auto 24px;">Terima kasih atas langganan VIP Anda! Nikmati seluruh resep premium, video tutorial, serta konsultasi chat privat bersama Chef profesional.</p>
+            <div style="display:flex; justify-content:center; width:100%;">
+                <a href="{{ route('recipes.index') }}" class="vip-btn-pulse" style="display:inline-flex; align-items:center; justify-content:center; gap:8px; background:linear-gradient(135deg, #FF5A36, #D94E20); color:#FFF; font-weight:800; font-size:14px; padding:14px 36px; border-radius:30px; text-decoration:none; box-shadow:0 6px 20px rgba(255,90,54,0.3); transition:transform 0.2s, box-shadow 0.2s; text-align: center; margin: 0 auto;">
+                    <i class="fas fa-utensils"></i> Jelajahi Resep VIP
+                </a>
+            </div>
         </div>
         @else
         <div class="pricing-grid">

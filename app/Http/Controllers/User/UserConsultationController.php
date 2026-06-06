@@ -17,7 +17,7 @@ class UserConsultationController extends Controller
     }
 
     public function create(User $chef) {
-        $schedules = ChefSchedule::where('chef_id', $chef->id)->where('is_available', true)->get();
+        $schedules = ChefSchedule::where('chef_id', $chef->id)->available()->get();
         return view('user.consultations.create', compact('chef', 'schedules'));
     }
 
@@ -26,7 +26,7 @@ class UserConsultationController extends Controller
         
         $schedule = ChefSchedule::findOrFail($request->schedule_id);
         
-        if (!$schedule->is_available) {
+        if ($schedule->status !== 'available' || $schedule->isFullyBooked()) {
             return back()->withErrors(['schedule_id' => 'Jadwal ini sudah tidak tersedia.']);
         }
 
@@ -37,8 +37,13 @@ class UserConsultationController extends Controller
             'status'      => 'active'
         ]);
 
-        // Mark schedule as consumed
-        $schedule->update(['is_available' => false]);
+        // Notify Chef
+        \App\Models\Notification::create([
+            'user_id' => $chef->id,
+            'title' => 'Konsultasi Baru Dijadwalkan!',
+            'message' => Auth::user()->name . " telah menjadwalkan sesi konsultasi baru dengan Anda.",
+            'link' => route('chef.consultations.chat', $consultation->id)
+        ]);
 
         return redirect()->route('consultations.chat', $consultation)->with('success', 'Sesi konsultasi Anda berhasil dijadwalkan!');
     }
@@ -59,6 +64,15 @@ class UserConsultationController extends Controller
             'sender_role'     => 'user',
             'body'            => $request->message,
         ]);
+
+        // Notify Chef
+        \App\Models\Notification::create([
+            'user_id' => $consultation->chef_id,
+            'title' => 'Pesan Baru dari ' . Auth::user()->name,
+            'message' => \Illuminate\Support\Str::limit($request->message, 50),
+            'link' => route('chef.consultations.chat', $consultation->id)
+        ]);
+
         return back();
     }
 }

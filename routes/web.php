@@ -20,11 +20,21 @@ use App\Http\Controllers\Chef\ChefDashboardController;
 use App\Http\Controllers\Chef\ChefRecipeController;
 use App\Http\Controllers\Chef\ChefScheduleController;
 use App\Http\Controllers\Chef\ChefConsultationController;
+use App\Http\Controllers\NotificationController;
 
 // ─────────────────────────────────────────────
 // 🔹 Public Route
 // ─────────────────────────────────────────────
 Route::get('/', [UserHomeController::class, 'index'])->name('welcome');
+
+// Daftar Resep — list bisa diakses guest, detail harus login
+Route::get('/recipes', [UserRecipeController::class, 'index'])->name('recipes.index');
+
+// Rekomendasi — wizard bisa diakses guest, submit & hasil harus login
+Route::get('/recommendations', [UserRecommendationController::class, 'index'])->name('recommendations.index');
+
+// Webhook pembayaran dari gateway (bisa diakses guest/payment gateway)
+Route::post('/payment/webhook', [UserVipController::class, 'webhook'])->name('payment.webhook');
 
 // ─────────────────────────────────────────────
 // 🔹 Protected Routes
@@ -36,21 +46,28 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    // Recipes
-    Route::get('/recipes', [UserRecipeController::class, 'index'])->name('recipes.index');
+    // Notifications
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead'])->name('notifications.read_all');
+
+    // Recipes — detail & action butuh login
+    Route::get('/recipes/saved', [UserRecipeController::class, 'saved'])->name('recipes.saved');
     Route::get('/recipes/{recipe:slug}', [UserRecipeController::class, 'show'])->name('recipes.show');
     Route::post('/recipes/{recipe}/rate', [UserRecipeController::class, 'rate'])->name('recipes.rate');
     Route::post('/recipes/{recipe}/save', [UserRecipeController::class, 'save'])->name('recipes.save');
 
-    // Recommendation AI Wizard
-    Route::get('/recommendations', [UserRecommendationController::class, 'index'])->name('recommendations.index');
+    // Rekomendasi — submit & hasil butuh login
     Route::post('/recommendations/submit', [UserRecommendationController::class, 'submit'])->name('recommendations.submit');
     Route::get('/recommendations/results', [UserRecommendationController::class, 'results'])->name('recommendations.results');
 
-    // VIP Area
+    // VIP Area & Payment Simulator
     Route::get('/vip', [UserVipController::class, 'index'])->name('vip.index');
     Route::get('/vip/checkout/{package}', [UserVipController::class, 'checkout'])->name('vip.checkout');
     Route::post('/vip/checkout/{package}/process', [UserVipController::class, 'processCheckout'])->name('vip.checkout.process');
+    Route::get('/vip/simulator/{transaction}', [UserVipController::class, 'simulator'])->name('vip.simulator');
+    Route::get('/vip/success/{transaction}', [UserVipController::class, 'success'])->name('vip.success');
+    Route::get('/api/transactions/{transaction}/status', [UserVipController::class, 'getTransactionStatus'])->name('transactions.status');
 
     // Transactions (user riwayat + pending page)
     Route::get('/transactions', [UserTransactionController::class, 'index'])->name('transactions.index');
@@ -100,8 +117,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('schedules', ChefScheduleController::class);
         
         Route::get('/consultations', [ChefConsultationController::class, 'index'])->name('consultations.index');
-        Route::get('/consultations/{consultation}/chat', [ChefConsultationController::class, 'chat'])->name('chef.consultations.chat');
-        Route::get('/consultations/{consultation}/room', [ChefConsultationController::class, 'chat'])->name('consultations.chat');
+        Route::get('/consultations/{consultation}/chat', [ChefConsultationController::class, 'chat'])->name('consultations.chat');
         Route::post('/consultations/{consultation}/message', [ChefConsultationController::class, 'sendMessage'])->name('consultations.message');
         Route::post('/consultations/{consultation}/complete', [ChefConsultationController::class, 'complete'])->name('consultations.complete');
         Route::get('/analytics', [ChefDashboardController::class, 'analytics'])->name('analytics');

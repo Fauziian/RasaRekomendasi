@@ -36,7 +36,7 @@
                             <td>
                                 <div class="td-chef">
                                     <img src="{{ $c->chef->avatar_url ?? 'https://ui-avatars.com/api/?name=Chef' }}" alt="">
-                                    <strong>Chef {{ $c->chef->name }}</strong>
+                                    <strong>{{ $c->chef->formatted_name }}</strong>
                                 </div>
                             </td>
                             <td>
@@ -61,7 +61,7 @@
                     <div class="card" style="padding:15px;display:flex;align-items:center;gap:12px;border:1px solid var(--border);">
                         <img src="{{ $chef->avatar_url }}" style="width:48px;height:48px;border-radius:50%;object-fit:cover;" alt="">
                         <div style="flex:1;">
-                            <div style="font-size:14px;font-weight:700;">Chef {{ $chef->name }}</div>
+                            <div style="font-size:14px;font-weight:700;">{{ $chef->formatted_name }}</div>
                             <div style="font-size:11px;color:#2E7D32;"><i class="fas fa-circle" style="font-size:8px;"></i> Certified Chef</div>
                         </div>
                         <a href="{{ route('consultations.create', $chef) }}" class="btn btn-sm" style="padding:6px 12px;font-size:12px;">Booking</a>
